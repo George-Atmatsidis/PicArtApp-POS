@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
-    @Query("SELECT SUM(quantiy) FROM Stock WHERE product_Id = ?")
+    @Query("SELECT SUM(quantiy) FROM Stock WHERE product_Id = ? order by vendor")
     Long totalQuantityInStock(Long productId);
 }

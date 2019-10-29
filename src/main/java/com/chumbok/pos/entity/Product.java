@@ -29,5 +29,11 @@ public class Product {
     @NotEmpty(message = "Barcode cannot be empty")
     private String barcode;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
