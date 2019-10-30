@@ -28,9 +28,10 @@
                 <img class="first-slide" th:src="@{/images/home.jpg}" alt="Firs slide"/>  <!--nishi-->
                 <div class="container">
                     <div class="carousel-caption text-left">
-                        <h1>¡Cerca de ti!</h1>
-                        <p>¿Estudias en el ITS? Tu mejor opción.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" th:href="@{/registration}" role="button">Compra hoy</a></p>
+                        <h1>¿Nuevos integrantes?</h1>
+                        <p>¡Fantástico! Comienza ahora.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button" th:href="@{/registration}">Regístralos
+                            aquí.</a></p>
                     </div>
                 </div>
             </div>
@@ -40,7 +41,8 @@
                     <div class="carousel-caption">
                         <h1>Arte en cada parte</h1>
                         <p>Obten sólo calidad</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Saber más</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button"
+                              th:href="@{/pageable(page=0, size=5, sort=catagory)}">Materiales</a></p>
                     </div>
                 </div>
             </div>
@@ -48,9 +50,10 @@
                 <img class="third-slide" th:src="@{/images/home3.jpg}" alt="Third slide"/>
                 <div class="container">
                     <div class="carousel-caption text-right">
-                        <h1>Los mejores precios</h1>
-                        <p>Spooky October</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" th:href="@{/pageable(page=0, size=5, sort=id)}" role="button">Materiales</a></p>
+                        <h1>Inventario.</h1>
+                        <p>¿Necesitas ver algún reporte? Búscalos aquí.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button"
+                              th:href="@{/pageable(page=0, size=5, sort=id)}">No disponible</a></p>
                     </div>
                 </div>
             </div>
@@ -68,9 +71,9 @@
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
+        <p>PicArt es un espacio dedicado a mejorar la capacidad de los alumnos al permitirles probar sus habilidades con
+            lo último en dispositivos.</p>
     </div><!-- /.container -->
-
-
 </div>
 </body>
 </html>
