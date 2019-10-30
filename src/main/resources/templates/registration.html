@@ -12,60 +12,12 @@
 <body>
 
 <div layout:fragment="content">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="first-slide" th:src="@{/images/home.jpg}" alt="Firs slide"/>  <!--nishi-->
-                <div class="container">
-                    <div class="carousel-caption text-left">
-                        <h1>¿Nuevos integrantes?</h1>
-                        <p>¡Fantástico! Comienza ahora.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button" th:href="@{/registration}">Regístralos
-                            aquí.</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="second-slide" th:src="@{/images/home2.jpg}" alt="Second slide"/>
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Arte en cada parte</h1>
-                        <p>Obten sólo calidad</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button"
-                              th:href="@{/pageable(page=0, size=5, sort=catagory)}">Materiales</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="third-slide" th:src="@{/images/home3.jpg}" alt="Third slide"/>
-                <div class="container">
-                    <div class="carousel-caption text-right">
-                        <h1>Inventario.</h1>
-                        <p>¿Necesitas ver algún reporte? Búscalos aquí.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button"
-                              th:href="@{/pageable(page=0, size=5, sort=id)}">No disponible</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Anterior</span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Siguiente</span>
-        </a>
-    </div>
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
+    <p></p>
     <div class="container marketing">
+
         <!-- START THE FEATURETTES -->
         <div class="container">
             <div class="col-md-6 col-md-offset-3">
@@ -101,12 +53,15 @@
                     <div class="form-group">
                         <div class="col-sm-9">
                             <input type="Password" th:field="*{password}"
-                                   placeholder="Contraseña" class="form-control"  onkeyup="validatePassword(this.value)" /> <label
+                                   class="form-control" placeholder="Contraseña"/> <label
                                 th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
                                 class="validation-message"></label>
-                            <br>
-                            <label> Nivel de Seguridad:</label>
-                            <span id="msg"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <input class="form-control" placeholder="Confirmar contraseña" type="Password"/>
                         </div>
                     </div>
 
@@ -126,51 +81,5 @@
         <!-- /END THE FEATURETTES -->
     </div><!-- /.container -->
 </div>
-<script>
-    function validatePassword(password) {
-
-        // Do not show anything when the length of password is zero.
-        if (password.length === 0) {
-            document.getElementById("msg").innerHTML = "";
-            return;
-        }
-        // Create an array and push all possible values that you want in password
-        var matchedCase = new Array();
-        matchedCase.push("[$@$!%*#?&]"); // Special Charector
-        matchedCase.push("[A-Z]"); // Uppercase Alpabates
-        matchedCase.push("[0-9]"); // Numbers
-        matchedCase.push("[a-z]"); // Lowercase Alphabates
-
-        // Check the conditions
-        var ctr = 0;
-        for (var i = 0; i < matchedCase.length; i++) {
-            if (new RegExp(matchedCase[i]).test(password)) {
-                ctr++;
-            }
-        }
-        // Display it
-        var color = "";
-        var strength = "";
-        switch (ctr) {
-            case 0:
-            case 1:
-            case 2:
-                strength = "Very Weak";
-                color = "red";
-                break;
-            case 3:
-                strength = "Medium";
-                color = "orange";
-                break;
-            case 4:
-                strength = "Strong";
-                color = "green";
-                break;
-        }
-        document.getElementById("msg").innerHTML = strength;
-        document.getElementById("msg").style.color = color;
-    }
-
-</script>
 </body>
 </html>

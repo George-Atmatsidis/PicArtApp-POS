@@ -63,9 +63,9 @@ return product;
     @Override
     public Product createProduct(Product product) {
 
-        if (productRepository.isProductExists(product.getBarcode())) {
-            throw new IllegalArgumentException("Barcode already exists.");
-        }
+//        if (productRepository.isProductExists(product.getBarcode())) {
+//            throw new IllegalArgumentException("Barcode already exists.");
+//        }
 
         productRepository.save(product);
         return product;
