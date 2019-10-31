@@ -9,8 +9,7 @@ import java.util.Date;
 public class StockDTO {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date stockEntryDate;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date stockExpireDate;
+    private String stockExpireDate; //this is not a date, reason for the update here.
     private Long quantiy;
     private Long productId;
     private BigDecimal purchasePrice;
@@ -24,11 +23,11 @@ public class StockDTO {
         this.stockEntryDate = stockEntryDate;
     }
 
-    public Date getStockExpireDate() {
+    public String getStockExpireDate() {
         return stockExpireDate;
     }
 
-    public void setStockExpireDate(Date stockExpireDate) {
+    public void setStockExpireDate(String stockExpireDate) {
         this.stockExpireDate = stockExpireDate;
     }
 

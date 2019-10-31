@@ -53,7 +53,7 @@ public class StockController {
 
         stockService.createStock(stockDTO);
 
-        modelAndView.addObject("successMessage", "Stock has been updated successfully");
+        modelAndView.addObject("successMessage", "Inventario actualizado correctamente.");
 
         modelAndView.addObject("stockDTO", new StockDTO());
         modelAndView.setViewName("addStock");

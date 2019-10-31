@@ -50,13 +50,13 @@ public class ProductController {
 
         if(id==null){
             productService.createProduct(product);
-            modelAndView.addObject("successMessage", "Product has been added successfully");
+            modelAndView.addObject("successMessage", "El material se ha registrado exitosamente.");
 
             modelAndView.addObject("product", new Product());
             modelAndView.setViewName("product");
         }else if (id!=null){
             productService.updateProduct(product);
-            modelAndView.addObject("successMessage", "Product has been updated successfully");
+            modelAndView.addObject("successMessage", "Material actualizado correctamente.");
 
             modelAndView.addObject("product", product);
             modelAndView.setViewName("product");

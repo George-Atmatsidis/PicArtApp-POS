@@ -13,9 +13,9 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     //@DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date stockEntryDate;
+    private Date stockEntryDate; //fecha en que se genera la alta / baja
     //@DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date stockExpireDate;
+    private String stockExpireDate; // este campo es una descripción, creo
 
     private BigDecimal purchasePrice;
     private BigDecimal salePrice;
@@ -41,11 +41,11 @@ public class Stock {
         this.stockEntryDate = stockEntryDate;
     }
 
-    public Date getStockExpireDate() {
+    public String getStockExpireDate() {
         return stockExpireDate;
     }
 
-    public void setStockExpireDate(Date stockExpireDate) {
+    public void setStockExpireDate(String stockExpireDate) {
         this.stockExpireDate = stockExpireDate;
     }
 
