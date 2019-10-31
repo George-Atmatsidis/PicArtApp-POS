@@ -43,7 +43,6 @@ public class ProductController {
 
     @RequestMapping(path = "/product", method = RequestMethod.POST)
     public ModelAndView createUpdateProduct(@RequestParam(value = "id", required = false) Long id, @Valid Product product) {
-        System.out.println("post product");
         ModelAndView modelAndView = new ModelAndView();
 
         if(id==null){

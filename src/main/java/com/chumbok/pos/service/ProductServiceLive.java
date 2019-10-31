@@ -37,7 +37,6 @@ public class ProductServiceLive implements ProductService {
 
             List<Product> products =  productRepository.findProductsByPagination(id, new PageRequest(0, 3, Sort.Direction.ASC, "id"));
 
-
 return product;
     }*/
 
@@ -60,9 +59,10 @@ return product;
     @Override
     public Product createProduct(Product product) {
 
-//        if (productRepository.isProductExists(product.getBarcode())) {
-//            throw new IllegalArgumentException("Barcode already exists.");
-//        }
+        //no se pueden crear productos que tengan exactamente el mismo nombre
+        if (productRepository.isProductExists(product.getDisplayName())) {
+            throw new IllegalArgumentException("Un producto con ese nombre ya existe.");
+        }
 
         productRepository.save(product);
         return product;

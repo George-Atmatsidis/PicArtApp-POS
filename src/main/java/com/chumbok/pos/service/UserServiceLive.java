@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Transactional
 @Service("userService")
@@ -33,7 +34,6 @@ public class UserServiceLive implements UserService {
 
     @Override
     public void saveUser(User user) {
-
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
         Role userRole = roleRepository.findByRole("ADMIN");
@@ -42,7 +42,17 @@ public class UserServiceLive implements UserService {
     }
 
     @Override
+    public void updateUser(User user) {
+
+    }
+
+    @Override
     public User getUser(long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

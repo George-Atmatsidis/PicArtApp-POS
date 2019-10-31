@@ -24,8 +24,8 @@ public class UserController {
 
         if (userId != null) {
 
-            //User temp =
-
+            User temp = userService.getUser(userId);
+            //TODO add the rest of this mf code
            // modelAndView.addObject("userDTO", UserDTO);
         } else {
             modelAndView.addObject("userDTO", new UserDTO());
