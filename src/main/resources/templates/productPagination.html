@@ -66,7 +66,7 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
         <!-- START THE FEATURETTES -->
-    
+
 
         <div class="container">
             <div class="row">
@@ -100,10 +100,12 @@
                                 </form>
                             </td>
                             <td>
-                                <a class="btn btn-outline-primary" th:href="@{'/product?id=' + ${product.id}}" role="button">Editar</a>
+                                <a class="btn btn-outline-primary" th:href="@{'/product?id=' + ${product.id}}"
+                                   role="button">Editar</a>
                             </td>
                             <td>
-                                <a class="btn btn-outline-primary" th:href="@{'/addStock?productId=' + ${product.id}}" role="button">Agregar/Bajas</a>
+                                <a class="btn btn-outline-primary" th:href="@{'/addStock?productId=' + ${product.id}}"
+                                   role="button">Agregar/Bajas</a>
                             </td>
                         </tr>
                     </table>
@@ -113,54 +115,54 @@
 
 
             <div class="row">
-            <div class="form-group col-md-1">
-                <select class="form-control pagination" id="pageSizeSelect">
-                    <option th:each="size : ${pageable.pageSize}" th:text="${pageable.pageSize}"
-                            th:value="${pageable.pageSize}"
-                            th:selected="${pageable.pageSize} == ${pageable.pageSize}"></option>
-                </select>
-            </div>
+                <div class="form-group col-md-1">
+                    <select class="form-control pagination" id="pageSizeSelect">
+                        <option th:each="size : ${pageable.pageSize}" th:text="${pageable.pageSize}"
+                                th:value="${pageable.pageSize}"
+                                th:selected="${pageable.pageSize} == ${pageable.pageSize}"></option>
+                    </select>
+                </div>
 
 
-            <div th:if="${page.totalPages != 1}" class="form-group col-md-11 pagination-centered">
-                <ul class="pagination">
+                <div th:if="${page.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+                    <ul class="pagination">
 
-                    <li th:class="${pageable.pageNumber == 0} ? disabled">
-                        <a class="pageLink" th:href="@{/pageable(page=0, size=${pageable.pageSize}, sort=id)}">&laquo;</a>
-                    </li>
-
-
-                    <li th:class="${pageable.pageNumber == 0} ? disabled">
-                        <a class="pageLink"
-                           th:href="@{/pageable(page=${pageable.pageNumber-1}, size=${pageable.pageSize}, sort=id)}">&larr;</a>
-                    </li>
+                        <li th:class="${pageable.pageNumber == 0} ? disabled">
+                            <a class="pageLink" th:href="@{/pageable(page=0, size=${pageable.pageSize}, sort=id)}">&laquo;</a>
+                        </li>
 
 
-                    <li th:class="${pageable.pageNumber == (page - 1)} ? 'active pointer-disabled'"
-                        th:each="page : ${#numbers.sequence(0, page.totalPages-1)}">
-                        <a class="pageLink" th:href="@{/pageable(page=${page}, size=${pageable.pageSize}, sort=id)}"
-                           th:text="${page+1}"></a>
-                    </li>
-
-                    <li th:class="${pageable.pageNumber -1 == 0} ? 'active pointer-disabled'">
-                        <a class="pageLink"
-                           th:href="@{/pageable(page=${pageable.pageNumber -1}, size=${pageable.pageSize}, sort=id)}"></a>
-                    </li>
+                        <li th:class="${pageable.pageNumber == 0} ? disabled">
+                            <a class="pageLink"
+                               th:href="@{/pageable(page=${pageable.pageNumber-1}, size=${pageable.pageSize}, sort=id)}">&larr;</a>
+                        </li>
 
 
-                    <li th:class="${pageable.pageNumber + 1 == page.totalPages} ? disabled">
-                        <a class="pageLink"
-                           th:href="@{/pageable(page=${pageable.pageNumber + 1}, size=${pageable.pageSize}, sort=id)}">&rarr;</a>
-                    </li>
+                        <li th:class="${pageable.pageNumber == (page - 1)} ? 'active pointer-disabled'"
+                            th:each="page : ${#numbers.sequence(0, page.totalPages-1)}">
+                            <a class="pageLink" th:href="@{/pageable(page=${page}, size=${pageable.pageSize}, sort=id)}"
+                               th:text="${page+1}"></a>
+                        </li>
+
+                        <li th:class="${pageable.pageNumber -1 == 0} ? 'active pointer-disabled'">
+                            <a class="pageLink"
+                               th:href="@{/pageable(page=${pageable.pageNumber -1}, size=${pageable.pageSize}, sort=id)}"></a>
+                        </li>
 
 
-                    <li th:class="${pageable.pageNumber + 1 == page.totalPages} ? disabled">
-                        <a class="pageLink"
-                           th:href="@{/pageable(page=${page.totalPages-1}, size=${pageable.pageSize}, sort=id)}">&raquo;</a>
-                    </li>
+                        <li th:class="${pageable.pageNumber + 1 == page.totalPages} ? disabled">
+                            <a class="pageLink"
+                               th:href="@{/pageable(page=${pageable.pageNumber + 1}, size=${pageable.pageSize}, sort=id)}">&rarr;</a>
+                        </li>
 
-                </ul>
-            </div>
+
+                        <li th:class="${pageable.pageNumber + 1 == page.totalPages} ? disabled">
+                            <a class="pageLink"
+                               th:href="@{/pageable(page=${page.totalPages-1}, size=${pageable.pageSize}, sort=id)}">&raquo;</a>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
         </div>
         <hr class="featurette-divider"/>

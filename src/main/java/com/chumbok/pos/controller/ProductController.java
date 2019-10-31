@@ -28,11 +28,9 @@ public class ProductController {
 
     @RequestMapping(path = "/product", method = RequestMethod.GET)
     public ModelAndView showAddProductForm(@RequestParam(required = false) Long id) {
-        System.out.println("get product");
         ModelAndView modelAndView = new ModelAndView();
 
         if (id != null) {
-
             modelAndView.addObject("product", productService.getProduct(id));
         } else {
             modelAndView.addObject("product", new Product());

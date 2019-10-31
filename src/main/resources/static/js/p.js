@@ -1,5 +1,3 @@
-<input id="password" name="password" type="password"/>
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="pwstrength.js"></script>
 <script type="text/javascript">

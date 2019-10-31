@@ -13,28 +13,31 @@
 
 <h3 th:if="${#vars['flash.message']}" th:text="${#vars['flash.message']}" class="flash"></h3>
 
-    <div>
-        <h3 th:text="${page.number+1}+ ' of ' + ${page.totalpages}"/>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th><th>Name</th><th>Image</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="image : ${page.cotent}">
-                    <td th:text="${image.id}"/>
-                    <td th:text="${image.name}"/>
-                    ?<td><img th:src="@{'/images/' +${image.name} + '/raw'}" class="thumbnail" /> </td>
-                </tr>
-                </tbody>
-            </table>
+<div>
+    <h3 th:text="${page.number+1}+ ' of ' + ${page.totalpages}"/>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Image</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="image : ${page.cotent}">
+            <td th:text="${image.id}"/>
+            <td th:text="${image.name}"/>
+            ?
+            <td><img th:src="@{'/images/' +${image.name} + '/raw'}" class="thumbnail"/></td>
+        </tr>
+        </tbody>
+    </table>
 
-            <form method="post" enctype="multipart/form-data" action="/images">
-                <p><input type="file" name="file"/></p>
-                <p><input type="submit" name="Upload"/></p>
-            </form>
+    <form method="post" enctype="multipart/form-data" action="/images">
+        <p><input type="file" name="file"/></p>
+        <p><input type="submit" name="Upload"/></p>
+    </form>
 
-    </div>
+</div>
 </body>
 </html>

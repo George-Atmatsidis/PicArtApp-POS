@@ -35,10 +35,12 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" th:href="@{/home}">Inicio <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#" th:href="@{/home}">Inicio <span
+                                class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{/pageable(page=0, size=5, sort=id)}">Todos los productos</a>
+                        <a class="nav-link" href="#" th:href="@{/pageable(page=0, size=5, sort=id)}">Todos los
+                            productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" th:href="@{/registration}">Registrar Usuario</a>
@@ -64,10 +66,10 @@
                         <a class="nav-link" href="/logout" th:href="@{#}" onclick="$('#form').submit();">
                             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
                         </a>
-                        <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                        <form style="visibility: hidden" id="form" method="post" action="#"
+                              th:action="@{/logout}"></form>
                     </li>
                 </ul>
-
 
 
                 <form class="form-inline mt-2 mt-md-0">

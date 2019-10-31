@@ -6,17 +6,18 @@
 
 <head>
     <p></p>
-    <title>Add Stock</title>
+    <title>Alta o baja</title>
     <link rel="stylesheet" href="css/carousel.css" th:href="@{/css/carousel.css}"/>
 
 </head>
 <body>
 
 <div layout:fragment="content">
-        <!-- Marketing messaging and featurettes
-    ================================================== -->
+    <!-- Marketing messaging and featurettes
+================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
+        <p></p>
         <!-- START THE FEATURETTES -->
         <div class="container">
             <div class="row">
@@ -25,7 +26,7 @@
                           th:object="${stockDTO}" method="post" class="form-horizontal"
                           role="form">
                         <h2>Realizar Alta o Baja</h2>
-
+                        <p></p>
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input type="text" th:field="*{stockEntryDate}"
@@ -63,10 +64,10 @@
                             </div>
                         </div>
 
-                     
+
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary btn-block">Confirmar </button>
+                                <button type="submit" class="btn btn-primary btn-block">Confirmar</button>
                             </div>
                         </div>
 

@@ -1,5 +1,6 @@
 package com.chumbok.pos.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -25,9 +26,7 @@ public class Product {
     @Min(value = 0)
     private BigDecimal weight;
     //@Column(unique = true)
-    @NotNull(message = "Barcode cannot be null")
-    @NotEmpty(message = "Barcode cannot be empty")
-    private String barcode;
+    private String barcode; //Precio de renta
 
     public Long getId() {
         return id;

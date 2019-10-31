@@ -1,11 +1,13 @@
 package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.PersistedObjId;
+import com.chumbok.pos.dto.UserDTO;
 import com.chumbok.pos.entity.User;
 import com.chumbok.pos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -14,6 +16,25 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+    private UserService userService;
+
+    @RequestMapping(path = "/users", method = RequestMethod.GET)
+    public ModelAndView showAddStockForm(@RequestParam(required = false) Long userId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (userId != null) {
+
+            //User temp =
+
+           // modelAndView.addObject("userDTO", UserDTO);
+        } else {
+            modelAndView.addObject("userDTO", new UserDTO());
+        }
+
+        modelAndView.setViewName("getUsers");
+
+        return modelAndView;
+    }
    /* @Autowired
     private UserService userService;
 
