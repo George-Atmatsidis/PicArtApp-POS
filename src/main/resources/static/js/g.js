@@ -1,4 +1,4 @@
-<script>
+
         function validatePassword(password) {
 
             // Do not show anything when the length of password is zero.
@@ -14,12 +14,15 @@
             matchedCase.push("[a-z]"); // Lowercase Alphabates
 
             // Check the conditions
-            var ctr = 0;
-            for (var i = 0; i < matchedCase.length; i++) {
+            var contra=document.getElementById("password").value;
+
+           var ctr = 0;
+            for (var i = 0; contra.length; i++) {
                 if (new RegExp(matchedCase[i]).test(password)) {
                     ctr++;
                 }
             }
+
             // Display it
             var color = "";
             var strength = "";
@@ -43,11 +46,10 @@
             document.getElementById("msg").style.color = color;
         }
 
-    </script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="pwstrength.js"></script>
-<script type="text/javascript">
+//<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+//<script src="pwstrength.js"></script>
+//<script type="text/javascript">
 $(document).ready(function () {
     options = {
         common: {minChar:8},
@@ -67,4 +69,3 @@ $(document).ready(function () {
     };
     $('#password').pwstrength(options);
 });
-</script>

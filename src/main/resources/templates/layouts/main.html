@@ -54,17 +54,15 @@
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" th:href="@{/addStock}">Agregar material</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="addVentas.html" th:href="@{/addVentas}">Venta</a>
+                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
-                        <a class="nav-link" href="/signin" th:href="@{/}">
-                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/logout" th:href="@{#}" onclick="$('#form').submit();">
-                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Salir
                         </a>
                         <form style="visibility: hidden" id="form" method="post" action="#"
                               th:action="@{/logout}"></form>
@@ -73,7 +71,7 @@
 
 
                 <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search"/>
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
             </div>

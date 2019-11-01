@@ -59,6 +59,27 @@ public class StockController {
         return modelAndView;
 
     }
+    // *Scratching disc*
+    //Hola soy abel, si, te pregutnaras como llegue aqui.... veras
+    @RequestMapping(path = "/addVentas", method = RequestMethod.GET)
+    public ModelAndView showAddVentasForm(@RequestParam(required = false) Long productId) throws Exception{
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (productId != null) {
+
+            StockDTO stockDTO = new StockDTO();
+            stockDTO.setProductId(productId);
+
+            modelAndView.addObject("stockDTO", stockDTO);
+        } else {
+            modelAndView.addObject("stockDTO", new StockDTO());
+        }
+
+        modelAndView.setViewName("addStock");
+
+        return modelAndView;
+    }
 
     /*@ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(path = "", method = RequestMethod.GET)
