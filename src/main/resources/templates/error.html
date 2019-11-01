@@ -9,44 +9,24 @@
     <div class="row">
         <h1>Whoa, how did you get here?</h1>
     </div>
-    <div class="row">Algo salió mal, revisaremos qué para resolver pronto el problema.</div>
+    <div class="row"><h2>Algo salió mal, revisaremos qué para resolver pronto el problema.</h2></div>
     <div class="row rowDesign">
         <div class="col-md-4 ml-auto">
-            <span class="legend">Date</span>
-        </div>
-        <div class="col-md-8">
+            <span class="legend">Fecha: </span>
             <span th:text="${timestamp}"></span>
         </div>
     </div>
     <div class="row rowDesign">
         <div class="col-md-4 ml-auto">
-            <span class="legend">Path</span>
-        </div>
-        <div class="col-md-8">
+            <span class="legend">Intentaste acceder a: </span>
             <span th:text="${path}"></span>
         </div>
     </div>
+    <span class="legend" th:text="Error: ${error}"></span>
+    <span th:text="${error}"></span>
     <div class="row rowDesign">
         <div class="col-md-4 ml-auto">
-            <span class="legend">Error</span>
-        </div>
-        <div class="col-md-8">
-            <span th:text="${error}"></span>
-        </div>
-    </div>
-    <div class="row rowDesign">
-        <div class="col-md-4 ml-auto">
-            <span class="legend">Status</span>
-        </div>
-        <div class="col-md-8">
-            <span th:text="${status}"></span>
-        </div>
-    </div>
-    <div class="row rowDesign">
-        <div class="col-md-4 ml-auto">
-            <span class="legend">Message</span>
-        </div>
-        <div class="col-md-8">
+            <span class="legend"><h2>Mensaje: </h2></span>
             <span th:text="${message}"></span>
         </div>
     </div>

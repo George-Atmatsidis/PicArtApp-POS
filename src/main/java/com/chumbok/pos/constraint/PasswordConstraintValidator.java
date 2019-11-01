@@ -1,4 +1,4 @@
-package com.chumbok.pos.utility;
+package com.chumbok.pos.constraint;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.chumbok.pos.utility;
+package com.chumbok.pos.constraint;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
@@ -18,7 +18,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface ValidPassword {
 
-    String message() default "Invalid Password";
+    String message() default "Contraseña no válida";
 
     Class<?>[] groups() default {};
 

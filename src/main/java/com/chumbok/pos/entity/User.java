@@ -1,5 +1,6 @@
 package com.chumbok.pos.entity;
 
+import com.chumbok.pos.constraint.ValidPassword;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,6 +24,7 @@ public class User {
 
     @Length(min = 5, message = "*La contraseña debe contener al menos cinco caracteres.")
     @NotEmpty(message = "*La contraseña no puede estar vacía.")
+    @ValidPassword
     private String password;
 
     @NotEmpty(message = "*Especificar nombre.")

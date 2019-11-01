@@ -24,7 +24,6 @@ public class LoginController {
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
-        System.out.println("----------------------------nishi login");
         return modelAndView;
     }
 
@@ -33,7 +32,6 @@ public class LoginController {
     public ModelAndView logout() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
-        System.out.println("----------------------------nishi logout");
         return modelAndView;
     }
 
@@ -74,7 +72,7 @@ public class LoginController {
             modelAndView.setViewName("registration");
         } else {
             userService.saveUser(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("successMessage", "El usuario se ha registrado exitosamente.");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
 
