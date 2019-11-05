@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+
     private UserService userService;
 
     @RequestMapping(path = "/users", method = RequestMethod.GET)
