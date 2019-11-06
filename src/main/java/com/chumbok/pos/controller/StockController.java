@@ -60,7 +60,8 @@ public class StockController {
 
     }
     // *Scratching disc*
-    //Hola soy abel, si, te pregutnaras como llegue aqui.... veras
+    //Hola soy abel, si, te pregutnaras cómo llegue aqui.... verás
+    //Abel, plZ stop
     @RequestMapping(path = "/addVentas", method = RequestMethod.GET)
     public ModelAndView showAddVentasForm(@RequestParam(required = false) Long productId) throws Exception{
 
@@ -76,7 +77,7 @@ public class StockController {
             modelAndView.addObject("stockDTO", new StockDTO());
         }
 
-        modelAndView.setViewName("addStock");
+        modelAndView.setViewName("addVentas");
 
         return modelAndView;
     }

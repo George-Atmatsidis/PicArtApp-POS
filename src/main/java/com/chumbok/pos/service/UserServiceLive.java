@@ -5,6 +5,8 @@ import com.chumbok.pos.entity.User;
 import com.chumbok.pos.repository.RoleRepository;
 import com.chumbok.pos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,15 +36,44 @@ public class UserServiceLive implements UserService {
 
     @Override
     public void saveUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(1);
-        Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        userRepository.save(user);
+        //if (userRepository.isExist(user.getEmail())) {
+        //  throw new IllegalArgumentException("El email proporcionado ya está registrado.");
+        //} else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setActive(1);
+            Role userRole = roleRepository.findByRole("ADMIN");
+            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+            userRepository.save(user);
+        // }
     }
 
     @Override
+    public void saveNonAdminUser(User user) {
+        //if (userRepository.isExist(user.getEmail())) {
+        //throw new IllegalArgumentException("El email proporcionado ya está registrado.");
+        //} else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setActive(1);
+            Role userRole = roleRepository.findByRole("USER");
+            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+            userRepository.save(user);
+        // }
+    }
+
+
+    @Override
     public void updateUser(User user) {
+        User userById = userRepository.findOne(user.getId());
+
+        userById.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userById.setEmail(user.getEmail());
+        userById.setActive(user.getActive());
+        userById.setFirstName(user.getFirstName());
+        userById.setLastName(user.getLastName());
+        userById.setRoles(user.getRoles());
+        //I hope this shit works, I'm very sorry, mom
+        Role userRole = roleRepository.findByRole("" + user.getRoles());
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 
     }
 
@@ -54,5 +85,29 @@ public class UserServiceLive implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    /**
+     * So, here's the thing, this should disable said user.
+     * Yeah, right; yeah right (?
+     *
+     * @param user
+     */
+    @Override
+    public void disableUser(User user) {
+        User userById = userRepository.findOne(user.getId());
+        userById.setActive(0);
+    }
+
+    /**
+     * Here's the thing again: I have not enough clue as for what is happening.
+     *
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Page<User> findAllByPage(Pageable pageable) {
+        Page<User> users = userRepository.findAll(pageable);
+        return users;
     }
 }

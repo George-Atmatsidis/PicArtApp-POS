@@ -38,6 +38,18 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Role> roles;
 
+    public User(String email, String password, String firstName, String lastName, int active, Set<Role> roles) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.active = active;
+        this.roles = roles;
+    }
+
+    public User() {
+    }
+
     public Long getId() {
         return id;
     }

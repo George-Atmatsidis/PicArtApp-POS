@@ -18,7 +18,7 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
         <p></p>
-        <h2>H</h2>
+        <h2>Venta</h2>
         <!-- START THE FEATURETTES -->
         <div class="container">
             <div class="row">
@@ -26,12 +26,11 @@
                     <form autocomplete="off" action="#" th:action="@{/addVentas}"
                           th:object="${stockDTO}" method="post" class="form-horizontal"
                           role="form">
-                        <h2>Venta</h2>
                         <p></p>
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input type="text" th:field="*{stockEntryDate}"
-                                       placeholder="01/11/2019" class="form-control" id="fecha" disabled/> <label
+                                       class="form-control" id="fecha" placeholder="01/11/2019"/> <label
                                     th:if="${#fields.hasErrors('stockEntryDate')}" th:errors="*{stockEntryDate}"
                                     class="validation-message"></label>
                             </div>
