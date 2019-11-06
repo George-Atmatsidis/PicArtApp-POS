@@ -29,8 +29,8 @@ public class UserController {
             modelAndView.addObject("user", userService.getUser(userId));
         } else {
             modelAndView.addObject("user", new User());
-            /*userService.updateUser(user);
-            modelAndView.addObject("userDTO", new UserDTO());*/
+            userService.updateUser(user);
+            modelAndView.addObject("userDTO", new UserDTO());
         }
 
         modelAndView.setViewName("user");
