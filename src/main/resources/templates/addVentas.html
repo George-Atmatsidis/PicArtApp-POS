@@ -18,14 +18,13 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
         <br/>
-        <br/>
-        <h2>Venta</h2>
+        <h2>Generar venta</h2>
         <!-- START THE FEATURETTES -->
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <form autocomplete="off" action="#" th:action="@{/addVentas}"
-                          class="form-horizontal" method="post" th:object="${VentaDTO}"
+                          class="form-horizontal" method="post" th:object="${ventaDTO}"
                           role="form">
                         <p></p>
                         <br/>
@@ -37,17 +36,17 @@
                                     class="validation-message"></label>
                             </div>
                         </div>
-                        <!-- EMAIL
+                        EMAIL
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input  th:field="*{email}"  sec:authorize="isAuthenticated()"
-                                       placeholder="Descipcion/motivos" class="form-control" id="email"/> <label
+                                <input class="form-control"
+                                       id="email" placeholder=sec:authentication="name" th:field="*{email}"/> <label
                                     th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                     class="validation-message" type="email"></label>
                             </div>
-                        </div> -->
-                        <!--   <div sec:authorize="isAuthenticated()"></div>-->
-                        <!--EMAIL -->
+                        </div>
+                        <div sec:authorize="isAuthenticated()"></div>
+                        EMAIL
 
 
                         <!--ID producto -->
@@ -63,10 +62,9 @@
                         <!--Cantidad -->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{quantiy}"
-                                       placeholder="Cantidad" class="form-control"/> <label
-                                    th:if="${#fields.hasErrors('quantiy')}" th:errors="*{quantiy}"
-                                    class="validation-message"></label>
+                                <input class="form-control" placeholder="Cantidad" th:field="*{quantiy}" type="text"/>
+                                <label class="validation-message" th:errors="*{quantiy}"
+                                       th:if="${#fields.hasErrors('quantiy')}"></label>
                             </div>
                         </div>
                         <!--NOMBRE -->
@@ -94,6 +92,7 @@
             </div>
         </div>
         <hr class="featurette-divider"/>
+        <div sec:authorize="isAuthenticated()"></div>
         <!-- /END THE FEATURETTES -->
     </div><!-- /.container -->
 </div>

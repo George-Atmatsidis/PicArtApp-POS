@@ -6,7 +6,11 @@ import com.chumbok.pos.repository.ProductRepository;
 import com.chumbok.pos.repository.UserRepository;
 import com.chumbok.pos.repository.VentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
+@Service("ventaService")
 public class VentaServiceLive implements VentaService {
     @Autowired
     ProductRepository productRepository;

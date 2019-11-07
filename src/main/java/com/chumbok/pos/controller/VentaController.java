@@ -14,11 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+
 @Controller
 public class VentaController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private VentaService ventaService;
 
     @RequestMapping(value = "/productSalePagination", method = RequestMethod.GET)
     public ModelAndView productPageable(Pageable pageable) { //Page<Product>
@@ -41,15 +46,31 @@ public class VentaController {
     @RequestMapping(path = "/addVentas", method = RequestMethod.GET)
     public ModelAndView showAddVentasForm(@RequestParam(required = false) Long productId) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-        Product temporalProduct = productService.getProduct(productId);
         if (productId != null) {
             VentaDTO ventaDTO = new VentaDTO();
             ventaDTO.setIdProduct(productId);
-            ventaDTO.setDisplayName(temporalProduct.getDisplayName());
+            ventaDTO.setDisplayName(productService.getProduct(productId).getDisplayName());
             modelAndView.addObject("ventaDTO", ventaDTO);
         } else {
             modelAndView.addObject("ventaDTO", new VentaDTO());
         }
+        modelAndView.setViewName("addVentas");
+        return modelAndView;
+    }
+
+    /**
+     * You know, POST method for that shit.
+     *
+     * @param ventaDTO
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(path = "/addVentas", method = RequestMethod.POST)
+    public ModelAndView createUpdateVentas(@Valid VentaDTO ventaDTO) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        ventaService.createVenta(ventaDTO);
+        modelAndView.addObject("successMessage", "Venta registrada exitosamente.");
+        modelAndView.addObject("ventaDTO", ventaDTO);
         modelAndView.setViewName("addVentas");
         return modelAndView;
     }

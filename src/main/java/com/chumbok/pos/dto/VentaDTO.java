@@ -16,7 +16,7 @@ public class VentaDTO {
     @NotEmpty(message = "Favor de especificar el usuario.")
     String email;
 
-    @NotEmpty(message = "Por favor, especifique un producto.")
+
     long idProduct;
 
     @NotNull(message = "Por favor, especifique una cantidad")
