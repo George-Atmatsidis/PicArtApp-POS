@@ -22,7 +22,6 @@ public interface ProductService {
 
     List<Product> searchProduct(String displayName);
 
-
     Page<Product> findAllByPage(Pageable pageable);
 
     Page<ProductWithStockQuantity> findProductWithStockQuantityByPage(Pageable pageable);
