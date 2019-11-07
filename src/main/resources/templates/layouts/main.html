@@ -61,7 +61,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                        <a class="nav-link" href="/logout" onclick="$('#form').submit();" th:href="@{#}">
+                            <span class="text-info">Running as</span> <span class="text-info"
+                                                                            sec:authentication="principal.authorities"></span>
+                            |
                             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Salir
                         </a>
                         <form style="visibility: hidden" id="form" method="post" action="#"
@@ -69,14 +72,10 @@
                     </li>
                 </ul>
 
-                <ul>
-                    <span>Running as</span> <span sec:authentication="principal.authorities"></span>
-                </ul>
-
-                <form class="form-inline mt-2 mt-md-0">
+                <!--<form class="form-inline mt-2 mt-md-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search"/>
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </form>
+                </form>-->
             </div>
         </nav>
 
