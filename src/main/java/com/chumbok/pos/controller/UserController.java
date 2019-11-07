@@ -48,7 +48,7 @@ public class UserController {
             modelAndView.setViewName("product");
         } else if (id != null) {
             userService.updateUser(user);
-            modelAndView.addObject("successMessage", "Material actualizado correctamente.");
+            modelAndView.addObject("successMessage", "Usuario modificado correctamente.");
 
             modelAndView.addObject("user", user);
             modelAndView.setViewName("user");

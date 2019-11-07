@@ -84,11 +84,8 @@ public class ProductController {
     @RequestMapping(value = "/pageable", method = RequestMethod.GET)
     public ModelAndView productPageable(Pageable pageable) { //Page<Product>
         ModelAndView modelAndView = new ModelAndView();
-
-      //Page<Product> productList = productService.findAllByPage(pageable);
-
+        //Page<Product> productList = productService.findAllByPage(pageable); //why are we still here
         Page<ProductWithStockQuantity> pageProductListWithStockQuantity = productService.findProductWithStockQuantityByPage(pageable);
-
         modelAndView.addObject("page", pageProductListWithStockQuantity);
         modelAndView.addObject("pageable", pageable);
         modelAndView.setViewName("productPagination");
