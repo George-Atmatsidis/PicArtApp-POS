@@ -1,52 +1,52 @@
-[![N|Solid](https://bgasparotto.com/wp-content/uploads/2017/12/spring-boot-logo.png)]()
-# Point Of Sale (POS)
-POS is a web based software, developed using the RESTful pattern. Spring Boot Framework is used here. It can be used in any shop as a system to track all the products information and to buy and sell the products.
+[![PicArtAppLogo](src/main/webapp/images/login.png?raw=true "Title")]()
+# Punto de venta PicArt (PicArtApp)
+Un servicio web simple para llevar el control de inventario, además de realizar ventas y rentas.
 
-## Features!
-The users can have the following facilities by this software:
-  - A database with all their products
-  
-  - Their clients are able to change the contents of their cart
-  - Their clients are able to place an order
-  - Their clients are able to supply a preferred date and time of delivery
+## Características
+Los usuarios tienen acceso a lo siguiente al configurar este software.
+  - Una base de datos con todos sus productos.
+  - La habilidad de realizar una venta.
+  - La habilidad de realizar una renta.
+  - La habilidad de actualizar inventario.
+  - La habilidad de crear nuevos usuarios.
 
-## Limitation of current version
-  - Payment system hasn't been added.
-  - Buying and selling vouchar hasn't been added yet.
-  - Only shop owner can use it now. For the client side view will be added.
-  - Virtual shopping cart will be added to add products for the clients.
+## Limitaciones de la versión actual
+  - La renta no se puede realizar realmente.
+  - No se ha implementado cómo ver ventas anteriores.
+  - Sólo el usuario administrador puede acceder por el momento.
+  - El carrito de compras no ha sido implementado.
 
-## Tech
-Webshop uses:
+## Tecnologías utilizadas
 * Spring Boot Framework
 * MySQL
 * Hibernate
 * Thymeleaf
 * Bootstrap
+* Lombok
+* Google guava
+* Passay
 
-## Prerequisite
-  - You need to have java installed in your system.
-  - Install mysql
-  - Install spring boot
-  - Install maven - sudo apt install maven
-  - Install Lombok
+## Pre-requisitos
+  - Tener instalado Java en tu sistema 
+  - MySQL (ya sea en local o rds)
+  - Spring Boot (como dependencia, maven lo resolverá)
+  - Un EDI que soporte Maven. (o bien, maven cli)
   
-## Getting Started!
+## Dónde comenzar
+```bash
+git clone https://github.com/xtrs84zk/pos.git
 ```
-git clone https://github.com/Nushrat-Nishi/pos
-cd pos
-```
-  - Change the *user name* & *Password* in *pos/src/main/resources/application.properties* file according to your database.
+  - Define las credenciales necesarias en *pos/src/main/resources/application.properties* de acuerdo a tu base de datos.
 ```
 mvn spring-boot:run
 ```
-## API Documentation
-##### Register a new user : http://localhost:8080/registration
-##### Login with the created user : http://localhost:8080/login
+##  Primeros pasos
+##### Registrar un nuevo usuario : http://localhost:8080/registration
+##### Iniciar sesión con dicho usuario : http://localhost:8080/login
 ## Menus :
-After login, the user can see the following menus:
-* Home - This is the home page.
-* All Products - User can see all the product list in this page. User can also delete any product, edit any product information, buy or sell any product.
-* Registration - User can register any new user in this page.
-* Add Product - User can add any new product in the system in this page.
-* Add Stock - User can add information about how much of any particular product are there in the stock and also other information here.
+//TODO fill this part
+
+## Special Thanks
+- [Nushrat Jahan Nishi](https://github.com/Nushrat-Nishi) - For her original implementation.
+- [Youtube](https://www.youtube.com) - For keeping me sane while doing this.
+- [Jaime](https://tenor.com/6we0.gif) - For all the magic.
