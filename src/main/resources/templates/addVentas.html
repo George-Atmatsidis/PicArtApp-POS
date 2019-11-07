@@ -31,22 +31,21 @@
                         <!--FECHA-->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input class="form-control" th:field="*{salesDate}" type="text"/>
+                                <input class="form-control" disabled="disabled" placeholder="07/11/2019"
+                                       th:field="*{salesDate}" type="text"/>
                                 <label th:errors="*{salesDate}" th:if="${#fields.hasErrors('salesDate')}"
                                     class="validation-message"></label>
                             </div>
                         </div>
-                        EMAIL
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input class="form-control"
-                                       id="email" placeholder=sec:authentication="name" th:field="*{email}"/> <label
+                                       id="email" th:field="*{email}"/> <label
                                     th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                     class="validation-message" type="email"></label>
                             </div>
                         </div>
                         <div sec:authorize="isAuthenticated()"></div>
-                        EMAIL
 
 
                         <!--ID producto -->
@@ -62,9 +61,9 @@
                         <!--Cantidad -->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input class="form-control" placeholder="Cantidad" th:field="*{quantiy}" type="text"/>
-                                <label class="validation-message" th:errors="*{quantiy}"
-                                       th:if="${#fields.hasErrors('quantiy')}"></label>
+                                <input class="form-control" th:field="*{quantity}" type="text"/>
+                                <label class="validation-message" th:errors="*{quantity}"
+                                       th:if="${#fields.hasErrors('quantity')}"> </label>
                             </div>
                         </div>
                         <!--NOMBRE -->
