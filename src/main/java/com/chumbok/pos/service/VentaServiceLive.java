@@ -23,14 +23,15 @@ public class VentaServiceLive implements VentaService {
     @Autowired
     VentaRepository ventaRepository;
 
-    Calendar today = Calendar.getInstance();
+    //Utilizado para acceder a la fecha de hoy
+    private Calendar today = Calendar.getInstance();
     /**
      * Teóricamente, aquí estoy creando una venta de verdad
      * con base en la información que se está enviando desde
      * el formulario en HTML.
      *
-     * @param ventaDTO
-     * @return
+     * @param ventaDTO que es el objeto de intercambio de datos
+     * @return venta que es el objeto venta realizado
      */
     @Override
     public Venta createVenta(VentaDTO ventaDTO) {
