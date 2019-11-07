@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+
 @Transactional
 @Service("ventaService")
 public class VentaServiceLive implements VentaService {
@@ -21,6 +23,7 @@ public class VentaServiceLive implements VentaService {
     @Autowired
     VentaRepository ventaRepository;
 
+    Calendar today = Calendar.getInstance();
     /**
      * Teóricamente, aquí estoy creando una venta de verdad
      * con base en la información que se está enviando desde
@@ -34,7 +37,7 @@ public class VentaServiceLive implements VentaService {
         Venta venta = new Venta();
         venta.setProduct(productRepository.findOne(ventaDTO.getIdProduct()));
         venta.setQuantity(ventaDTO.getQuantity());
-        venta.setSalesDate(ventaDTO.getSalesDate());
+        venta.setSalesDate(today.getTime());
         venta.setUser(userRepository.findByEmail(ventaDTO.getEmail()));
         ventaRepository.save(venta);
         return venta;
