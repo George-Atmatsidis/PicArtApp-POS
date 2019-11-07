@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http:www.thymeleaf.org"
       xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
-      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorator="layouts/main">
 
 <head>
@@ -25,27 +25,42 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <form autocomplete="off" action="#" th:action="@{/addVentas}"
-                          th:object="${stockDTO}" method="post" class="form-horizontal"
+                          class="form-horizontal" method="post" th:object="${VentaDTO}"
                           role="form">
                         <p></p>
+                        <br/>
+                        <!--FECHA-->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{stockEntryDate}"
-                                       class="form-control" id="fecha" placeholder="06/11/2019" disabled="disabled"/> <label
-                                    th:if="${#fields.hasErrors('stockEntryDate')}" th:errors="*{stockEntryDate}"
+                                <input class="form-control" th:field="*{salesDate}" type="text"/>
+                                <label th:errors="*{salesDate}" th:if="${#fields.hasErrors('salesDate')}"
+                                    class="validation-message"></label>
+                            </div>
+                        </div>
+                        <!-- EMAIL
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input  th:field="*{email}"  sec:authorize="isAuthenticated()"
+                                       placeholder="Descipcion/motivos" class="form-control" id="email"/> <label
+                                    th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                    class="validation-message" type="email"></label>
+                            </div>
+                        </div> -->
+                        <!--   <div sec:authorize="isAuthenticated()"></div>-->
+                        <!--EMAIL -->
+
+
+                        <!--ID producto -->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="*{idProduct}"
+                                       type="text"/> <label
+                                    th:errors="*{idProduct}" th:if="${#fields.hasErrors('idProduct')}"
                                     class="validation-message"></label>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <input type="hidden" th:field="*{stockExpireDate}"
-                                       placeholder="Descipcion/motivos" class="form-control" id="venta"/> <label
-                                    th:if="${#fields.hasErrors('stockExpireDate')}" th:errors="*{stockExpireDate}"
-                                    class="validation-message"></label>
-                            </div>
-                        </div>
-
+                        <!--Cantidad -->
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input type="text" th:field="*{quantiy}"
@@ -53,14 +68,13 @@
                                     th:if="${#fields.hasErrors('quantiy')}" th:errors="*{quantiy}"
                                     class="validation-message"></label>
                             </div>
-
                         </div>
-
+                        <!--NOMBRE -->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{productId}"
-                                       placeholder="Arduino" class="form-control"/> <label
-                                    th:if="${#fields.hasErrors('productId')}" th:errors="*{productId}"
+                                <input class="form-control" th:field="*{displayName}"
+                                       type="text"/> <label
+                                    th:errors="*{displayName}" th:if="${#fields.hasErrors('displayName')}"
                                     class="validation-message"></label>
                             </div>
                         </div>
@@ -68,7 +82,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary btn-block" onclick="myFunction()">Confirmar</button>
+                                <button class="btn btn-primary btn-block" type="submit">Confirmar</button>
                             </div>
                         </div>
 
@@ -83,11 +97,5 @@
         <!-- /END THE FEATURETTES -->
     </div><!-- /.container -->
 </div>
-<script>
-    function myFunction() {
-        document.getElementById("venta").defaultValue = "Esto es una venta";
-        document.getElementById("fecha").defaultValue = "01/11/2019";
-    }
-</script>
 </body>
 </html>

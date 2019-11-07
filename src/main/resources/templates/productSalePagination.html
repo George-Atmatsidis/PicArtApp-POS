@@ -41,19 +41,20 @@
                             <td th:text="${product.weight}"></td>
                             <td th:text="${product.barcode}"></td>
                             <td th:text="${product.quantiyInStock}"></td> <!--stock-->
+                            <!--   <td>
+                                   <form th:action="@{/products/doDelete}" method="post">
+                                       <input type="hidden" th:name="id" th:value="${product.id}"/>
+                                       <button class="btn btn-outline-primary" type="submit">Borrar</button>
+                                   </form>
+                               </td>
+                               -->
+                            <!--  <td>
+                                  <a class="btn btn-outline-primary" th:href="@{'/product?id=' + ${product.id}}"
+                                     role="button">Editar</a>
+                              </td> -->
                             <td>
-                                <form th:action="@{/products/doDelete}" method="post">
-                                    <input type="hidden" th:name="id" th:value="${product.id}"/>
-                                    <button class="btn btn-outline-primary" type="submit">Borrar</button>
-                                </form>
-                            </td>
-                            <td>
-                                <a class="btn btn-outline-primary" th:href="@{'/product?id=' + ${product.id}}"
-                                   role="button">Editar</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-outline-primary" th:href="@{'/addStock?productId=' + ${product.id}}"
-                                   role="button">Agregar/Bajas</a>
+                                <a class="btn btn-outline-primary" role="button"
+                                   th:href="@{'/addVenta?productId=' + ${product.id}}">Vender</a>
                             </td>
                         </tr>
                     </table>
