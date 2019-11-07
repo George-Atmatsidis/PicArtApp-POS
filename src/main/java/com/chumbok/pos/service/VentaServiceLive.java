@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.Calendar;
 
 @Transactional
@@ -34,7 +35,7 @@ public class VentaServiceLive implements VentaService {
      * @return venta que es el objeto venta realizado
      */
     @Override
-    public Venta createVenta(VentaDTO ventaDTO) {
+    public Venta createVenta(@Valid VentaDTO ventaDTO) {
         Venta venta = new Venta();
         venta.setProduct(productRepository.findOne(ventaDTO.getIdProduct()));
         venta.setQuantity(ventaDTO.getQuantity());
