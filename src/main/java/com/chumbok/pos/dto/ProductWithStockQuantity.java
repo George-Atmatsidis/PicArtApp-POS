@@ -89,11 +89,32 @@ public class ProductWithStockQuantity {
         this.barcode = barcode;
     }
 
+    /**
+     * Obtiene la cantidad en stock. Al ser un DTO, la
+     * integridad directa de los datos es irrelevante.
+     * Regresa 0 en caso de encontrar un null.
+     *
+     * @return
+     */
     public Long getQuantiyInStock() {
-        return quantiyInStock;
+        if (this.quantiyInStock != null) {
+            return quantiyInStock;
+        } else {
+            return (long) 0;
+        }
     }
 
+    /**
+     * Establece la cantidad en stock. Al ser un DTO, la
+     * integridad directa de los datos es irrelevante.
+     * Define 0 en caso de recibir un null.
+     * @param quantiyInStock
+     */
     public void setQuantiyInStock(Long quantiyInStock) {
-        this.quantiyInStock = quantiyInStock;
+        if (quantiyInStock == null) {
+            this.quantiyInStock = (long) 0;
+        } else {
+            this.quantiyInStock = quantiyInStock;
+        }
     }
 }

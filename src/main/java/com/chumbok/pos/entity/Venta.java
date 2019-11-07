@@ -1,12 +1,12 @@
 package com.chumbok.pos.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Entity
+@Table(name = "venta")
 public class Venta {
     @Id
     @GeneratedValue
@@ -14,6 +14,9 @@ public class Venta {
 
     @NotNull
     Date salesDate;
+
+    @ManyToOne
+    User user;
 
     @ManyToOne
     Product product;
@@ -48,5 +51,21 @@ public class Venta {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public long getIdVenta() {
+        return idVenta;
+    }
+
+    public void setIdVenta(long idVenta) {
+        this.idVenta = idVenta;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -7,9 +7,9 @@
 <body marginheight="0" marginwidth="0">
 <div class="container">
     <div class="row">
-        <h1>No permitido.</h1>
+        <h1>Razón: <span th:text="${error}"></span></h1>
     </div>
-    <div class="row"><h2>No tienes permisos suficientes o no está implementado aún.</h2></div>
+    <div class="row"><h4>No tienes permisos suficientes o no está implementado aún.</h4></div>
     <div class="row rowDesign">
         <div class="col-md-4 ml-auto">
             <span class="legend">Fecha: </span>
@@ -22,12 +22,14 @@
             <span th:text="${path}"></span>
         </div>
     </div>
-    <span th:text="${error}"></span>
     <div class="row rowDesign">
         <div class="col-md-4 ml-auto">
-            <span class="legend"><h2>Mensaje: </h2></span>
+            <span class="legend">Mensaje:</span>
             <span th:text="${message}"></span>
         </div>
+    </div>
+    <div>
+        <img alt="Firs slide" th:src="@{/images/error.gif}"/>  <!--nishi-->
     </div>
     <div class="row rowDesign">
         <div class="col-md-4 ml-auto">
@@ -36,9 +38,6 @@
         <div class="col-md-8">
             <span th:text="${exception}"></span>
         </div>
-    </div>
-    <div>
-        <img alt="Firs slide" th:src="@{/images/source.gif}"/>  <!--nishi-->
     </div>
 </div>
 </body>
