@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/carousel.css" th:href="@{/css/carousel.css}"/>
 
 </head>
-<body>
+<body onload="myFunction()">
 
 <div layout:fragment="content">
     <!-- Marketing messaging and featurettes
@@ -31,28 +31,29 @@
                         <!--FECHA-->
                         <div class="form-group">
                             <div class="col-sm-9">
+                                <span>Fecha de venta</span>
                                 <input class="form-control" disabled="disabled" placeholder="07/11/2019"
-                                       th:field="*{salesDate}" type="text"/>
+                                       th:field="*{salesDate}" type="text" value="07/11/2019"/>
                                 <label th:errors="*{salesDate}" th:if="${#fields.hasErrors('salesDate')}"
-                                    class="validation-message"></label>
+                                       class="validation-message"></label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-9">
+                                <span>Atendido por:</span>
                                 <input class="form-control"
-                                       id="email" th:field="*{email}"/> <label
+                                       disabled="disabled" id="email" th:field="*{email}"/> <label
                                     th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                     class="validation-message" type="email"></label>
                             </div>
                         </div>
-                        <div sec:authorize="isAuthenticated()"></div>
-
-
+                        <!-- <div sec:authorize="isAuthenticated()"></div>
+                         <span class="text-white" sec:authentication="name"></span>-->
                         <!--ID producto -->
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input class="form-control" th:field="*{idProduct}"
-                                       type="text"/> <label
+                                       type="hidden"/> <label
                                     th:errors="*{idProduct}" th:if="${#fields.hasErrors('idProduct')}"
                                     class="validation-message"></label>
                             </div>
@@ -61,7 +62,8 @@
                         <!--Cantidad -->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input class="form-control" th:field="*{quantity}" type="text"/>
+                                <span>Cantidad</span>
+                                <input class="form-control" min="1" th:field="*{quantity}" type="text"/>
                                 <label class="validation-message" th:errors="*{quantity}"
                                        th:if="${#fields.hasErrors('quantity')}"> </label>
                             </div>
@@ -69,8 +71,9 @@
                         <!--NOMBRE -->
                         <div class="form-group">
                             <div class="col-sm-9">
+                                <span>Nombre</span>
                                 <input class="form-control" th:field="*{displayName}"
-                                       type="text"/> <label
+                                       disabled="disabled" type="text"/> <label
                                     th:errors="*{displayName}" th:if="${#fields.hasErrors('displayName')}"
                                     class="validation-message"></label>
                             </div>
@@ -90,6 +93,15 @@
                 </div>
             </div>
         </div>
+        <script>
+            authorize = "isAuthenticated()"
+            var perro = authentication = "name";
+
+            function myFunction() {
+                document.getElementById("email").placeholder = "xtrs84zk@gmail.com";
+                document.getElementById("email").value = "xtrs84zk@gmail.com";
+            }
+        </script>
         <hr class="featurette-divider"/>
         <div sec:authorize="isAuthenticated()"></div>
         <!-- /END THE FEATURETTES -->

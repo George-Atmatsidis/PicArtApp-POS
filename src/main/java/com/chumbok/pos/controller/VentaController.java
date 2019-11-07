@@ -66,7 +66,7 @@ public class VentaController {
      * @throws Exception
      */
     @RequestMapping(path = "/addVentas", method = RequestMethod.POST)
-    public ModelAndView createUpdateVentas(@Valid VentaDTO ventaDTO) throws Exception {
+    public ModelAndView createUpdateVentas(VentaDTO ventaDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         ventaService.createVenta(ventaDTO);
         modelAndView.addObject("successMessage", "Venta registrada exitosamente.");
