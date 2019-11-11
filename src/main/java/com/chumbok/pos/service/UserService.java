@@ -1,5 +1,6 @@
 package com.chumbok.pos.service;
 
+import com.chumbok.pos.dto.UserDTO;
 import com.chumbok.pos.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,9 +16,12 @@ public interface UserService {
     void saveNonAdminUser(User user);
 
     //What have we done to get this shit
-    void updateUser(User user);
+    void updateUser(User user); //TODO deprecate this shit
 
-    void makeUser(User user);
+    //update a user but not the password
+    void updateUser(UserDTO userDTO, long id);
+
+    void makeUser(UserDTO userDTO) throws Exception;
 
     //Aquí se pide el usuario, es un get; pretty straitghforward if you ask me, bro.
     User getUser(long id);

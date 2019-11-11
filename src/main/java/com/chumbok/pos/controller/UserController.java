@@ -24,15 +24,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //please don't judge me, mom :(
-    RoleRepository roleRepository;
-
     @RequestMapping(path = "/users", method = RequestMethod.GET)
     public ModelAndView showAddStockForm(@RequestParam(required = false) Long userId, @Valid User user) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
 
         if (userId != null) {
             //TODO add the rest of this mf code | wait, i think it IS all the code needed
+            // somebody please check if we need something else
             modelAndView.addObject("user", userService.getUser(userId));
         } else {
             modelAndView.addObject("user", new User());
@@ -45,27 +43,19 @@ public class UserController {
     }
 
     @RequestMapping(path = "/users", method = RequestMethod.POST)
-    public ModelAndView createUpdateUser(@RequestParam(value = "id", required = false) Long id, @Valid UserDTO userDTO) {
+    public ModelAndView createUpdateUser(@RequestParam(value = "id", required = false) Long id, @Valid UserDTO userDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
         if (id == null) {
             if (userDTO.getPassword().equals(userDTO.getConfirmPassword())) { //first of all, both passwords must match
-                user.setLastName(userDTO.getLastName());
-                user.setFirstName(userDTO.getFirstName());
-                Role userRole = roleRepository.findByRole(userDTO.getRole()); //gets role as either admin or user and sets it as such
-                user.setRoles(new HashSet<Role>(Arrays.asList(userRole))); //asigns such role to the new user
-                user.setEmail(userDTO.getEmail());
-                user.setPassword(userDTO.getPassword()); //sent as received, gonna cipher it on the userService
-                userService.makeUser(user); //save the user,
+                userService.makeUser(userDTO); //saves the user as a real user
             }
             modelAndView.addObject("successMessage", "El usuario se ha registrado exitosamente.");
-            modelAndView.addObject("user", new User());
+            modelAndView.addObject("user", new UserDTO());
             modelAndView.setViewName("user");
         } else if (id != null) {
-            userService.updateUser(user);
+            userService.updateUser(userDTO, id); //sends userDTO for validation and id
             modelAndView.addObject("successMessage", "Usuario modificado correctamente.");
-
-            modelAndView.addObject("user", user);
+            modelAndView.addObject("user", userDTO);
             modelAndView.setViewName("user");
         }
         return modelAndView;

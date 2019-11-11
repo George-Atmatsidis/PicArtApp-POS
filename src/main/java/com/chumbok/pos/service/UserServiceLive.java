@@ -1,5 +1,6 @@
 package com.chumbok.pos.service;
 
+import com.chumbok.pos.dto.UserDTO;
 import com.chumbok.pos.entity.Role;
 import com.chumbok.pos.entity.User;
 import com.chumbok.pos.repository.RoleRepository;
@@ -72,17 +73,60 @@ public class UserServiceLive implements UserService {
         userById.setFirstName(user.getFirstName());
         userById.setLastName(user.getLastName());
         userById.setRoles(user.getRoles());
-        //I hope this shit works, I'm very sorry, mom
+        //TODO fix this implementation -> the idea is to just use makeUser ;
         Role userRole = roleRepository.findByRole("" + user.getRoles());
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 
     }
 
+    /**
+     * Takes one user and updates its details. If we receive something
+     * else than "ADMIN" as a role, it defaults to "USER".
+     *
+     * @param userDTO which is the user to update
+     * @param id      of the user we are trying to update
+     */
     @Override
-    public void makeUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    public void updateUser(UserDTO userDTO, long id) {
+        User userById = userRepository.findOne(id);
+        userById.setLastName(userDTO.getLastName()); //Sets first name
+        userById.setFirstName(userDTO.getFirstName()); //Sets last name
+        userById.setEmail(userDTO.getEmail()); //sets email as intended
+        if (userDTO.getRole().equals("ADMIN")) {
+            Role userRole = roleRepository.findByRole("ADMIN"); //sets role as admin
+        } else {
+            //I think, we should set anything else as a simple user. Even if they
+            //manage to send something that doesn't make sense.
+            Role userRole = roleRepository.findByRole("USER"); //sets role as user
+        }
+    }
+
+    /**
+     * This method makes use of userDTO to ensure a validated user is being
+     * made, as such, it asumes both passwords match and so on. Sets user's
+     * roles as defined. Ciphers user's password and sets it as such.
+     * @param userDTO which is the data transfer object for the new user
+     * @throws Exception in case of invalid role, for now
+     */
+    @Override
+    public void makeUser(UserDTO userDTO) throws Exception {
+        User user = new User();
+        user.setLastName(userDTO.getLastName()); //Sets first name
+        user.setFirstName(userDTO.getFirstName()); //Sets last name
+        //Checks for user or admin role; if it isn't one of them, defaults to user (?
+        Role userRole; //here's where we save the actual role
+        if (userDTO.getRole().equals("ADMIN")) { //if they send an admin, we do
+            userRole = roleRepository.findByRole("ADMIN"); //sets role as admin
+        } else {
+            //I think, we should set anything else as a simple user. Even if they
+            //manage to send something that doesn't make sense.
+            userRole = roleRepository.findByRole("USER"); //sets role as user
+        }
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole))); //finally, we set such role
+        user.setEmail(userDTO.getEmail()); //sets email as intended
+        user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword())); //ciphers user password and sets it as such
         user.setActive(1); //always set as active when is a new user
-        userRepository.save(user);
+        userRepository.save(user); //saves the new user
     }
 
     @Override
@@ -97,9 +141,8 @@ public class UserServiceLive implements UserService {
 
     /**
      * So, here's the thing, this should disable said user.
-     * Yeah, right; yeah right (?
-     *
-     * @param user
+     * Nothing flashy, just pure disable of a user.
+     * @param user which is the user to be disabled
      */
     @Override
     public void disableUser(User user) {
