@@ -53,7 +53,11 @@
                             </td>
                             <td>
                                 <a class="btn btn-outline-primary" th:href="@{'/addStock?productId=' + ${product.id}}"
-                                   role="button">Agregar/Bajas</a>
+                                   role="button">Altas</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-primary" role="button"
+                                   th:href="@{'/restStock?productId=' + ${product.id}}">Bajas</a>
                             </td>
                         </tr>
                     </table>

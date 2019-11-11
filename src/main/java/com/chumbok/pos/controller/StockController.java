@@ -22,42 +22,70 @@ public class StockController {
 
     @Autowired
     private StockService stockService;
-    @Autowired
-    private ProductService productService;
+
+    //TODO add product name to the stockDTO
 
     @RequestMapping(path = "/addStock", method = RequestMethod.GET)
     public ModelAndView showAddStockForm(@RequestParam(required = false) Long productId) throws Exception{
-
         ModelAndView modelAndView = new ModelAndView();
-
         if (productId != null) {
-
             StockDTO stockDTO = new StockDTO();
             stockDTO.setProductId(productId);
-
             modelAndView.addObject("stockDTO", stockDTO);
         } else {
             modelAndView.addObject("stockDTO", new StockDTO());
         }
-
         modelAndView.setViewName("addStock");
-
         return modelAndView;
     }
 
     @RequestMapping(path = "/addStock", method = RequestMethod.POST)
     public ModelAndView createUpdateStock(@Valid StockDTO stockDTO) {
-
         ModelAndView modelAndView = new ModelAndView();
-
         stockService.createStock(stockDTO);
-
         modelAndView.addObject("successMessage", "Inventario actualizado correctamente.");
-
         modelAndView.addObject("stockDTO", new StockDTO());
         modelAndView.setViewName("addStock");
         return modelAndView;
+    }
 
+    /**
+     * This method is used when a stock is going to be registered as a negative one.
+     * So, whenever a decrease of stock happens, it goes here.
+     *
+     * @param stockDTO which is the new stock type of thing
+     * @return modelAndView with a clean stockDTO
+     */
+    @RequestMapping(path = "/restStock", method = RequestMethod.POST)
+    public ModelAndView deleteFromStock(@Valid StockDTO stockDTO) {
+        ModelAndView modelAndView = new ModelAndView();
+        stockDTO.setQuantiy(stockDTO.getQuantiy() * -1); //Converts the quantity to negative, i hope so
+        stockService.createStock(stockDTO);
+        modelAndView.addObject("successMessage", "Inventario actualizado correctamente.");
+        modelAndView.addObject("stockDTO", new StockDTO());
+        modelAndView.setViewName("restStock");
+        return modelAndView;
+    }
+
+    /**
+     * Provides the interface for the decrease of a stock.
+     *
+     * @param productId which is the product whose stock is going to be modified
+     * @return a view from the html files containing a clean stock object
+     * @throws Exception in case... of error, for now
+     */
+    @RequestMapping(path = "/restStock", method = RequestMethod.GET)
+    public ModelAndView showRestStockForm(@RequestParam(required = false) Long productId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        if (productId != null) {
+            StockDTO stockDTO = new StockDTO();
+            stockDTO.setProductId(productId);
+            modelAndView.addObject("stockDTO", stockDTO);
+        } else {
+            modelAndView.addObject("stockDTO", new StockDTO());
+        }
+        modelAndView.setViewName("restStock");
+        return modelAndView;
     }
 
     /*@ResponseStatus(value = HttpStatus.OK)

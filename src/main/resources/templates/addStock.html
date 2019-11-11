@@ -6,7 +6,7 @@
 
 <head>
     <p></p>
-    <title>Alta o baja</title>
+    <title>Registrando una alta</title>
     <link rel="stylesheet" href="css/carousel.css" th:href="@{/css/carousel.css}"/>
 
 </head>
@@ -26,7 +26,7 @@
                     <form autocomplete="off" action="#" th:action="@{/addStock}"
                           th:object="${stockDTO}" method="post" class="form-horizontal"
                           role="form">
-                        <h2>Realizar Alta o Baja</h2>
+                        <h2>Realizando una alta</h2>
                         <p></p>
                         <div class="form-group">
                             <div class="col-sm-9">
@@ -40,7 +40,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input type="text" th:field="*{stockExpireDate}"
-                                       placeholder="Descipcion/motivos" class="form-control"/> <label
+                                       class="form-control" placeholder="Descripción/motivos"/> <label
                                     th:if="${#fields.hasErrors('stockExpireDate')}" th:errors="*{stockExpireDate}"
                                     class="validation-message"></label>
                             </div>

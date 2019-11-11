@@ -1,0 +1,84 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http:www.thymeleaf.org">
+
+<head>
+    <p></p>
+    <title>Registrando una baja</title>
+    <link href="css/carousel.css" rel="stylesheet" th:href="@{/css/carousel.css}"/>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container marketing">
+        <p></p>
+        <br/>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form action="#" autocomplete="off" class="form-horizontal"
+                          method="post" role="form" th:action="@{/addStock}"
+                          th:object="${stockDTO}">
+                        <h2>Realizando una baja</h2>
+                        <p></p>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" placeholder="Fecha de cambio"
+                                       th:field="*{stockEntryDate}" type="text"/> <label
+                                    class="validation-message" th:errors="*{stockEntryDate}"
+                                    th:if="${#fields.hasErrors('stockEntryDate')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" placeholder="Descripción/motivos"
+                                       th:field="*{stockExpireDate}" type="text"/> <label
+                                    class="validation-message" th:errors="*{stockExpireDate}"
+                                    th:if="${#fields.hasErrors('stockExpireDate')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" placeholder="Cantidad"
+                                       th:field="*{quantiy}" type="text"/> <label
+                                    class="validation-message" th:errors="*{quantiy}"
+                                    th:if="${#fields.hasErrors('quantiy')}"></label>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" placeholder="Id de producto"
+                                       th:field="*{productId}" type="text"/> <label
+                                    class="validation-message" th:errors="*{productId}"
+                                    th:if="${#fields.hasErrors('productId')}"></label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button class="btn btn-primary btn-block" type="submit">Confirmar</button>
+                            </div>
+                        </div>
+
+                        <span th:utext="${successMessage}"></span>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr class="featurette-divider"/>
+        <!-- /END THE FEATURETTES -->
+    </div><!-- /.container -->
+</div>
+</body>
+</html>
