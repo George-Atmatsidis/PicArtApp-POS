@@ -55,10 +55,20 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{catagory}"
-                                       class="form-control" placeholder="Categoria"/> <label
-                                    th:if="${#fields.hasErrors('catagory')}" th:errors="*{catagory}"
-                                    class="validation-message"></label>
+                                <!-- <input type="text" th:field="*{catagory}"
+                                        class="form-control" placeholder="Categoria"/> <label
+                                     th:if="${#fields.hasErrors('catagory')}" th:errors="*{catagory}"
+                                     class="validation-message"></label>
+                                 -->
+                                <input class="form-control" placeholder="Categoria"
+                                       th:field="*{catagory}" type="hidden"/>
+                                <select name="select">
+                                    <option value="lol">Categorias</option>
+                                    <option value="value2">Placas</option>
+                                    <option value="value3">Sensores</option>
+                                    <option value="value3">Actuadores</option>
+                                    <option value="value3">Cables</option>
+                                </select>
                             </div>
                         </div>
 

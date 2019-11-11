@@ -1,12 +1,28 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http:www.thymeleaf.org"
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/main">
+      xmlns:th="http:www.thymeleaf.org">
 
 <head>
-    <title>Venta</title>
-    <link rel="stylesheet" href="css/carousel.css" th:href="@{/css/carousel.css}"/>
+    <title>Renta</title>
+    <link href="css/carousel.css" rel="stylesheet" th:href="@{/css/carousel.css}"/>
+    <style>
+        .selectWrapper {
+            border-radius: 36px;
+            display: inline-block;
+            overflow: hidden;
+            background: #cccccc;
+            border: 1px solid #cccccc;
+        }
+
+        .selectBox {
+            width: 140px;
+            height: 40px;
+            border: 0px;
+            outline: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -16,8 +32,9 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
         <!-- START THE FEATURETTES -->
-        <br/>
+
         <div class="container">
+            <br/>
             <div class="row">
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -53,7 +70,7 @@
                               </td> -->
                             <td>
                                 <a class="btn btn-outline-primary" role="button"
-                                   th:href="@{'/addVentas?productId=' + ${product.id}}">Vender</a>
+                                   th:href="@{'/addVentas?productId=' + ${product.id}}">Rentar</a>
                             </td>
                         </tr>
                     </table>
@@ -73,7 +90,7 @@
                 </div>
 
 
-                <div th:if="${page.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+                <div class="form-group col-md-11 pagination-centered" th:if="${page.totalPages != 1}">
                     <ul class="pagination">
 
                         <li th:class="${pageable.pageNumber == 0} ? disabled">

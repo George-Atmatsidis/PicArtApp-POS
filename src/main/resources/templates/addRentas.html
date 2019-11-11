@@ -1,0 +1,117 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http:www.thymeleaf.org">
+
+<head>
+    <p></p>
+    <title>Venta</title>
+    <link href="css/carousel.css" rel="stylesheet" th:href="@{/css/carousel.css}"/>
+
+</head>
+<body onload="myFunction()">
+
+<div layout:fragment="content">
+    <!-- Marketing messaging and featurettes
+================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container marketing">
+        <br/>
+        <h2>Generar venta</h2>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form action="#" autocomplete="off" class="form-horizontal"
+                          method="post" role="form" th:action="@{/addVentas}"
+                          th:object="${ventaDTO}">
+                        <p></p>
+                        <br/>
+                        <!--FECHA-->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Fecha de renta</span>
+                                <input class="form-control" disabled="disabled" placeholder="07/11/2019"
+                                       th:field="*{salesDate}" type="text" value="07/11/2019"/>
+                                <label class="validation-message" th:errors="*{salesDate}"
+                                       th:if="${#fields.hasErrors('salesDate')}"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Atendido por:</span>
+                                <input class="form-control"
+                                       disabled="disabled" id="email" th:field="*{email}"/> <label
+                                    class="validation-message" th:errors="*{email}"
+                                    th:if="${#fields.hasErrors('email')}" type="email"></label>
+                            </div>
+                        </div>
+                        <!-- <div sec:authorize="isAuthenticated()"></div>
+                         <span class="text-white" sec:authentication="name"></span>-->
+                        <!--ID producto -->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="*{idProduct}"
+                                       type="hidden"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Rentado por:</span>
+                                <input class="form-control" disabled="disabled"
+                                       th:field="*{displayName}" type="text"/> <label
+                                    class="validation-message" th:errors="*{displayName}"
+                                    th:if="${#fields.hasErrors('displayName')}"></label>
+                            </div>
+                        </div>
+                        <!--Cantidad -->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Cantidad</span>
+                                <input class="form-control" min="1" th:field="*{quantity}" type="text"/>
+                                <label class="validation-message" th:errors="*{quantity}"
+                                       th:if="${#fields.hasErrors('quantity')}"> </label>
+                            </div>
+                        </div>
+                        <!--NOMBRE -->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Nombre</span>
+                                <input class="form-control" disabled="disabled"
+                                       th:field="*{displayName}" type="text"/> <label
+                                    class="validation-message" th:errors="*{displayName}"
+                                    th:if="${#fields.hasErrors('displayName')}"></label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button class="btn btn-primary btn-block" type="submit">Rentar</button>
+                            </div>
+                        </div>
+
+                        <span th:utext="${successMessage}"></span>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            authorize = "isAuthenticated()"
+            var perro = authentication = "name";
+
+            function myFunction() {
+                document.getElementById("email").placeholder = "xtrs84zk@gmail.com";
+                document.getElementById("email").value = "xtrs84zk@gmail.com";
+            }
+        </script>
+        <hr class="featurette-divider"/>
+        <div sec:authorize="isAuthenticated()"></div>
+        <!-- /END THE FEATURETTES -->
+    </div><!-- /.container -->
+</div>
+</body>
+</html>
