@@ -55,6 +55,13 @@ return product;
         return pageProductListWithStockQuantity;
     }
 
+    @Override
+    public Page<ProductWithStockQuantity> findProductWithStockQuantityByPageGraterThanZero(Pageable pageable) {
+        List<ProductWithStockQuantity> list = productRepository.productHavingStock(); //Gets a list of products that have stock
+        Page<ProductWithStockQuantity> pageProductListWithStockQuantity = new PageImpl<>(list); //Adds said list to the page
+        return pageProductListWithStockQuantity; //returns said fucking page
+    }
+
 
     @Override
     public Product createProduct(Product product) {

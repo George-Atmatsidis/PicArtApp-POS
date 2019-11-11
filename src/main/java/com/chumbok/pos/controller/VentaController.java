@@ -28,7 +28,7 @@ public class VentaController {
     @RequestMapping(value = "/productSalePagination", method = RequestMethod.GET)
     public ModelAndView productPageable(Pageable pageable) { //Page<Product>
         ModelAndView modelAndView = new ModelAndView();
-        Page<ProductWithStockQuantity> pageProductListWithStockQuantity = productService.findProductWithStockQuantityByPage(pageable);
+        Page<ProductWithStockQuantity> pageProductListWithStockQuantity = productService.findProductWithStockQuantityByPageGraterThanZero(pageable);
         modelAndView.addObject("page", pageProductListWithStockQuantity);
         modelAndView.addObject("pageable", pageable);
         modelAndView.setViewName("productSalePagination");

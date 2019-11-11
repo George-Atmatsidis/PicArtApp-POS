@@ -26,4 +26,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "GROUP BY p.id")
     List<ProductWithStockQuantity> productStock();
 
+    /**
+     * Method for getting a product list similar to productStock but without the products that don't have quantity
+     *
+     * @return a list of them products
+     */
+    @Query("SELECT new com.chumbok.pos.dto.ProductWithStockQuantity(p.id, p.displayName, p.vendor, p.catagory, p.brand, p.description, p.weight, p.barcode, SUM(s.quantiy)) FROM Stock s " +
+            "RIGHT JOIN s.product p " +
+            "GROUP BY p.id HAVING SUM(s.quantiy) > 0")
+    List<ProductWithStockQuantity> productHavingStock();
+
 }

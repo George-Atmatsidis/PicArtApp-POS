@@ -25,4 +25,6 @@ public interface ProductService {
     Page<Product> findAllByPage(Pageable pageable);
 
     Page<ProductWithStockQuantity> findProductWithStockQuantityByPage(Pageable pageable);
+
+    Page<ProductWithStockQuantity> findProductWithStockQuantityByPageGraterThanZero(Pageable pageable);
 }
