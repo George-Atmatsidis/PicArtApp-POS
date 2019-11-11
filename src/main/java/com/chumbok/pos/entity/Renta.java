@@ -15,5 +15,6 @@ public class Renta {
     @OneToOne
     private User user;
 
+
     //TODO add the rest of this renta
 }

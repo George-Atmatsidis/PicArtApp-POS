@@ -27,6 +27,7 @@ public class Customer {
     private String email;
 
     @NotEmpty(message = "La CURP no puede estar vacía.")
+    @Column(unique = true) //La curp debe ser única para cada usuario
     private String curp;
 
     //I guess Facebook can be empty
