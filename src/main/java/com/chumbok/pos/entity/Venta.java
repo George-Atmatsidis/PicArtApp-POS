@@ -22,7 +22,6 @@ public class Venta {
     Product product;
 
     @NotNull
-    @Min(0)
     int quantity;
 
     public Venta() {

@@ -61,12 +61,12 @@ public class VentaController {
     /**
      * You know, POST method for that shit.
      *
-     * @param ventaDTO
-     * @return
-     * @throws Exception
+     * @param ventaDTO the data transfer object for data exchange
+     * @return modelAndView , an html view with the Venta Object
+     * @throws Exception when it doesn't get the correct data
      */
     @RequestMapping(path = "/addVentas", method = RequestMethod.POST)
-    public ModelAndView createUpdateVentas(VentaDTO ventaDTO) throws Exception {
+    public ModelAndView createUpdateVentas(@Valid VentaDTO ventaDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         ventaService.createVenta(ventaDTO);
         modelAndView.addObject("successMessage", "Venta registrada exitosamente.");

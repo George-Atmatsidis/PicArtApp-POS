@@ -47,6 +47,7 @@ public class UserServiceLive implements UserService {
         // }
     }
 
+
     @Override
     public void saveNonAdminUser(User user) {
         //if (userRepository.isExist(user.getEmail())) {
@@ -75,6 +76,13 @@ public class UserServiceLive implements UserService {
         Role userRole = roleRepository.findByRole("" + user.getRoles());
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 
+    }
+
+    @Override
+    public void makeUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(1); //always set as active when is a new user
+        userRepository.save(user);
     }
 
     @Override

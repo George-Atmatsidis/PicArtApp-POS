@@ -2,7 +2,9 @@ package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.PersistedObjId;
 import com.chumbok.pos.dto.UserDTO;
+import com.chumbok.pos.entity.Role;
 import com.chumbok.pos.entity.User;
+import com.chumbok.pos.repository.RoleRepository;
 import com.chumbok.pos.service.UserService;
 import com.chumbok.pos.service.UserServiceLive;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -20,12 +24,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //please don't judge me, mom :(
+    RoleRepository roleRepository;
+
     @RequestMapping(path = "/users", method = RequestMethod.GET)
     public ModelAndView showAddStockForm(@RequestParam(required = false) Long userId, @Valid User user) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
 
         if (userId != null) {
-            //TODO add the rest of this mf code
+            //TODO add the rest of this mf code | wait, i think it IS all the code needed
             modelAndView.addObject("user", userService.getUser(userId));
         } else {
             modelAndView.addObject("user", new User());
@@ -38,14 +45,22 @@ public class UserController {
     }
 
     @RequestMapping(path = "/users", method = RequestMethod.POST)
-    public ModelAndView createUpdateUser(@RequestParam(value = "id", required = false) Long id, @Valid User user) {
+    public ModelAndView createUpdateUser(@RequestParam(value = "id", required = false) Long id, @Valid UserDTO userDTO) {
         ModelAndView modelAndView = new ModelAndView();
-
+        User user = new User();
         if (id == null) {
-            userService.saveUser(user);
+            if (userDTO.getPassword().equals(userDTO.getConfirmPassword())) { //first of all, both passwords must match
+                user.setLastName(userDTO.getLastName());
+                user.setFirstName(userDTO.getFirstName());
+                Role userRole = roleRepository.findByRole(userDTO.getRole()); //gets role as either admin or user and sets it as such
+                user.setRoles(new HashSet<Role>(Arrays.asList(userRole))); //asigns such role to the new user
+                user.setEmail(userDTO.getEmail());
+                user.setPassword(userDTO.getPassword()); //sent as received, gonna cipher it on the userService
+                userService.makeUser(user); //save the user,
+            }
             modelAndView.addObject("successMessage", "El usuario se ha registrado exitosamente.");
             modelAndView.addObject("user", new User());
-            modelAndView.setViewName("product");
+            modelAndView.setViewName("user");
         } else if (id != null) {
             userService.updateUser(user);
             modelAndView.addObject("successMessage", "Usuario modificado correctamente.");

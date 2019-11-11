@@ -11,20 +11,21 @@ import java.util.Date;
 
 public class VentaDTO {
     @NotNull(message = "Por favor, especifique una fecha")
-    Date salesDate;
+    private Date salesDate;
 
     @NotEmpty(message = "Favor de especificar el usuario.")
-    String email;
+    private String email;
 
 
-    long idProduct;
+    private long idProduct;
 
     @NotNull(message = "Por favor, especifique una cantidad")
     @Min(value = 0, message = "La cantidad debe ser al menos 0.")
-    int quantity;
+    private int quantity;
 
     //nombre del producto //help
-    String displayName;
+    @NotEmpty(message = "Favor de especificar un nombre de producto")
+    private String displayName;
 
     public VentaDTO() {
     }

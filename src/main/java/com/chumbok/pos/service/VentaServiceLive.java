@@ -24,8 +24,6 @@ public class VentaServiceLive implements VentaService {
     @Autowired
     VentaRepository ventaRepository;
 
-    //Utilizado para acceder a la fecha de hoy
-    private Calendar today = Calendar.getInstance();
     /**
      * Teóricamente, aquí estoy creando una venta de verdad
      * con base en la información que se está enviando desde
@@ -36,6 +34,8 @@ public class VentaServiceLive implements VentaService {
      */
     @Override
     public Venta createVenta(@Valid VentaDTO ventaDTO) {
+        //Utilizado para acceder a la fecha de hoy
+        Calendar today = Calendar.getInstance();
         Venta venta = new Venta();
         venta.setProduct(productRepository.findOne(ventaDTO.getIdProduct()));
         venta.setQuantity(ventaDTO.getQuantity());

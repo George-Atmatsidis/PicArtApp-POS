@@ -17,6 +17,8 @@ public interface UserService {
     //What have we done to get this shit
     void updateUser(User user);
 
+    void makeUser(User user);
+
     //Aquí se pide el usuario, es un get; pretty straitghforward if you ask me, bro.
     User getUser(long id);
 
