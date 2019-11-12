@@ -91,9 +91,21 @@ return product;
         productRepository.save(productById);
     }
 
+    /**
+     * Este metodo cambia el estado de un producto a deshabilitado
+     * con base en si actualmente se encuentra deshabilitado o no
+     * Solamente lo togglea'
+     *
+     * @param productId del producto a deshabilitar
+     */
     @Override
     public void deleteProduct(long productId) {
-        productRepository.delete(productId);
+        Product product = productRepository.findOne(productId);
+        if (product.isDisabled()) {
+            product.setDisabled(false);
+        } else {
+            product.setDisabled(true);
+        }
     }
 
     @Override

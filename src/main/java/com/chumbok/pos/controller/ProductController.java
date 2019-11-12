@@ -48,7 +48,7 @@ public class ProductController {
         if(id==null){
             productService.createProduct(product);
             modelAndView.addObject("successMessage", "El material se ha registrado exitosamente.");
-
+            //TODO > add product DTO and set disabled = false on creation of that shit
             modelAndView.addObject("product", new Product());
             modelAndView.setViewName("product");
         }else if (id!=null){

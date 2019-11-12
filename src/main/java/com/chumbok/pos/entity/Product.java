@@ -22,6 +22,7 @@ public class Product {
     private String vendor;
     private String catagory;
     private String brand;
+    private boolean disabled;//Determinar si el producto se puede vender o no.
     private String description;
     @Min(value = 0)
     private BigDecimal weight;
@@ -40,12 +41,21 @@ public class Product {
         return displayName;
     }
 
+
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
     public String getVendor() {
         return vendor;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
     public void setVendor(String vendor) {

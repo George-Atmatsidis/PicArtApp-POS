@@ -35,5 +35,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "RIGHT JOIN s.product p " +
             "GROUP BY p.id HAVING SUM(s.quantiy) > 0")
     List<ProductWithStockQuantity> productHavingStock();
+    //TODO > excluir los productos deshabilitados de la lista de renta y venta
 
 }
