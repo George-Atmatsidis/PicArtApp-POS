@@ -36,7 +36,6 @@ public class LoginController {
     }
 
 
-
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
@@ -45,7 +44,6 @@ public class LoginController {
         modelAndView.addObject("userName", "Welcome " + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
         modelAndView.setViewName("home");
-
         return modelAndView;
     }
 
@@ -75,7 +73,6 @@ public class LoginController {
             modelAndView.addObject("successMessage", "El usuario se ha registrado exitosamente.");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
-
         }
         return modelAndView;
     }

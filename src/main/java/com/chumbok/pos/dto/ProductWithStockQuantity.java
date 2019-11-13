@@ -10,10 +10,10 @@ public class ProductWithStockQuantity {
     private String brand;
     private String description;
     private BigDecimal weight;
-    private String barcode;
+    private BigDecimal barcode;
     private Long quantiyInStock;
 
-    public ProductWithStockQuantity(Long id, String displayName, String vendor, String catagory, String brand, String description, BigDecimal weight, String barcode, Long quantiyInStock) {
+    public ProductWithStockQuantity(Long id, String displayName, String vendor, String catagory, String brand, String description, BigDecimal weight, BigDecimal barcode, Long quantiyInStock) {
         this.id = id;
         this.displayName = displayName;
         this.vendor = vendor;
@@ -81,11 +81,11 @@ public class ProductWithStockQuantity {
         this.weight = weight;
     }
 
-    public String getBarcode() {
+    public BigDecimal getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(String barcode) {
+    public void setBarcode(BigDecimal barcode) {
         this.barcode = barcode;
     }
 
