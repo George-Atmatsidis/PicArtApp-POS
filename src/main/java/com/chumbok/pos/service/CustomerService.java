@@ -9,5 +9,6 @@ public interface CustomerService {
 
     boolean isExist(String curp);
 
+    String getFullName(long id);
 
 }

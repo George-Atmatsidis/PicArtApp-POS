@@ -29,6 +29,8 @@ public class Product {
     //@Column(unique = true)
     private String barcode; //Precio de renta
 
+    private long quantity;
+
     public Long getId() {
         return id;
     }
@@ -100,5 +102,13 @@ public class Product {
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+
+    public long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
     }
 }

@@ -47,4 +47,15 @@ public class CustomerServiceLive implements CustomerService {
     public boolean isExist(String curp) {
         return customerRepository.isExist(curp);
     }
+
+    /**
+     * This method looks for a customer and gets it's name.
+     *
+     * @param id of the customer to get their name
+     * @return name of said customer
+     */
+    @Override
+    public String getFullName(long id) {
+        return customerRepository.findOne(id).getFirstName() + " " + customerRepository.findOne(id).getLastName();
+    }
 }

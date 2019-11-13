@@ -1,9 +1,13 @@
 package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.ProductWithStockQuantity;
+import com.chumbok.pos.dto.RentaDTO;
 import com.chumbok.pos.dto.VentaDTO;
 import com.chumbok.pos.entity.Product;
+import com.chumbok.pos.entity.Renta;
+import com.chumbok.pos.service.CustomerService;
 import com.chumbok.pos.service.ProductService;
+import com.chumbok.pos.service.RentaService;
 import com.chumbok.pos.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,8 +26,13 @@ public class RentaController {
     @Autowired
     private ProductService productService;
 
-    // @Autowired
-    //TODO implement : private RentaService rentaService;
+    @Autowired
+    private RentaService rentaService;
+
+    @Autowired
+    private CustomerService customerService;
+
+    //TODO add the rest of this mf code, no me puedo concentrar, no sé qué está ocurriendo aquí
 
     /**
      * Controller to get /productRentPagination as a route
@@ -42,23 +51,22 @@ public class RentaController {
     }
 
     /**
-     * Método para el mapeo de /addRenta que recibe una venta y decide cómo llenar los campos
+     * Método para el mapeo de /addRenta que recibe una renta y decide cómo llenar los campos
      * con base en la información obtenida en el método GET.
      *
-     * @param productId
-     * @return
-     * @throws Exception
+     * @param productId which is the id of the product we are working with
+     * @return the view with said objects injected
      */
     @RequestMapping(path = "/addRentas", method = RequestMethod.GET)
-    public ModelAndView showAddVentasForm(@RequestParam(required = false) Long productId) throws Exception {
+    public ModelAndView showAddVentasForm(@RequestParam(required = false) Long productId) {
         ModelAndView modelAndView = new ModelAndView();
         if (productId != null) {
-            VentaDTO ventaDTO = new VentaDTO();
-            ventaDTO.setIdProduct(productId);
-            ventaDTO.setDisplayName(productService.getProduct(productId).getDisplayName());
-            modelAndView.addObject("ventaDTO", ventaDTO);
+            RentaDTO rentaDTO = new RentaDTO();
+            rentaDTO.setProductId(productId);
+            rentaDTO.setProductName(productService.getProduct(productId).getDisplayName());
+            modelAndView.addObject("rentaDTO", rentaDTO);
         } else {
-            modelAndView.addObject("ventaDTO", new VentaDTO());
+            modelAndView.addObject("rentaDTO", new RentaDTO());
         }
         modelAndView.setViewName("addRentas");
         return modelAndView;
@@ -67,16 +75,16 @@ public class RentaController {
     /**
      * You know, POST method for that shit.
      *
-     * @param ventaDTO the data transfer object for data exchange
+     * @param rentaDTO the data transfer object for data exchange
      * @return modelAndView , an html view with the Venta Object
      * @throws Exception when it doesn't get the correct data
      */
     @RequestMapping(path = "/addRentas", method = RequestMethod.POST)
-    public ModelAndView createUpdateVentas(@Valid VentaDTO ventaDTO) throws Exception {
+    public ModelAndView createUpdateVentas(@Valid RentaDTO rentaDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-        //TODO implement :ventaService.createVenta(ventaDTO);
+        rentaService.createRenta(rentaDTO);
         modelAndView.addObject("successMessage", "Renta registrada exitosamente.");
-        modelAndView.addObject("ventaDTO", ventaDTO);
+        modelAndView.addObject("renta", rentaDTO);
         modelAndView.setViewName("addRentas");
         return modelAndView;
     }
