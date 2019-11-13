@@ -111,10 +111,10 @@ public class UserServiceLive implements UserService {
     @Override
     public void makeUser(UserDTO userDTO) throws Exception {
         User user = new User();
-        user.setLastName(userDTO.getLastName()); //Sets first name
-        user.setFirstName(userDTO.getFirstName()); //Sets last name
+        user.setLastName(userDTO.getLastName()); //Sets last name
+        user.setFirstName(userDTO.getFirstName()); //Sets first name
         //Checks for user or admin role; if it isn't one of them, defaults to user (?
-        Role userRole; //here's where we save the actual role
+        Role userRole; //here's where we save the actual
         if (userDTO.getRole().equals("ADMIN")) { //if they send an admin, we do
             userRole = roleRepository.findByRole("ADMIN"); //sets role as admin
         } else {
@@ -126,6 +126,7 @@ public class UserServiceLive implements UserService {
         user.setEmail(userDTO.getEmail()); //sets email as intended
         user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword())); //ciphers user password and sets it as such
         user.setActive(1); //always set as active when is a new user
+        //TODO : check why the user isn't being saved || holy smokes
         userRepository.save(user); //saves the new user
     }
 

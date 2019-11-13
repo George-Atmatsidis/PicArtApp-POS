@@ -1,5 +1,6 @@
 package com.chumbok.pos.service;
 
+import com.chumbok.pos.dto.CustomerDTO;
 import com.chumbok.pos.entity.Customer;
 
 public interface CustomerService {
@@ -10,5 +11,7 @@ public interface CustomerService {
     boolean isExist(String curp);
 
     String getFullName(long id);
+
+    Customer createCustomer(CustomerDTO customerDTO);
 
 }

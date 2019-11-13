@@ -1,5 +1,6 @@
 package com.chumbok.pos.controller;
 
+import com.chumbok.pos.dto.ProductDTO;
 import com.chumbok.pos.dto.ProductWithStockQuantity;
 import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.service.ProductService;
@@ -42,20 +43,20 @@ public class ProductController {
     }
 
     @RequestMapping(path = "/product", method = RequestMethod.POST)
-    public ModelAndView createUpdateProduct(@RequestParam(value = "id", required = false) Long id, @Valid Product product) {
+    public ModelAndView createUpdateProduct(@RequestParam(value = "id", required = false) Long id, @Valid ProductDTO productDTO) {
         ModelAndView modelAndView = new ModelAndView();
 
         if(id==null){
-            productService.createProduct(product);
+            productService.createProduct(productDTO);
             modelAndView.addObject("successMessage", "El material se ha registrado exitosamente.");
             //TODO > add product DTO and set disabled = false on creation of that shit
-            modelAndView.addObject("product", new Product());
+            modelAndView.addObject("productDTO", new ProductDTO());
             modelAndView.setViewName("product");
         }else if (id!=null){
-            productService.updateProduct(product);
+            productService.updateProduct(productDTO, id);
             modelAndView.addObject("successMessage", "Material actualizado correctamente.");
 
-            modelAndView.addObject("product", product);
+            modelAndView.addObject("productDTO", productDTO);
             modelAndView.setViewName("product");
         }
         return modelAndView;

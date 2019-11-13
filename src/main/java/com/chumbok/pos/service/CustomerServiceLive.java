@@ -1,5 +1,6 @@
 package com.chumbok.pos.service;
 
+import com.chumbok.pos.dto.CustomerDTO;
 import com.chumbok.pos.entity.Customer;
 import com.chumbok.pos.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,19 @@ public class CustomerServiceLive implements CustomerService {
     @Override
     public String getFullName(long id) {
         return customerRepository.findOne(id).getFirstName() + " " + customerRepository.findOne(id).getLastName();
+    }
+
+    @Override
+    public Customer createCustomer(CustomerDTO customerDTO) {
+        Customer customer = new Customer();
+        customer.setFirstName(customerDTO.getFirstName());
+        customer.setLastName(customerDTO.getLastName());
+        customer.setCurp(customerDTO.getCurp());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setNameAval(customerDTO.getNameAval());
+        customer.setAvalPhone(customerDTO.getAvalPhone());
+        customer.setPhoneNumber(customerDTO.getPhoneNumber());
+        customerRepository.save(customer);
+        return customer;
     }
 }

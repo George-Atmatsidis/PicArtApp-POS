@@ -1,27 +1,25 @@
-package com.chumbok.pos.entity;
+package com.chumbok.pos.dto;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
 import javax.validation.constraints.Min;
 
-@Entity
-@Table(name = "customer")
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
+public class CustomerDTO {
+    @NotEmpty(message = "Inserte correctamente el nombre.")
     private String firstName;
 
+    @NotEmpty(message = "Inserte correctamente el apellido.")
     private String lastName;
 
+    @NotEmpty(message = "Verifique el número de teléfono.")
     private long phoneNumber;
 
+    @Email(message = "Favor de verificar el email.")
+    @NotEmpty(message = "El email no puede estar vacío.")
     private String email;
 
-    @Column(unique = true) //La curp debe ser única para cada usuario
+    @NotEmpty(message = "La CURP no puede estar vacía.")
     private String curp;
 
     //I guess Facebook can be empty
@@ -29,17 +27,11 @@ public class Customer {
 
     private String nameAval;
 
+    @NotEmpty(message = "Se necesita especificar el teléfono de un aval.")
+    @Min(value = 7, message = "El teléfono debe contener al menos 7 caracteres.")
     private long avalPhone;
 
-    public Customer() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public CustomerDTO() {
     }
 
     public String getFirstName() {

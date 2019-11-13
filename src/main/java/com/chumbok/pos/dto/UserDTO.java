@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
+import javax.validation.Valid;
 
 public class UserDTO {
 
@@ -14,12 +15,17 @@ public class UserDTO {
     @NotEmpty(message = "*Favor de proveer un email.")
     private String email;
 
+    @ValidPassword
+    @NotEmpty(message = "*La contraseña no puede estar vacía.")
     private String password;
 
+    @NotEmpty(message = "*Verifique su contraseña.")
     private String confirmPassword;
 
+    @NotEmpty(message = "*Especificar nombre.")
     private String firstName;
 
+    @NotEmpty(message = "*Especificar apellido.")
     private String lastName;
 
     private int active;
@@ -38,12 +44,12 @@ public class UserDTO {
         return password;
     }
 
-    public void setPassword(String password) throws Exception {
-        if (password.equals(confirmPassword)) {
+    public void setPassword(String password) {
+        //if (password.equals(confirmPassword)) {
             this.password = password;
-        } else {
-            throw new Exception("holy smokes");
-        }
+        //} else {
+        //  throw new Exception("Password didn't match");
+        //}
     }
 
     public String getConfirmPassword() {

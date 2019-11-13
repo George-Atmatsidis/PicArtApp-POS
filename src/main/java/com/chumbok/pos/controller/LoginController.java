@@ -1,6 +1,7 @@
 package com.chumbok.pos.controller;
 
 
+import com.chumbok.pos.dto.UserDTO;
 import com.chumbok.pos.entity.User;
 import com.chumbok.pos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,14 @@ public class LoginController {
     }
 
 
-
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
+        User user = userService.findUserByEmail(auth.getName()); //
         modelAndView.addObject("userName", "Welcome " + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
         modelAndView.setViewName("home");
-
         return modelAndView;
     }
 
@@ -53,29 +52,33 @@ public class LoginController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
+        UserDTO userDTO = new UserDTO();
+        modelAndView.addObject("userDTO", userDTO);
         modelAndView.setViewName("registration");
         return modelAndView;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+    public ModelAndView createNewUser(@Valid UserDTO userDTO, BindingResult bindingResult) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-        User userExists = userService.findUserByEmail(user.getEmail());
-        if (userExists != null) {
+        boolean userExists = userService.findUserByEmail(userDTO.getEmail()) != null;
+        if (userExists) {
             bindingResult
                     .rejectValue("email", "error.user",
                             "There is already a user registered with the email provided");
         }
+        if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
+            bindingResult
+                    .rejectValue("confirmPassword", "error.confirmPassword"
+                            , "Las contraseñas no coinciden, por favor verifique");
+        }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-            userService.saveUser(user);
+            userService.makeUser(userDTO);
             modelAndView.addObject("successMessage", "El usuario se ha registrado exitosamente.");
-            modelAndView.addObject("user", new User());
+            modelAndView.addObject("userDTO", new UserDTO());
             modelAndView.setViewName("registration");
-
         }
         return modelAndView;
     }

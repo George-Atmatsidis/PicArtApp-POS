@@ -17,20 +17,12 @@ public class User {
     private Long id;
 
     @Column(unique = true)
-    @Email(message = "*Asegúrese de escribir correctamente su email.")
-    @NotEmpty(message = "*Favor de proveer un email.")
     private String email;
 
-
-    @Length(min = 5, message = "*La contraseña debe contener al menos cinco caracteres.")
-    @NotEmpty(message = "*La contraseña no puede estar vacía.")
-    @ValidPassword
     private String password;
 
-    @NotEmpty(message = "*Especificar nombre.")
     private String firstName;
 
-    @NotEmpty(message = "*Especificar apellido.")
     private String lastName;
 
     private int active;
@@ -46,6 +38,7 @@ public class User {
         this.active = active;
         this.roles = roles;
     }
+
 
     public User() {
     }

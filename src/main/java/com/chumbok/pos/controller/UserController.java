@@ -25,7 +25,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(path = "/users", method = RequestMethod.GET)
-    public ModelAndView showAddStockForm(@RequestParam(required = false) Long userId, @Valid User user) throws Exception {
+    public ModelAndView showUsers(@RequestParam(required = false) Long userId, @Valid User user) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
 
         if (userId != null) {
