@@ -1,5 +1,6 @@
 package com.chumbok.pos.service;
 
+import com.chumbok.pos.dto.ProductDTO;
 import com.chumbok.pos.dto.ProductWithStockQuantity;
 import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.repository.ProductRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Transactional
@@ -63,40 +65,53 @@ return product;
     }
 
 
+    /**
+     * Crea un producto con base en la información obtenida del usuario. Establece algunas propiedades
+     * por defecto puesto que el usuario no tendría por qué tener acceso a dichas características.
+     *
+     * @param productDTO con la información a establecer
+     * @return el producto creado
+     */
     @Override
-    public Product createProduct(Product product) {
-
+    public Product createProduct(@Valid ProductDTO productDTO) {
         //no se pueden crear productos que tengan exactamente el mismo nombre
-        if (productRepository.isProductExists(product.getDisplayName())) {
+        if (productRepository.isProductExists(productDTO.getDisplayName())) {
             throw new IllegalArgumentException("Un producto con ese nombre ya existe.");
         }
-
+        Product product = new Product();
+        product.setQuantity(0); //la cantidad se inicializa en 0
+        product.setDisabled(false); //el producto se inicializa habilitado
+        product.setBarcode(productDTO.getRentPrice()); //precio de renta -> barcode
+        product.setWeight(productDTO.getSalesPrice()); //precio de venta -> weight
+        product.setCatagory(productDTO.getCatagory()); //establece la categoría recibida
+        product.setDescription(productDTO.getDescription());
+        product.setDisplayName(productDTO.getDisplayName());
         productRepository.save(product);
         return product;
     }
 
+    /**
+     * Método que implementa la venta con base en los valores obtenidos del usuario
+     * @param productDTO with the new data from the user
+     * @param id of the product to update
+     */
     @Override
-    public void updateProduct(Product product) {
-
-        Product productById = productRepository.findOne(product.getId());
-
-        productById.setDisplayName(product.getDisplayName());
-        productById.setVendor(product.getVendor());
-        productById.setCatagory(product.getCatagory());
-        productById.setBrand(product.getBrand());
-        productById.setDescription(product.getDescription());
-        productById.setWeight(product.getWeight());
-        productById.setBarcode(product.getBarcode());
-
+    public void updateProduct(@Valid ProductDTO productDTO, long id) {
+        Product productById = productRepository.findOne(id);
+        productById.setDisplayName(productDTO.getDisplayName()); //establece el nombre del producto
+        productById.setVendor(productDTO.getVendor()); //establece la marca
+        productById.setCatagory(productDTO.getCatagory()); //establece la categoría
+        productById.setDescription(productDTO.getDescription()); //establece la descripción del producto
+        productById.setWeight(productDTO.getSalesPrice()); //establece el precio de venta
+        productById.setBarcode(productDTO.getRentPrice()); //establece el precio de renta
         productRepository.save(productById);
     }
 
     /**
-     * Este metodo cambia el estado de un producto a deshabilitado
-     * con base en si actualmente se encuentra deshabilitado o no
-     * Solamente lo togglea'
+     * Este método cambia el estado de un producto para no ser apto a la venta
+     * con base en si actualmente es apto o no
      *
-     * @param productId del producto a deshabilitar
+     * @param productId del producto cuyo estado se modificará
      */
     @Override
     public void deleteProduct(long productId) {

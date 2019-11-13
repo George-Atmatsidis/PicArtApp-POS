@@ -25,10 +25,9 @@ public class Product {
     private boolean disabled;//Determinar si el producto se puede vender o no.
     private String description;
     @Min(value = 0)
-    private BigDecimal weight;
+    private BigDecimal weight; //precio de venta
     //@Column(unique = true)
-    private String barcode; //Precio de renta
-
+    private BigDecimal barcode; //Precio de renta
     private long quantity;
 
     public Long getId() {
@@ -96,11 +95,11 @@ public class Product {
         this.weight = weight;
     }
 
-    public String getBarcode() {
+    public BigDecimal getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(String barcode) {
+    public void setBarcode(BigDecimal barcode) {
         this.barcode = barcode;
     }
 

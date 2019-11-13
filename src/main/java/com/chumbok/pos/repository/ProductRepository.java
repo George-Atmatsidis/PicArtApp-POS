@@ -28,13 +28,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     /**
      * Method for getting a product list similar to productStock but without the products that don't have quantity
+     * Also, it checks for products where the "disabled" status isn't active.
      *
      * @return a list of them products
      */
     @Query("SELECT new com.chumbok.pos.dto.ProductWithStockQuantity(p.id, p.displayName, p.vendor, p.catagory, p.brand, p.description, p.weight, p.barcode, SUM(s.quantiy)) FROM Stock s " +
             "RIGHT JOIN s.product p " +
+            "WHERE p.disabled <> true " +
             "GROUP BY p.id HAVING SUM(s.quantiy) > 0")
     List<ProductWithStockQuantity> productHavingStock();
-    //TODO > excluir los productos deshabilitados de la lista de renta y venta
 
 }
