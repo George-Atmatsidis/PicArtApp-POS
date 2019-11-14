@@ -5,13 +5,13 @@ import com.chumbok.pos.dto.RentaDTO;
 import com.chumbok.pos.dto.VentaDTO;
 import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Renta;
-import com.chumbok.pos.service.CustomerService;
-import com.chumbok.pos.service.ProductService;
-import com.chumbok.pos.service.RentaService;
-import com.chumbok.pos.service.VentaService;
+import com.chumbok.pos.entity.User;
+import com.chumbok.pos.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +31,9 @@ public class RentaController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private UserService userService;
 
     //TODO add the rest of this mf code, no me puedo concentrar, no sé qué está ocurriendo aquí
 
@@ -60,9 +63,12 @@ public class RentaController {
     @RequestMapping(path = "/addRentas", method = RequestMethod.GET)
     public ModelAndView showAddVentasForm(@RequestParam(required = false) Long productId) {
         ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
         if (productId != null) {
             RentaDTO rentaDTO = new RentaDTO();
             rentaDTO.setProductId(productId);
+            rentaDTO.setUserMail(auth.getName()); //establecer el nombre del usuario en login
             rentaDTO.setProductName(productService.getProduct(productId).getDisplayName());
             modelAndView.addObject("rentaDTO", rentaDTO);
         } else {
@@ -80,7 +86,7 @@ public class RentaController {
      * @throws Exception when it doesn't get the correct data
      */
     @RequestMapping(path = "/addRentas", method = RequestMethod.POST)
-    public ModelAndView createUpdateVentas(@Valid RentaDTO rentaDTO) throws Exception {
+    public ModelAndView createUpdateVentas(RentaDTO rentaDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         rentaService.createRenta(rentaDTO);
         modelAndView.addObject("successMessage", "Renta registrada exitosamente.");

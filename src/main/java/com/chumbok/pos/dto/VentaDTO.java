@@ -10,12 +10,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class VentaDTO {
-    @NotNull(message = "Por favor, especifique una fecha")
     private Date salesDate;
 
-    @NotEmpty(message = "Favor de especificar el usuario.")
     private String email;
-
 
     private long idProduct;
 
@@ -24,7 +21,6 @@ public class VentaDTO {
     private int quantity;
 
     //nombre del producto //help
-    @NotEmpty(message = "Favor de especificar un nombre de producto")
     private String displayName;
 
     public VentaDTO() {

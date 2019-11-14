@@ -27,6 +27,8 @@ public class Renta {
 
     private Date dateOfReturn;
 
+    private boolean active; //aquí se define si la renta sigue activa en el sistema
+
     public Renta() {
     }
 

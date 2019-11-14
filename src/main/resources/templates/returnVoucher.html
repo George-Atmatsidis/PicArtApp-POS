@@ -1,0 +1,103 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http:www.thymeleaf.org">
+
+<head>
+    <p></p>
+    <title>Devoluciones</title>
+    <link href="css/carousel.css" rel="stylesheet" th:href="@{/css/carousel.css}"/>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Marketing messaging and featurettes
+================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container marketing">
+        <p></p>
+        <br/>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form action="#" autocomplete="off" class="form-horizontal"
+                          method="post" role="form" th:action="@{/rent/return}"
+                          th:object="${returnVoucherDTO}">
+                        <h2>Realizando una devolución</h2>
+                        <p></p>
+                        <div class="form-group">
+                            <div class="col-sm-9"> <!-- Nombre del cliente que renta. -->
+                                <input class="form-control" disabled="disabled" placeholder="Cliente"
+                                       th:field="*{customerName}" type="text"/> <label
+                                        class="validation-message" th:errors="*{customerName}"
+                                        th:if="${#fields.hasErrors('customerName')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9"> <!-- Fecha en que se realizó la renta -->
+                                <input class="form-control" disabled="disabled" placeholder="Fecha de renta"
+                                       th:field="*{dateOfRent}" type="text"/> <label
+                                        class="validation-message" th:errors="*{dateOfRent}"
+                                        th:if="${#fields.hasErrors('dateOfRent')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9"> <!-- Fecha en que se debe devolver lo rentado -->
+                                <input class="form-control" disabled="disabled" placeholder="Fecha de renta"
+                                       th:field="*{dateOfReturn}" type="text"/> <label
+                                        class="validation-message" th:errors="*{dateOfReturn}"
+                                        th:if="${#fields.hasErrors('dateOfReturn')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9"> <!-- Estado en que se encuentra la renta (vigente, retrasada) -->
+                                <input class="form-control" placeholder="Estado de la renta"
+                                       th:field="*{status}" type="text"/> <label
+                                        class="validation-message" th:errors="*{status}"
+                                        th:if="${#fields.hasErrors('status')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" disabled="disabled" placeholder="Producto"
+                                       th:field="*{productName}" type="text"/> <label
+                                    class="validation-message" th:errors="*{productName}"
+                                    th:if="${#fields.hasErrors('productName')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" placeholder="Cantidad"
+                                       th:field="*{quantity}" type="text"/> <label
+                                    class="validation-message" th:errors="*{quantity}"
+                                    th:if="${#fields.hasErrors('quantity')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button class="btn btn-primary btn-block" type="submit">Registrar devolución</button>
+                            </div>
+                        </div>
+
+                        <span th:utext="${successMessage}"></span>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr class="featurette-divider"/>
+        <!-- /END THE FEATURETTES -->
+    </div><!-- /.container -->
+</div>
+</body>
+</html>

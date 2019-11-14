@@ -23,8 +23,6 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
-    //TODO add product name to the stockDTO
-
     @RequestMapping(path = "/addStock", method = RequestMethod.GET)
     public ModelAndView showAddStockForm(@RequestParam(required = false) Long productId) throws Exception{
         ModelAndView modelAndView = new ModelAndView();
