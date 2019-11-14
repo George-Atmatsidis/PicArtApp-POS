@@ -106,20 +106,24 @@ public class UserServiceLive implements UserService {
      * made, as such, it asumes both passwords match and so on. Sets user's
      * roles as defined. Ciphers user's password and sets it as such.
      * @param userDTO which is the data transfer object for the new user
-     * @throws Exception in case of invalid role, for now
+     * //@throws Exception in case of invalid role, for now
      */
     @Override
-    public void makeUser(UserDTO userDTO) throws Exception {
+    public void makeUser(UserDTO userDTO) {
         User user = new User();
         user.setLastName(userDTO.getLastName()); //Sets last name
         user.setFirstName(userDTO.getFirstName()); //Sets first name
         //Checks for user or admin role; if it isn't one of them, defaults to user (?
         Role userRole; //here's where we save the actual
-        if (userDTO.getRole().equals("ADMIN")) { //if they send an admin, we do
-            userRole = roleRepository.findByRole("ADMIN"); //sets role as admin
-        } else {
-            //I think, we should set anything else as a simple user. Even if they
-            //manage to send something that doesn't make sense.
+        if (userDTO.getRole() != null) {
+            if (userDTO.getRole().equals("ADMIN")) { //if they send an admin, we do
+                userRole = roleRepository.findByRole("ADMIN"); //sets role as admin
+            } else {
+                //I think, we should set anything else as a simple user. Even if they
+                //manage to send something that doesn't make sense.
+                userRole = roleRepository.findByRole("USER"); //sets role as user
+            }
+        } else { //default to user if anything else
             userRole = roleRepository.findByRole("USER"); //sets role as user
         }
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole))); //finally, we set such role

@@ -67,11 +67,12 @@ public class LoginController {
                     .rejectValue("email", "error.user",
                             "There is already a user registered with the email provided");
         }
-        if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
-            bindingResult
-                    .rejectValue("confirmPassword", "error.confirmPassword"
-                            , "Las contraseñas no coinciden, por favor verifique");
-        }
+        System.err.println("Why are we still here.");
+//        if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
+//            bindingResult
+//                    .rejectValue("confirmPassword", "error.confirmPassword"
+//                            , "Las contraseñas no coinciden, por favor verifique");
+//        }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {

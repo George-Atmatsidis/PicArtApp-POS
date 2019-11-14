@@ -66,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.debug(true);
-//se permite el acceso a los componentes necesarios para mostrar la página a cualquier visitante
+        //se permite el acceso a los componentes necesarios para mostrar la página a cualquier visitante
         web
                 .ignoring()
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/registration", "/favicon.ico", "home");
