@@ -33,7 +33,7 @@
                             <div class="col-sm-9">
                                 <span>Fecha de venta</span>
                                 <input class="form-control" disabled="disabled" placeholder="07/11/2019"
-                                       th:field="*{salesDate}" type="text" value="07/11/2019"/>
+                                       th:field="*{salesDate}" type="text"/>
                                 <label th:errors="*{salesDate}" th:if="${#fields.hasErrors('salesDate')}"
                                        class="validation-message"></label>
                             </div>
@@ -50,13 +50,13 @@
                         <!-- <div sec:authorize="isAuthenticated()"></div>
                          <span class="text-white" sec:authentication="name"></span>-->
                         <!--ID producto -->
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <input class="form-control" th:field="*{idProduct}"
-                                       type="hidden"/>
+                        <!--    <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input class="form-control" th:field="*{idProduct}"
+                                           type="hidden"/>
+                                </div>
                             </div>
-                        </div>
-
+                            -->
                         <!--Cantidad -->
                         <div class="form-group">
                             <div class="col-sm-9">

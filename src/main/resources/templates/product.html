@@ -20,6 +20,8 @@
                 <div class="col-md-6 col-md-offset-3">
                     <form action="#" autocomplete="off" class="form-horizontal" method="post" role="form"
                           th:action="@{/product}" th:object="${productDTO}">
+                        <br/>
+                        <br/>
                         <h2>Agregar producto</h2>
                         <input type="hidden" th:field="*{id}" class="form-control"/>
                         <div class="form-group">
@@ -40,15 +42,15 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <label> Categoría
-                                    <select name="select" th:field="*{catagory}">
-                                        <option th:text="Doggo" th:value="Doggo"></option>
+                                <label> Categoría </label>
+                                <select class="form-control" name="select" th:field="*{catagory}">
                                         <option th:text="Placas" th:value="Placas"></option>
                                         <option th:text="Sensores" th:value="Sensores"></option>
                                         <option th:text="Actuadores" th:value="Actuadores"></option>
                                         <option th:text="Cables" th:value="Cables"></option>
+                                    <option th:text="Fuentes-Energia" th:value="Fuentes"></option>
+                                    <option th:text="Otros" th:value="Otros"></option>
                                     </select>
-                                </label>
                             </div>
                         </div>
 
