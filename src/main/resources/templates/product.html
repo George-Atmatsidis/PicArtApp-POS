@@ -40,15 +40,13 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input class="form-control" placeholder="Categoria" th:field="*{catagory}"
-                                       type="hidden"/>
                                 <label> Categoría
-                                    <select name="select">
-                                        <option value="lol">Categorias</option>
-                                        <option value="Placas">Placas</option>
-                                        <option value="Sensores">Sensores</option>
-                                        <option value="Actuadores">Actuadores</option>
-                                        <option value="Cables">Cables</option>
+                                    <select name="select" th:field="*{catagory}">
+                                        <option th:text="Doggo" th:value="Doggo"></option>
+                                        <option th:text="Placas" th:value="Placas"></option>
+                                        <option th:text="Sensores" th:value="Sensores"></option>
+                                        <option th:text="Actuadores" th:value="Actuadores"></option>
+                                        <option th:text="Cables" th:value="Cables"></option>
                                     </select>
                                 </label>
                             </div>
