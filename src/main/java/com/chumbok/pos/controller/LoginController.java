@@ -61,13 +61,11 @@ public class LoginController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid UserDTO userDTO, BindingResult bindingResult) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-        boolean userExists = userService.findUserByEmail(userDTO.getEmail()) != null;
-        if (userExists) {
+        if (userService.findUserByEmail(userDTO.getEmail()) != null) { //si ya hay un usuario registrado con ese email
             bindingResult
                     .rejectValue("email", "error.user",
-                            "There is already a user registered with the email provided");
+                            "Ya existe un usuario registrado con ese correo electrónico.");
         }
-        System.err.println("Why are we still here.");
 //        if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
 //            bindingResult
 //                    .rejectValue("confirmPassword", "error.confirmPassword"
@@ -76,7 +74,11 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-            userService.makeUser(userDTO);
+            //first of all, both passwords must match
+            if (userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
+                modelAndView.addObject("debugMessage", "Password doesn't match");
+            }
+            userService.makeUser(userDTO); //saves the user as a real user
             modelAndView.addObject("successMessage", "El usuario se ha registrado exitosamente.");
             modelAndView.addObject("userDTO", new UserDTO());
             modelAndView.setViewName("registration");

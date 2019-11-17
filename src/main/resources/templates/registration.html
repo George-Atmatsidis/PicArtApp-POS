@@ -18,14 +18,12 @@
         <!-- START THE FEATURETTES -->
         <div class="container">
             <div class="col-md-6 col-md-offset-3">
-                <form action="#" autocomplete="off" class="form-horizontal"
-                      method="post" role="form" th:action="@{/registration}"
-                      th:object="${userDTO}">
+                <form action="#" autocomplete="off" class="form-horizontal" method="post" role="form"
+                      th:action="@{/registration}" th:object="${userDTO}">
                     <h2>Registrar un nuevo usuario</h2>
                     <div class="form-group">
                         <div class="col-sm-9">
-                            <input class="form-control" placeholder="Nombre" th:field="*{firstName}"
-                                   type="text"/>
+                            <input class="form-control" placeholder="Nombre" th:field="*{firstName}" type="text"/>
                             <label class="validation-message" th:errors="*{firstName}"
                                    th:if="${#fields.hasErrors('firstName')}"></label>
                         </div>
@@ -33,27 +31,25 @@
 
                     <div class="form-group">
                         <div class="col-sm-9">
-                            <input class="form-control" placeholder="Apellido"
-                                   th:field="*{lastName}" type="text"/>
+                            <input class="form-control" placeholder="Apellido" th:field="*{lastName}" type="text"/>
                             <label class="validation-message" th:errors="*{lastName}"
                                    th:if="${#fields.hasErrors('lastName')}"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-9">
-                            <input class="form-control" placeholder="E-mail" th:field="*{email}"
-                                   type="text"/> <label
-                                class="validation-message" th:errors="*{email}"
-                                th:if="${#fields.hasErrors('email')}"></label>
+                            <input class="form-control" placeholder="Correo electrónico" th:field="*{email}"
+                                   type="text"/>
+                            <label class="validation-message" th:errors="*{email}"
+                                   th:if="${#fields.hasErrors('email')}"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-9">
-                            <input class="form-control" id="password" placeholder="Contraseña"
-                                   th:field="*{password}"
-                                   type="password"/> <label
-                                class="validation-message" th:errors="*{password}"
-                                th:if="${#fields.hasErrors('password')}"> </label>
+                            <input class="form-control" id="password" placeholder="Contraseña" th:field="*{password}"
+                                   type="password"/>
+                            <label class="validation-message" th:errors="*{password}"
+                                   th:if="${#fields.hasErrors('password')}"></label>
                         </div>
                     </div>
 
@@ -63,13 +59,24 @@
                                    type="password"/>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <label> Tipo:
+                                <select name="select" th:field="*{role}">
+                                    <option th:text="Integrante" th:value="USER"></option>
+                                    <option th:text="Administrador" th:value="ADMIN"></option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-sm-9">
                             <button class="btn btn-primary btn-block" type="submit">Registrar</button>
                         </div>
                     </div>
                     <span th:utext="${successMessage}"></span>
-
+                    <span th:utext="${debugMessage}"></span>
                 </form>
             </div>
         </div>

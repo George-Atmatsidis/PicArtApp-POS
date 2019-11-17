@@ -19,7 +19,6 @@ public class UserDTO {
     @NotEmpty(message = "*La contraseña no puede estar vacía.")
     private String password;
 
-    @NotEmpty(message = "*Verifique su contraseña.")
     private String confirmPassword;
 
     @NotEmpty(message = "*Especificar nombre.")

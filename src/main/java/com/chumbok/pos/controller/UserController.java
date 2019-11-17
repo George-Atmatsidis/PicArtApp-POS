@@ -24,25 +24,28 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path = "/users", method = RequestMethod.GET)
-    public ModelAndView showUsers(@RequestParam(required = false) Long userId, @Valid User user) throws Exception {
+    @RequestMapping(path = "/users/makeModify", method = RequestMethod.GET)
+    public ModelAndView showUsers(@RequestParam(required = false) Long userId) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
 
         if (userId != null) {
-            //TODO add the rest of this mf code | wait, i think it IS all the code needed
-            // somebody please check if we need something else
-            modelAndView.addObject("user", userService.getUser(userId));
+            User user = userService.getUser(userId);
+            UserDTO userDTO = new UserDTO();
+            userDTO.setEmail(user.getEmail());
+            userDTO.setFirstName(user.getFirstName());
+            userDTO.setLastName(user.getLastName());
+            userDTO.setPassword(user.getPassword());
+            userDTO.setConfirmPassword(user.getPassword());
+            modelAndView.addObject("userDTO", userDTO);
         } else {
-            modelAndView.addObject("user", new User());
-            userService.updateUser(user);
             modelAndView.addObject("userDTO", new UserDTO());
         }
 
-        modelAndView.setViewName("user");
+        modelAndView.setViewName("registration");
         return modelAndView;
     }
 
-    @RequestMapping(path = "/users", method = RequestMethod.POST)
+    @RequestMapping(path = "/users/createModify", method = RequestMethod.POST)
     public ModelAndView createUpdateUser(@RequestParam(value = "id", required = false) Long id, @Valid UserDTO userDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         if (id == null) {
@@ -50,13 +53,13 @@ public class UserController {
                 userService.makeUser(userDTO); //saves the user as a real user
             }
             modelAndView.addObject("successMessage", "El usuario se ha registrado exitosamente.");
-            modelAndView.addObject("user", new UserDTO());
-            modelAndView.setViewName("user");
+            modelAndView.addObject("userDTO", new UserDTO());
+            modelAndView.setViewName("registration");
         } else if (id != null) {
             userService.updateUser(userDTO, id); //sends userDTO for validation and id
             modelAndView.addObject("successMessage", "Usuario modificado correctamente.");
-            modelAndView.addObject("user", userDTO);
-            modelAndView.setViewName("user");
+            modelAndView.addObject("userDTO", userDTO);
+            modelAndView.setViewName("registration");
         }
         return modelAndView;
     }

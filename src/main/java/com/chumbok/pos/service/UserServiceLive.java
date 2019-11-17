@@ -99,6 +99,11 @@ public class UserServiceLive implements UserService {
             //manage to send something that doesn't make sense.
             Role userRole = roleRepository.findByRole("USER"); //sets role as user
         }
+        if (userById.getPassword().equals(userDTO.getPassword())) { //la contraseña no ha cambiado
+            //así que no se altera
+        } else { //la contraseña ha cambiado
+            userById.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+        }
     }
 
     /**
