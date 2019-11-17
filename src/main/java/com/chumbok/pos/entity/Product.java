@@ -1,13 +1,8 @@
 package com.chumbok.pos.entity;
 
-import lombok.Builder;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Product")
@@ -24,10 +19,8 @@ public class Product {
     private String brand;
     private boolean disabled;//Determinar si el producto se puede vender o no.
     private String description;
-    @Min(value = 0)
-    private BigDecimal weight; //precio de venta
-    //@Column(unique = true)
-    private BigDecimal barcode; //Precio de renta
+    private double weight; //precio de venta
+    private double barcode; //Precio de renta
     private long quantity;
 
     public Long getId() {
@@ -51,16 +44,16 @@ public class Product {
         return vendor;
     }
 
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
     public boolean isDisabled() {
         return disabled;
     }
 
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
-    }
-
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
     }
 
     public String getCatagory() {
@@ -87,19 +80,19 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(BigDecimal weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public BigDecimal getBarcode() {
+    public double getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(BigDecimal barcode) {
+    public void setBarcode(double barcode) {
         this.barcode = barcode;
     }
 

@@ -13,90 +13,74 @@
 
 <div layout:fragment="content">
     <p> </p>
-    <!-- Marketing messaging and featurettes
- ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
-        <!-- START THE FEATURETTES -->
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <form autocomplete="off" action="#" th:action="@{/product}"
-                          th:object="${product}" method="post" class="form-horizontal"
-                          role="form">
+                    <form action="#" autocomplete="off" class="form-horizontal" method="post" role="form"
+                          th:action="@{/product}" th:object="${productDTO}">
                         <h2>Agregar producto</h2>
-                        <!--<div class="form-group">
-                            <div class="col-sm-9">
-                                <label th:if="${#fields.hasErrors('id')}" th:errors="*{id}"
-                                       class="validation-message"></label>
-                                <input type="text" th:field="*{id}" placeholder="ID"
-                                       class="form-control"/>
-                            </div>
-                        </div>-->
                         <input type="hidden" th:field="*{id}" class="form-control"/>
-
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input placeholder="Nombre" th:field="*{displayName}" type="text"
-                                       class="form-control"/> <label
-                                    th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"
-                                    class="validation-message"></label>
+                                <input class="form-control" placeholder="Nombre" th:field="*{displayName}" type="text"/>
+                                <label class="validation-message" th:errors="*{displayName}"
+                                       th:if="${#fields.hasErrors('displayName')}"></label>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <label th:if="${#fields.hasErrors('vendor')}" th:errors="*{vendor}"
-                                       class="validation-message"></label>
-                                <input type="text" th:field="*{vendor}"
-                                       class="form-control" placeholder="Marca"/>
+                                <label class="validation-message" th:errors="*{vendor}"
+                                       th:if="${#fields.hasErrors('vendor')}"></label>
+                                <input class="form-control" placeholder="Marca" th:field="*{vendor}" type="text"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <!-- <input type="text" th:field="*{catagory}"
-                                        class="form-control" placeholder="Categoria"/> <label
-                                     th:if="${#fields.hasErrors('catagory')}" th:errors="*{catagory}"
-                                     class="validation-message"></label>
-                                 -->
-                                <input class="form-control" placeholder="Categoria"
-                                       th:field="*{catagory}" type="hidden"/>
-                                <select name="select">
-                                    <option value="lol">Categorias</option>
-                                    <option value="value2">Placas</option>
-                                    <option value="value3">Sensores</option>
-                                    <option value="value3">Actuadores</option>
-                                    <option value="value3">Cables</option>
-                                </select>
+                                <input class="form-control" placeholder="Categoria" th:field="*{catagory}"
+                                       type="hidden"/>
+                                <label> Categoría
+                                    <select name="select">
+                                        <option value="lol">Categorias</option>
+                                        <option value="Placas">Placas</option>
+                                        <option value="Sensores">Sensores</option>
+                                        <option value="Actuadores">Actuadores</option>
+                                        <option value="Cables">Cables</option>
+                                    </select>
+                                </label>
                             </div>
                         </div>
 
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{description}"
-                                       class="form-control" placeholder="Descripción"/> <label
-                                    th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
-                                    class="validation-message"></label>
+                                <input class="form-control" placeholder="Descripción" th:field="*{description}"
+                                       type="text"/>
+                                <label class="validation-message" th:errors="*{description}"
+                                       th:if="${#fields.hasErrors('description')}"></label>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{weight}"
-                                       class="form-control" placeholder="Precio venta"/> <label
-                                    th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
-                                    class="validation-message"></label>
+                                <label>
+                                    <input class="form-control" placeholder="Precio venta" th:field="*{salesPrice}"
+                                           type="text"/>
+                                </label>
+                                <label class="validation-message" th:errors="*{salesPrice}"
+                                       th:if="${#fields.hasErrors('salesPrice')}"></label>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{barcode}"
-                                       class="form-control" placeholder="Precio renta"/> <label
-                                    th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}"
-                                    class="validation-message"></label>
+                                <input class="form-control" placeholder="Precio renta" th:field="*{rentPrice}"
+                                       type="text"/>
+                                <label class="validation-message" th:errors="*{rentPrice}"
+                                       th:if="${#fields.hasErrors('rentPrice')}"></label>
                             </div>
                         </div>
 
@@ -105,16 +89,12 @@
                                 <button type="submit" class="btn btn-primary btn-block">Agregar producto</button>
                             </div>
                         </div>
-
                         <span th:utext="${successMessage}"></span>
-
-
                     </form>
                 </div>
             </div>
         </div>
         <hr class="featurette-divider"/>
-        <!-- /END THE FEATURETTES -->
     </div><!-- /.container -->
 </div>
 </body>

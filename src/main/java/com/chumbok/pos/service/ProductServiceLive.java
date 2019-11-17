@@ -18,20 +18,14 @@ import java.util.List;
 @Service
 public class ProductServiceLive implements ProductService {
 
+    //final private List<Product> books = Product.buildProducts();
+
     @Autowired
     private ProductRepository productRepository;
-
-
-
 
     @Override
     public Product getProduct(long productId) {
         return productRepository.findOne(productId);
-    }
-
-    @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
     }
 
 
@@ -42,18 +36,10 @@ public class ProductServiceLive implements ProductService {
 return product;
     }*/
 
-   public Page<Product> findAllByPage(Pageable pageable){
-       Page<Product> products =  productRepository.findAll(pageable);
-       return products;
-    }
-
    @Override
     public Page<ProductWithStockQuantity> findProductWithStockQuantityByPage(Pageable pageable) {
-
        List<ProductWithStockQuantity> list= productRepository.productStock();
-
         Page<ProductWithStockQuantity> pageProductListWithStockQuantity  = new PageImpl<>(list);
-
         return pageProductListWithStockQuantity;
     }
 
@@ -62,6 +48,16 @@ return product;
         List<ProductWithStockQuantity> list = productRepository.productHavingStock(); //Gets a list of products that have stock
         Page<ProductWithStockQuantity> pageProductListWithStockQuantity = new PageImpl<>(list); //Adds said list to the page
         return pageProductListWithStockQuantity; //returns said fucking page
+    }
+
+    @Override
+    public Page<Product> findPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Product> listOfProducts;
+
+        return null;
     }
 
 

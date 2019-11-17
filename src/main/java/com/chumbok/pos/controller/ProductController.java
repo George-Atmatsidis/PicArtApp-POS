@@ -30,11 +30,19 @@ public class ProductController {
     @RequestMapping(path = "/product", method = RequestMethod.GET)
     public ModelAndView showAddProductForm(@RequestParam(required = false) Long id) {
         ModelAndView modelAndView = new ModelAndView();
-
         if (id != null) {
-            modelAndView.addObject("product", productService.getProduct(id));
+            Product product = productService.getProduct(id);
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setId(id);
+            productDTO.setCatagory(product.getCatagory());
+            productDTO.setDescription(product.getDescription());
+            productDTO.setDisplayName(product.getDisplayName());
+            productDTO.setRentPrice(product.getBarcode());
+            productDTO.setSalesPrice(product.getWeight());
+            productDTO.setVendor(product.getVendor());
+            modelAndView.addObject("productDTO", productDTO);
         } else {
-            modelAndView.addObject("product", new Product());
+            modelAndView.addObject("productDTO", new ProductDTO());
         }
 
         modelAndView.setViewName("product");
@@ -45,7 +53,6 @@ public class ProductController {
     @RequestMapping(path = "/product", method = RequestMethod.POST)
     public ModelAndView createUpdateProduct(@RequestParam(value = "id", required = false) Long id, @Valid ProductDTO productDTO) {
         ModelAndView modelAndView = new ModelAndView();
-
         if(id==null){
             productService.createProduct(productDTO);
             modelAndView.addObject("successMessage", "El material se ha registrado exitosamente.");
@@ -55,7 +62,6 @@ public class ProductController {
         }else if (id!=null){
             productService.updateProduct(productDTO, id);
             modelAndView.addObject("successMessage", "Material actualizado correctamente.");
-
             modelAndView.addObject("productDTO", productDTO);
             modelAndView.setViewName("product");
         }

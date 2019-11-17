@@ -1,7 +1,5 @@
 package com.chumbok.pos.dto;
 
-import java.math.BigDecimal;
-
 public class ProductWithStockQuantity {
     private Long id;
     private String displayName;
@@ -9,11 +7,11 @@ public class ProductWithStockQuantity {
     private String catagory;
     private String brand;
     private String description;
-    private BigDecimal weight;
-    private BigDecimal barcode;
+    private double weight;
+    private double barcode;
     private Long quantiyInStock;
 
-    public ProductWithStockQuantity(Long id, String displayName, String vendor, String catagory, String brand, String description, BigDecimal weight, BigDecimal barcode, Long quantiyInStock) {
+    public ProductWithStockQuantity(Long id, String displayName, String vendor, String catagory, String brand, String description, double weight, double barcode, Long quantiyInStock) {
         this.id = id;
         this.displayName = displayName;
         this.vendor = vendor;
@@ -73,19 +71,19 @@ public class ProductWithStockQuantity {
         this.description = description;
     }
 
-    public BigDecimal getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(BigDecimal weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public BigDecimal getBarcode() {
+    public double getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(BigDecimal barcode) {
+    public void setBarcode(double barcode) {
         this.barcode = barcode;
     }
 

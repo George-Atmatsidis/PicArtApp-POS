@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getAllProducts();
 
     Product getProduct(long productId);
 
@@ -23,9 +22,10 @@ public interface ProductService {
 
     List<Product> searchProduct(String displayName);
 
-    Page<Product> findAllByPage(Pageable pageable);
-
     Page<ProductWithStockQuantity> findProductWithStockQuantityByPage(Pageable pageable);
 
     Page<ProductWithStockQuantity> findProductWithStockQuantityByPageGraterThanZero(Pageable pageable);
+
+    //Here goes nothing
+    Page<Product> findPaginated(Pageable pageable);
 }
