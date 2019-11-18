@@ -1,7 +1,6 @@
 package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.CustomerDTO;
-import com.chumbok.pos.entity.Customer;
 import com.chumbok.pos.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +35,7 @@ public class CustomerController {
     public ModelAndView createNewUser(@Valid CustomerDTO customerDTO, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         customerService.createCustomer(customerDTO); //customer service is gonna create this customer for me
+        modelAndView.addObject("successMessage", "Cliente registrado exitosamente.");
         modelAndView.addObject("customerDTO", new CustomerDTO());
         modelAndView.setViewName("registrationClient");
         return modelAndView;

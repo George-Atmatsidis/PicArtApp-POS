@@ -12,7 +12,6 @@ public class CustomerDTO {
     @NotEmpty(message = "Inserte correctamente el apellido.")
     private String lastName;
 
-    @NotEmpty(message = "Verifique el número de teléfono.")
     private long phoneNumber;
 
     @Email(message = "Favor de verificar el email.")
@@ -22,13 +21,8 @@ public class CustomerDTO {
     @NotEmpty(message = "La CURP no puede estar vacía.")
     private String curp;
 
-    //I guess Facebook can be empty
-    private String facebook;
-
     private String nameAval;
 
-    @NotEmpty(message = "Se necesita especificar el teléfono de un aval.")
-    @Min(value = 7, message = "El teléfono debe contener al menos 7 caracteres.")
     private long avalPhone;
 
     public CustomerDTO() {
@@ -72,14 +66,6 @@ public class CustomerDTO {
 
     public void setCurp(String curp) {
         this.curp = curp;
-    }
-
-    public String getFacebook() {
-        return facebook;
-    }
-
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
     }
 
     public String getNameAval() {
