@@ -52,16 +52,15 @@ public class ProductController {
     }
 
     @RequestMapping(path = "/product", method = RequestMethod.POST)
-    public ModelAndView createUpdateProduct(@RequestParam(value = "id", required = false) Long id, @Valid ProductDTO productDTO) {
+    public ModelAndView createUpdateProduct(@Valid ProductDTO productDTO) {
         ModelAndView modelAndView = new ModelAndView();
-        if(id==null){
+        if (productDTO.getId() < 0) {
             productService.createProduct(productDTO);
             modelAndView.addObject("successMessage", "El material se ha registrado exitosamente.");
-            //TODO > add product DTO and set disabled = false on creation of that shit
             modelAndView.addObject("productDTO", new ProductDTO());
             modelAndView.setViewName("product");
-        }else if (id!=null){
-            productService.updateProduct(productDTO, id);
+        } else {
+            productService.updateProduct(productDTO);
             modelAndView.addObject("successMessage", "Material actualizado correctamente.");
             modelAndView.addObject("productDTO", productDTO);
             modelAndView.setViewName("product");

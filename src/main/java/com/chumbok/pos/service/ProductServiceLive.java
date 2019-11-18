@@ -94,11 +94,10 @@ return product;
     /**
      * Método que implementa la venta con base en los valores obtenidos del usuario
      * @param productDTO with the new data from the user
-     * @param id of the product to update
      */
     @Override
-    public void updateProduct(@Valid ProductDTO productDTO, long id) {
-        Product productById = productRepository.findOne(id);
+    public void updateProduct(@Valid ProductDTO productDTO) {
+        Product productById = productRepository.findOne(productDTO.getId());
         productById.setDisplayName(productDTO.getDisplayName()); //establece el nombre del producto
         productById.setVendor(productDTO.getVendor()); //establece la marca
         productById.setCatagory(productDTO.getCatagory()); //establece la categoría

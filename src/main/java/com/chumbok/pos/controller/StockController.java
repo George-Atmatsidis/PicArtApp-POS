@@ -32,9 +32,8 @@ public class StockController {
     @RequestMapping(path = "/addStock", method = RequestMethod.GET)
     public ModelAndView showAddStockForm(@RequestParam(required = false) Long productId) throws Exception{
         ModelAndView modelAndView = new ModelAndView();
-        Calendar today = Calendar.getInstance();
         StockDTO stockDTO = new StockDTO();
-        stockDTO.setStockEntryDate(today.getTime());
+        stockDTO.setStockEntryDate(Calendar.getInstance().getTime());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (productId != null) {
             stockDTO.setUser(auth.getName());
@@ -90,9 +89,8 @@ public class StockController {
     public ModelAndView showRestStockForm(@RequestParam(required = false) Long productId) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Calendar today = Calendar.getInstance();
         StockDTO stockDTO = new StockDTO();
-        stockDTO.setStockEntryDate(today.getTime());
+        stockDTO.setStockEntryDate(Calendar.getInstance().getTime());
         stockDTO.setUser(auth.getName());
         if (productId != null) {
             stockDTO.setUser(auth.getName());

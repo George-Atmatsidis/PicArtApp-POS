@@ -6,7 +6,7 @@ import javax.validation.constraints.Min;
 
 public class ProductDTO {
 
-    long id;
+    private long id;
 
     @NotEmpty
     private String displayName;
@@ -22,6 +22,7 @@ public class ProductDTO {
     private double rentPrice; //Precio de renta -> barcode
 
     public ProductDTO() {
+        this.id = -1; //start product id as -1
     }
 
     public String getDisplayName() {
