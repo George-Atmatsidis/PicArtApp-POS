@@ -20,7 +20,7 @@ public interface ProductService {
 
     void deleteBulkProduct(List<Long> ids);
 
-    List<Product> searchProduct(String displayName);
+    List<Product> searchProduct(String displayName, Pageable pageable);
 
     Page<ProductWithStockQuantity> findProductWithStockQuantityByPage(Pageable pageable);
 
@@ -28,4 +28,6 @@ public interface ProductService {
 
     //Here goes nothing
     Page<Product> findPaginated(Pageable pageable);
+
+    Page<Product> getPaginatedProducts(Pageable pageable);
 }

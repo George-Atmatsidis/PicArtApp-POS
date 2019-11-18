@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{~/css/style.default.css}" type="text/css"/>
@@ -9,7 +9,7 @@
     <div class="row">
         <h1>Reason: <span th:text="${error}"></span></h1>
     </div>
-    <div class="row"><h4>No tienes permisos suficientes o no está implementado aún.</h4></div>
+    <div class="row"><h4>Algo pasó... Yep.</h4></div>
     <div class="row rowDesign">
         <div class="col-md-4 ml-auto">
             <span class="legend">Fecha: </span>
@@ -29,7 +29,13 @@
         </div>
     </div>
     <div>
-        <img alt="Firs slide" th:src="@{/images/error.gif}"/>  <!--nishi-->
+        <img alt="First slide" th:src="@{/images/error.gif}"/>  <!--holy smokes-->
+    </div>
+    <div>
+        <a class="nav-link" href="/logout" onclick="$('#form').submit();" th:href="@{#}">
+            <span aria-hidden="true" class="glyphicon glyphicon-log-out"></span>&nbsp;Salir
+        </a>
+        <form action="#" id="form" method="post" style="visibility: hidden" th:action="@{/logout}"></form>
     </div>
     <div class="row rowDesign">
         <div class="col-md-4 ml-auto">

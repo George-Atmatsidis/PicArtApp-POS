@@ -32,8 +32,8 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <span>Fecha de venta</span>
-                                <input class="form-control" disabled="disabled" placeholder="07/11/2019"
-                                       th:field="*{salesDate}" type="text"/>
+                                <input class="form-control" disabled="disabled" placeholder="Fecha de venta"
+                                       th:field="*{salesDate}" type="date"/>
                                 <label th:errors="*{salesDate}" th:if="${#fields.hasErrors('salesDate')}"
                                        class="validation-message"></label>
                             </div>

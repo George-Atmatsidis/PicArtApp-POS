@@ -5,6 +5,7 @@ import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Stock;
 import com.chumbok.pos.repository.ProductRepository;
 import com.chumbok.pos.repository.StockRepository;
+import com.chumbok.pos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,9 @@ public class StockServiceLive implements StockService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Override
     public Stock getStock(long stockId) {
@@ -32,23 +36,26 @@ public class StockServiceLive implements StockService {
         return stockRepository.findAll();
     }
 
+    /**
+     * This method creates a stock in both the deprecated way and the new way
+     *
+     * @param stockDTO of the stock modification inserted
+     * @return idk, the stock (?
+     */
     @Override
     public Stock createStock(StockDTO stockDTO) {
-
         Stock stockById = new Stock();
-
         stockById.setPurchasePrice(stockDTO.getPurchasePrice());
         stockById.setSalePrice(stockDTO.getSalePrice());
-
         stockById.setStockEntryDate(stockDTO.getStockEntryDate());
         stockById.setStockExpireDate(stockDTO.getStockExpireDate());
         stockById.setQuantiy(stockDTO.getQuantiy());
-
+        stockById.setUser(userRepository.findByEmail(stockDTO.getUser())); //this makes sure we use the current logged in user
         Product product = productRepository.findOne(stockDTO.getProductId());
-
         stockById.setProduct(product);
-
         stockRepository.save(stockById);
+        //now, let's modify product quantity || we shall get a - or a + from any controller calling, so, it should work
+        product.setQuantity(product.getQuantity() + stockDTO.getQuantiy());
         return stockById;
     }
 

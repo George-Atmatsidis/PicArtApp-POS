@@ -35,48 +35,18 @@ public class UserServiceLive implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    @Override
-    public void saveUser(User user) {
-        //if (userRepository.isExist(user.getEmail())) {
-        //  throw new IllegalArgumentException("El email proporcionado ya está registrado.");
-        //} else {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            user.setActive(1);
-            Role userRole = roleRepository.findByRole("ADMIN");
-            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-            userRepository.save(user);
-        // }
-    }
-
-
-    @Override
-    public void saveNonAdminUser(User user) {
-        //if (userRepository.isExist(user.getEmail())) {
-        //throw new IllegalArgumentException("El email proporcionado ya está registrado.");
-        //} else {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            user.setActive(1);
-            Role userRole = roleRepository.findByRole("USER");
-            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-            userRepository.save(user);
-        // }
-    }
-
 
     @Override
     public void updateUser(User user) {
         User userById = userRepository.findOne(user.getId());
-
         userById.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userById.setEmail(user.getEmail());
         userById.setActive(user.getActive());
         userById.setFirstName(user.getFirstName());
         userById.setLastName(user.getLastName());
         userById.setRoles(user.getRoles());
-        //TODO fix this implementation -> the idea is to just use makeUser ;
         Role userRole = roleRepository.findByRole("" + user.getRoles());
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-
     }
 
     /**
@@ -111,7 +81,6 @@ public class UserServiceLive implements UserService {
      * made, as such, it asumes both passwords match and so on. Sets user's
      * roles as defined. Ciphers user's password and sets it as such.
      * @param userDTO which is the data transfer object for the new user
-     * //@throws Exception in case of invalid role, for now
      */
     @Override
     public void makeUser(UserDTO userDTO) {
@@ -135,7 +104,6 @@ public class UserServiceLive implements UserService {
         user.setEmail(userDTO.getEmail()); //sets email as intended
         user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword())); //ciphers user password and sets it as such
         user.setActive(1); //always set as active when is a new user
-        //TODO : check why the user isn't being saved || holy smokes
         userRepository.save(user); //saves the new user
     }
 

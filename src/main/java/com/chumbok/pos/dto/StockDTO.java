@@ -14,6 +14,8 @@ public class StockDTO {
     private Long productId;
     private BigDecimal purchasePrice;
     private BigDecimal salePrice;
+    private String user;
+    private String productName;
 
     public Date getStockEntryDate() {
         return stockEntryDate;
@@ -61,5 +63,21 @@ public class StockDTO {
 
     public void setSalePrice(BigDecimal salePrice) {
         this.salePrice = salePrice;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

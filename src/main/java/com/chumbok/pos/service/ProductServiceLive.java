@@ -60,6 +60,11 @@ return product;
         return null;
     }
 
+    @Override
+    public Page<Product> getPaginatedProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
 
     /**
      * Crea un producto con base en la información obtenida del usuario. Establece algunas propiedades
@@ -125,7 +130,7 @@ return product;
     }
 
     @Override
-    public List<Product> searchProduct(String displayName) {
-        return  productRepository.findProductsByDisplayName(displayName);
+    public List<Product> searchProduct(String displayName, Pageable pageable) {
+        return productRepository.findProductsByDisplayName(displayName, pageable);
     }
 }

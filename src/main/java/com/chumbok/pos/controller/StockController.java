@@ -6,6 +6,8 @@ import com.chumbok.pos.service.ProductService;
 import com.chumbok.pos.service.StockService;
 import com.chumbok.pos.utility.DateConversion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.Calendar;
 
 @Controller
 public class StockController {
@@ -23,15 +26,23 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
+    @Autowired
+    private ProductService productService;
+
     @RequestMapping(path = "/addStock", method = RequestMethod.GET)
     public ModelAndView showAddStockForm(@RequestParam(required = false) Long productId) throws Exception{
         ModelAndView modelAndView = new ModelAndView();
+        Calendar today = Calendar.getInstance();
+        StockDTO stockDTO = new StockDTO();
+        stockDTO.setStockEntryDate(today.getTime());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (productId != null) {
-            StockDTO stockDTO = new StockDTO();
+            stockDTO.setUser(auth.getName());
             stockDTO.setProductId(productId);
+            stockDTO.setProductName(productService.getProduct(productId).getDisplayName());
             modelAndView.addObject("stockDTO", stockDTO);
         } else {
-            modelAndView.addObject("stockDTO", new StockDTO());
+            modelAndView.addObject("stockDTO", stockDTO);
         }
         modelAndView.setViewName("addStock");
         return modelAndView;
@@ -40,6 +51,9 @@ public class StockController {
     @RequestMapping(path = "/addStock", method = RequestMethod.POST)
     public ModelAndView createUpdateStock(@Valid StockDTO stockDTO) {
         ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        stockDTO.setUser(auth.getName());
+        stockDTO.setQuantiy(Math.abs(stockDTO.getQuantiy())); //in case they send a fucking minus, we don't care
         stockService.createStock(stockDTO);
         modelAndView.addObject("successMessage", "Inventario actualizado correctamente.");
         modelAndView.addObject("stockDTO", new StockDTO());
@@ -75,49 +89,20 @@ public class StockController {
     @RequestMapping(path = "/restStock", method = RequestMethod.GET)
     public ModelAndView showRestStockForm(@RequestParam(required = false) Long productId) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Calendar today = Calendar.getInstance();
+        StockDTO stockDTO = new StockDTO();
+        stockDTO.setStockEntryDate(today.getTime());
+        stockDTO.setUser(auth.getName());
         if (productId != null) {
-            StockDTO stockDTO = new StockDTO();
+            stockDTO.setUser(auth.getName());
             stockDTO.setProductId(productId);
+            stockDTO.setProductName(productService.getProduct(productId).getDisplayName());
             modelAndView.addObject("stockDTO", stockDTO);
         } else {
-            modelAndView.addObject("stockDTO", new StockDTO());
+            modelAndView.addObject("stockDTO", stockDTO);
         }
         modelAndView.setViewName("restStock");
         return modelAndView;
     }
-
-    /*@ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<Stock> getStocks() {
-        List<Stock> list = stockService.getAllStocks();
-        return list;
-    }
-
-    @ResponseStatus(value = HttpStatus.CREATED)
-    @RequestMapping(path = "", method = RequestMethod.POST)
-    public PersistedObjId createStock(@RequestBody @Valid StockDTO stockDTO) {
-
-        Stock stock = stockService.createStock(stockDTO);
-        return new PersistedObjId(stock.getId());
-    }
-
-    @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public Stock getStockById(@PathVariable("id") Integer id) {
-        Stock stock = stockService.getStock(id);
-        return stock;
-    }
-
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    public void updateStock(@PathVariable("id") Long id, @RequestBody @Valid Stock stock) {
-        stock.setId(id);
-        stockService.updateStock(stock);
-    }
-
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void deleteStock(@PathVariable("id") Long id) {
-        stockService.deleteStock(id);
-    }*/
 }

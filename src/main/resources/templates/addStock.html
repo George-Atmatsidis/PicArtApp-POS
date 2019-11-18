@@ -30,7 +30,7 @@
                         <p></p>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{stockEntryDate}"
+                                <input th:field="*{stockEntryDate}" type="date"
                                        placeholder="Fecha de cambio" class="form-control"/> <label
                                     th:if="${#fields.hasErrors('stockEntryDate')}" th:errors="*{stockEntryDate}"
                                     class="validation-message"></label>
@@ -48,23 +48,35 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{quantiy}"
-                                       placeholder="Cantidad" class="form-control"/> <label
-                                    th:if="${#fields.hasErrors('quantiy')}" th:errors="*{quantiy}"
-                                    class="validation-message"></label>
+                                <input class="form-control" disabled="disabled" placeholder="Nombre de producto"
+                                       th:field="*{productName}" type="text"/>
                             </div>
-
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{productId}"
+                                <input class="form-control" disabled="disabled" placeholder="Usuario" th:field="*{user}"
+                                       type="text"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input th:field="*{quantiy}" type="number"
+                                       placeholder="Cantidad" class="form-control"/> <label
+                                    th:if="${#fields.hasErrors('quantiy')}" th:errors="*{quantiy}"
+                                    class="validation-message"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input th:field="*{productId}" type="hidden"
                                        placeholder="Product Id" class="form-control"/> <label
                                     th:if="${#fields.hasErrors('productId')}" th:errors="*{productId}"
                                     class="validation-message"></label>
                             </div>
                         </div>
-
 
                         <div class="form-group">
                             <div class="col-sm-9">
@@ -73,7 +85,6 @@
                         </div>
 
                         <span th:utext="${successMessage}"></span>
-
 
                     </form>
                 </div>

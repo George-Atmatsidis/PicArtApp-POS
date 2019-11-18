@@ -45,23 +45,35 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
+                                <input class="form-control" disabled="disabled" placeholder="Nombre de producto"
+                                       th:field="*{productName}" type="text"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" disabled="disabled" placeholder="Usuario" th:field="*{user}"
+                                       type="text"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
                                 <input class="form-control" placeholder="Cantidad"
-                                       th:field="*{quantiy}" type="text"/> <label
+                                       th:field="*{quantiy}" type="number"/> <label
                                     class="validation-message" th:errors="*{quantiy}"
                                     th:if="${#fields.hasErrors('quantiy')}"></label>
                             </div>
-
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input class="form-control" placeholder="Id de producto"
-                                       th:field="*{productId}" type="text"/> <label
+                                       th:field="*{productId}" type="hidden"/> <label
                                     class="validation-message" th:errors="*{productId}"
                                     th:if="${#fields.hasErrors('productId')}"></label>
                             </div>
                         </div>
-
 
                         <div class="form-group">
                             <div class="col-sm-9">
@@ -70,8 +82,6 @@
                         </div>
 
                         <span th:utext="${successMessage}"></span>
-
-
                     </form>
                 </div>
             </div>

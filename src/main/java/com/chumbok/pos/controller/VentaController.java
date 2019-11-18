@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Calendar;
 
 @Controller
 public class VentaController {
@@ -51,8 +52,10 @@ public class VentaController {
         if (productId != null) {
             VentaDTO ventaDTO = new VentaDTO();
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Calendar today = Calendar.getInstance();
             ventaDTO.setEmail(auth.getName());
             ventaDTO.setIdProduct(productId);
+            ventaDTO.setSalesDate(today.getTime());
             ventaDTO.setDisplayName(productService.getProduct(productId).getDisplayName());
             modelAndView.addObject("ventaDTO", ventaDTO);
         } else {
@@ -72,6 +75,7 @@ public class VentaController {
     @RequestMapping(path = "/addVentas", method = RequestMethod.POST)
     public ModelAndView createUpdateVentas(@Valid VentaDTO ventaDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
+        ventaDTO.setSalesDate(Calendar.getInstance().getTime());
         ventaService.createVenta(ventaDTO);
         modelAndView.addObject("successMessage", "Venta registrada exitosamente.");
         modelAndView.addObject("ventaDTO", ventaDTO);

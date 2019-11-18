@@ -10,11 +10,6 @@ import java.util.List;
 public interface UserService {
     User findUserByEmail(String email);
 
-    void saveUser(User user);
-
-    //I'm sorry, god
-    void saveNonAdminUser(User user);
-
     //What have we done to get this shit
     void updateUser(User user); //TODO deprecate this shit
 
@@ -23,7 +18,7 @@ public interface UserService {
 
     void makeUser(UserDTO userDTO) throws Exception;
 
-    //Aquí se pide el usuario, es un get; pretty straitghforward if you ask me, bro.
+    //Aquí se pide el usuario, es un get; pretty straightforward if you ask me, bro.
     User getUser(long id);
 
     List<User> getAllUsers();
