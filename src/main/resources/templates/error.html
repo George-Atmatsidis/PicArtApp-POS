@@ -32,8 +32,8 @@
         <img alt="First slide" th:src="@{/images/error.gif}"/>  <!--holy smokes-->
     </div>
     <div>
-        <a class="nav-link" href="/logout" onclick="$('#form').submit();" th:href="@{#}">
-            <span aria-hidden="true" class="glyphicon glyphicon-log-out"></span>&nbsp;Salir
+        <a class="nav-link" href="/logout" onclick="history.back();" th:href="@{#}">
+            <span aria-hidden="true" class="glyphicon glyphicon-log-out"></span>&nbsp;Regresar
         </a>
         <form action="#" id="form" method="post" style="visibility: hidden" th:action="@{/logout}"></form>
     </div>

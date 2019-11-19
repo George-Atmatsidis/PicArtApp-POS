@@ -1,13 +1,13 @@
 <!doctype html>
-<html xmlns:th="http:www.thymeleaf.org"
+<html layout:decorator="layouts/main"
       xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
       xmlns="http://www.w3.org/1999/xhtml"
-      layout:decorator="layouts/main">
+      xmlns:th="http:www.thymeleaf.org">
 
 <head>
     <p></p>
     <title>Venta</title>
-    <link rel="stylesheet" href="css/carousel.css" th:href="@{/css/carousel.css}"/>
+    <link href="css/carousel.css" rel="stylesheet" th:href="@{/css/carousel.css}"/>
 
 </head>
 <body onload="myFunction()">
@@ -23,35 +23,62 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <form autocomplete="off" action="#" th:action="@{/addVentas}"
-                          class="form-horizontal" method="post" th:object="${ventaDTO}"
-                          role="form">
+                    <form action="#" autocomplete="off" class="form-horizontal"
+                          method="post" role="form" th:action="@{/addVentas}"
+                          th:object="${ventaDTO}">
                         <p></p>
-                        <br/>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span></span> <!-- Nombre del cliente -->
+                                <input class="form-control" disabled="disabled" th:field="*{customerName}" type="text"/>
+                            </div>
+                        </div>
                         <!--FECHA-->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <span>Fecha de venta</span>
-                                <input class="form-control" disabled="disabled" placeholder="Fecha de venta"
-                                       th:field="*{salesDate}" type="date"/>
-                                <label th:errors="*{salesDate}" th:if="${#fields.hasErrors('salesDate')}"
-                                       class="validation-message"></label>
+                                <span>Fecha de renta</span>
+                                <input class="form-control" disabled="disabled" placeholder="Fecha de renta"
+                                       th:field="*{dateOfRent}" type="date"/>
+                                <label class="validation-message" th:errors="*{dateOfRent}"
+                                       th:if="${#fields.hasErrors('dateOfRent')}"></label>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <span>Atendido por:</span>
+                                <span>Fecha de devolución</span>
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                       th:field="*{dateOfReturn}" type="date"/>
+                                <label class="validation-message" th:errors="*{dateOfReturn}"
+                                       th:if="${#fields.hasErrors('dateOfReturn')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Atendido por:</span> <!-- Correo electrónico del integrante -->
                                 <input class="form-control"
-                                       disabled="disabled" id="email" th:field="*{email}"/> <label
-                                    th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                                    class="validation-message" type="email"></label>
+                                       disabled="disabled" id="userMail" th:field="*{userMail}"/> <label
+                                    class="validation-message" th:errors="*{userMail}"
+                                    th:if="${#fields.hasErrors('userMail')}" type="email"></label>
                             </div>
                         </div>
-                        <!--ID producto -->
+
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <span>Identificador de producto:</span>
-                                <input class="form-control" disabled="disabled" th:field="*{productId}" type="text"/>
+                                <span>Nombre del producto</span>
+                                <input class="form-control" disabled="disabled" th:field="*{productName}" type="text"/>
+                                <label class="validation-message" th:errors="*{productName}"
+                                       th:if="${#fields.hasErrors('productName')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Precio unitario</span>
+                                <!-- La cantidad máxima está definida por los productos en existencia -->
+                                <input class="form-control" disabled="disabled" placeholder="Precio unitario"
+                                       th:field="*{price}" type="number"/>
                             </div>
                         </div>
 
@@ -59,20 +86,23 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <span>Cantidad</span>
+                                <!-- La cantidad máxima está definida por los productos en existencia -->
                                 <input class="form-control" min="1" th:field="*{quantity}" th:max="*{maxQuantity}"
                                        type="number"/>
-                                <label class="validation-message" th:errors="*{quantity}"
-                                       th:if="${#fields.hasErrors('quantity')}"> </label>
                             </div>
                         </div>
-                        <!--NOMBRE -->
+
+                        <!--ID producto -->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <span>Producto</span>
-                                <input class="form-control" th:field="*{displayName}"
-                                       disabled="disabled" type="text"/> <label
-                                    th:errors="*{displayName}" th:if="${#fields.hasErrors('displayName')}"
-                                    class="validation-message"></label>
+                                <input class="form-control" th:field="*{productId}" type="hidden"/>
+                            </div>
+                        </div>
+
+                        <!-- id del cliente -->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="*{customerID}" type="hidden"/>
                             </div>
                         </div>
 
@@ -83,6 +113,7 @@
                         </div>
 
                         <span th:utext="${successMessage}"></span>
+
 
                     </form>
                 </div>

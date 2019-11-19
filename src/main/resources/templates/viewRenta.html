@@ -29,6 +29,11 @@
                         <p></p>
                         <div class="form-group">
                             <div class="col-sm-9">
+                                <input class="form-control" th:field="*{idRenta}"
+                                       type="hidden"/>
+                            </div>
+
+                            <div class="col-sm-9">
                                 <span>Nombre del cliente</span>
                                 <input class="form-control" disabled="disabled" placeholder="Nombre del cliente"
                                        th:field="*{customerName}" type="date"/>

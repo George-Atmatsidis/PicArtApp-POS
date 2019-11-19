@@ -11,7 +11,7 @@ public class ReturnVoucher {
     private long idReturnVoucher;
 
     private Date dateWhenTheReturnWasMade;
-
+    private String comentary;
     @OneToOne
     private Renta renta; //se ancla a la tabla de ventas
 
