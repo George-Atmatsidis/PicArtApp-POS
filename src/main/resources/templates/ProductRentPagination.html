@@ -39,29 +39,28 @@
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <tr class="table-active">
-                            <th>Nombre</th>
-                            <th>Marca</th>
-                            <th>Catagoria</th>
-                            <th>Descripcion</th>
-                            <th>Venta</th>
-                            <th>Renta</th>
-                            <th>Cantidad</th> <!--stock-->
-                            <th align="center" colspan="1">Opción</th>
+                            <th>Detalles</th>
+                            <th>Stock</th>
+                            <th>Acción</th>
                         </tr>
 
                         <tr th:each="product : ${page.content}">
-                            <td th:text="${product.displayName}"></td>
-                            <td th:text="${product.vendor}"></td>
-                            <td th:text="${product.catagory}"></td>
-                            <td th:text="${product.description}"></td>
-                            <td th:text="${product.weight}"></td>
-                            <td th:text="${product.barcode}"></td>
-                            <td th:text="${product.quantiyInStock}"></td> <!--stock-->
+                        <tr>
+                            <td>
+                                <span th:text="${product.displayName}"></span> <br/>
+                                <span>Categoría: </span><span th:text="${product.catagory}"></span> <br/>
+                                <span>$</span><span th:text="${product.barcode}"></span> <br/>
+                                <!--stock-->
+                            </td>
+                            <td>
+                                <span th:text="${product.quantiyInStock}"></span>
+                            </td>
                             <td>
                                 <a class="btn btn-outline-primary" role="button"
                                    th:href="@{'/addRentas?productId=' + ${product.id}}">Rentar</a>
                                 <!-- Holy smokes, it was just one -->
                             </td>
+                        </tr>
                         </tr>
                     </table>
                     <span th:utext="${successMessage}"></span>
