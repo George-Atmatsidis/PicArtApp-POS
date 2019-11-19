@@ -65,7 +65,6 @@ public class RentaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         RentaDTO rentaDTO = new RentaDTO();
         rentaDTO.setDateOfRent("" + Calendar.getInstance().getTime());
-        rentaDTO.setDateOfReturn(Calendar.getInstance().getTime());
         rentaDTO.setUserMail(auth.getName());
         if (productId != null) {
             //establece el cliente a quien se está vendiendo
@@ -93,7 +92,7 @@ public class RentaController {
      * @throws Exception when it doesn't get the correct data
      */
     @RequestMapping(path = "/addRentas", method = RequestMethod.POST)
-    public ModelAndView createUpdateVentas(RentaDTO rentaDTO) throws Exception {
+    public ModelAndView createUpdateVentas(@Valid RentaDTO rentaDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         rentaDTO.setQuantity(Math.abs(rentaDTO.getQuantity())); //ensure that only positive numbers are being inserted
         rentaService.createRenta(rentaDTO);

@@ -2,6 +2,7 @@ package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.ProductWithStockQuantity;
 import com.chumbok.pos.dto.VentaDTO;
+import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.service.ProductService;
 import com.chumbok.pos.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class VentaController {
             //establece la cantidad máxima de este producto que se puede vender
             ventaDTO.setMaxQuantity(productService.getProduct(productId).getQuantity());
             ventaDTO.setEmail(auth.getName());
-            ventaDTO.setIdProduct(productService.getProduct(productId).getId());
+            ventaDTO.setProductId(productService.getProduct(productId).getId());
             ventaDTO.setSalesDate(today.getTime());
             ventaDTO.setDisplayName(productService.getProduct(productId).getDisplayName());
             modelAndView.addObject("ventaDTO", ventaDTO);
@@ -80,6 +81,8 @@ public class VentaController {
         ventaDTO.setQuantity(Math.abs(ventaDTO.getQuantity())); //ensure that only positive numbers are being inserted
         ventaDTO.setSalesDate(Calendar.getInstance().getTime()); //ensures that today's date is when the sale is being made
         ventaService.createVenta(ventaDTO);
+        Product product = productService.getProduct(ventaDTO.getProductId());
+        product.setQuantity(product.getQuantity() - ventaDTO.getQuantity());
         modelAndView.addObject("successMessage", "Venta registrada exitosamente.");
         modelAndView.addObject("ventaDTO", ventaDTO);
         modelAndView.setViewName("addVentas");

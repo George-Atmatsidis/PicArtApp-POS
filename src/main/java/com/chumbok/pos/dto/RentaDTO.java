@@ -1,5 +1,8 @@
 package com.chumbok.pos.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class RentaDTO {
@@ -18,6 +21,7 @@ public class RentaDTO {
 
     private String dateOfRent;
 
+    @DateTimeFormat(pattern = "dd/mm/yyyy")
     private Date dateOfReturn;
 
     private long customerID;

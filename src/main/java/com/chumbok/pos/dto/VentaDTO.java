@@ -1,7 +1,5 @@
 package com.chumbok.pos.dto;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class VentaDTO {
@@ -9,10 +7,8 @@ public class VentaDTO {
 
     private String email;
 
-    private long idProduct;
+    private long productId;
 
-    @NotNull(message = "Por favor, especifique una cantidad")
-    @Min(value = 0, message = "La cantidad debe ser al menos 0.")
     private long quantity;
 
     private long maxQuantity; //I hope we can limit the sale to the products on stock
@@ -39,12 +35,12 @@ public class VentaDTO {
         this.email = email;
     }
 
-    public long getIdProduct() {
-        return idProduct;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setIdProduct(long idProduct) {
-        this.idProduct = idProduct;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
     public long getQuantity() {

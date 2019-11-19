@@ -1,7 +1,6 @@
 package com.chumbok.pos.service;
 
 import com.chumbok.pos.dto.VentaDTO;
-import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Venta;
 import com.chumbok.pos.repository.ProductRepository;
 import com.chumbok.pos.repository.UserRepository;
@@ -37,7 +36,7 @@ public class VentaServiceLive implements VentaService {
     public Venta createVenta(@Valid VentaDTO ventaDTO) {
         //Utilizado para acceder a la fecha de hoy
         Venta venta = new Venta();
-        venta.setProduct(productRepository.findOne(ventaDTO.getIdProduct()));
+        venta.setProduct(productRepository.findOne(ventaDTO.getProductId()));
         venta.setQuantity(ventaDTO.getQuantity());
         venta.setSalesDate(Calendar.getInstance().getTime());
         venta.setUser(userRepository.findByEmail(ventaDTO.getEmail()));
@@ -46,7 +45,8 @@ public class VentaServiceLive implements VentaService {
         //Product product = productRepository.findOne(ventaDTO.getIdProduct());
         //product.setQuantity(product.getQuantity() - ventaDTO.getQuantity());
         //this is a damn trigger made with fucking java -> holy smokes, what have we done ; help
-        productRepository.findOne(ventaDTO.getIdProduct()).setQuantity(productRepository.findOne(ventaDTO.getIdProduct()).getQuantity() - ventaDTO.getQuantity());
+        //productRepository.findOne(venta.getProduct().getId()).setQuantity(productRepository.findOne(venta.getProduct().getId()).getQuantity() - venta.getQuantity());
+        //productRepository.findOne(ventaDTO.getIdProduct()).setQuantity(productRepository.findOne(ventaDTO.getIdProduct()).getQuantity() - ventaDTO.getQuantity());
         return venta;
     }
 }
