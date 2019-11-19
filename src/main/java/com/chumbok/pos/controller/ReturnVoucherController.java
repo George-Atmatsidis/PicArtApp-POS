@@ -3,9 +3,13 @@ package com.chumbok.pos.controller;
 import com.chumbok.pos.dto.RentaDTO;
 import com.chumbok.pos.dto.ReturnVoucherDTO;
 import com.chumbok.pos.entity.Customer;
+import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Renta;
+import com.chumbok.pos.entity.ReturnVoucher;
 import com.chumbok.pos.repository.CustomerRepository;
+import com.chumbok.pos.repository.ProductRepository;
 import com.chumbok.pos.repository.RentaRepository;
+import com.chumbok.pos.repository.ReturnVoucherRepository;
 import com.chumbok.pos.utility.DateConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 @Controller
@@ -27,6 +32,13 @@ public class ReturnVoucherController {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    ReturnVoucherRepository returnVoucherRepository;
+
+    @Autowired
+    ProductRepository productRepository;
+
 
     /**
      * This method is to manage returns of said renta
@@ -72,7 +84,17 @@ public class ReturnVoucherController {
     @RequestMapping(path = "/rent/return", method = RequestMethod.POST)
     public ModelAndView makeReturnOfRenta(ReturnVoucherDTO returnVoucherDTO) {
         ModelAndView modelAndView = new ModelAndView();
-
+        ReturnVoucher returnVoucher = new ReturnVoucher();
+        //sets return date as today
+        returnVoucher.setDateWhenTheReturnWasMade(Calendar.getInstance().getTime());
+        //sets which rent the return is made for
+        returnVoucher.setRenta(rentaRepository.findOne(returnVoucherDTO.getIdRenta()));
+        //sets the commentary
+        returnVoucher.setComentary(returnVoucherDTO.getComments());
+        //guardar la devolución
+        returnVoucherRepository.save(returnVoucher);
+        //establecer la cantidad en stock
+        Product product = productRepository.findOne(returnVoucher.getRenta().getProduct().getId());
         return modelAndView;
     }
 }

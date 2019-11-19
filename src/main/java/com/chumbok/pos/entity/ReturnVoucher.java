@@ -11,7 +11,9 @@ public class ReturnVoucher {
     private long idReturnVoucher;
 
     private Date dateWhenTheReturnWasMade;
+
     private String comentary;
+
     @OneToOne
     private Renta renta; //se ancla a la tabla de ventas
 
@@ -32,6 +34,14 @@ public class ReturnVoucher {
 
     public void setDateWhenTheReturnWasMade(Date dateWhenTheReturnWasMade) {
         this.dateWhenTheReturnWasMade = dateWhenTheReturnWasMade;
+    }
+
+    public String getComentary() {
+        return comentary;
+    }
+
+    public void setComentary(String comentary) {
+        this.comentary = comentary;
     }
 
     public Renta getRenta() {
