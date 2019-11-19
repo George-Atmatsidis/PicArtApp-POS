@@ -29,8 +29,13 @@
                         <p></p>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <span>Cliente</span> <!-- Nombre del cliente -->
-                                <input class="form-control" disabled="disabled" th:field="*{customerName}" type="text"/>
+                                <!-- Nombre del cliente -->
+                                <select class="form-control" th:field="*{customerID}">
+                                    <span>Cliente</span>
+                                    <option th:each="customer : ${customerList}"
+                                            th:text="${customer.firstName + ' ' + customer.lastName}"
+                                            th:value="${customer.id}"></option>
+                                </select>
                             </div>
                         </div>
                         <!--FECHA-->
@@ -96,13 +101,6 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input class="form-control" th:field="*{productId}" type="hidden"/>
-                            </div>
-                        </div>
-
-                        <!-- id del cliente -->
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <input class="form-control" th:field="*{customerID}" type="hidden"/>
                             </div>
                         </div>
 

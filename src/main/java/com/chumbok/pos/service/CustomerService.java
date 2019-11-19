@@ -3,6 +3,8 @@ package com.chumbok.pos.service;
 import com.chumbok.pos.dto.CustomerDTO;
 import com.chumbok.pos.entity.Customer;
 
+import java.util.List;
+
 public interface CustomerService {
     Customer findById(long id);
 
@@ -13,5 +15,7 @@ public interface CustomerService {
     String getFullName(long id);
 
     Customer createCustomer(CustomerDTO customerDTO);
+
+    List<Customer> findAll();
 
 }

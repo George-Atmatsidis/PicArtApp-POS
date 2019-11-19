@@ -70,8 +70,9 @@ public class ProductController {
     }
 
     /**
-     * @param page
-     * @return
+     * Gets products paginated in pages
+     * @param page to get (1, 2, 3, etc)
+     * @return said page filled with products, 5 in each
      */
     @RequestMapping(value = "/productsByPage/page/{page}")
     public ModelAndView listProductsByPage(@PathVariable("page") int page) {
