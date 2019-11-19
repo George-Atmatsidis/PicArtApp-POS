@@ -8,6 +8,8 @@ import com.chumbok.pos.repository.CustomerRepository;
 import com.chumbok.pos.repository.RentaRepository;
 import com.chumbok.pos.utility.DateConversion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,9 +59,20 @@ public class ReturnVoucherController {
             } else { //si la fecha de devolución es menor o igual a hoy, es una devolución válida
                 returnVoucherDTO.setStatus("Devolución válida.");
             }
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            returnVoucherDTO.setUserMakingTheReturn(auth.getName());
+            returnVoucherDTO.setUserWhoMadeTheRent(rentaARevisar.getUser().getEmail());
+            returnVoucherDTO.setTotalPrice(rentaARevisar.getPrice());
             modelAndView.addObject("returnVoucherDTO", returnVoucherDTO);
         }
-        modelAndView.setViewName("returnVoucher");
+        modelAndView.setViewName("viewRenta");
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/rent/return", method = RequestMethod.POST)
+    public ModelAndView makeReturnOfRenta(ReturnVoucherDTO returnVoucherDTO) {
+        ModelAndView modelAndView = new ModelAndView();
+
         return modelAndView;
     }
 }

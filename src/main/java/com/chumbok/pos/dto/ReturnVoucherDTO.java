@@ -2,6 +2,8 @@ package com.chumbok.pos.dto;
 
 public class ReturnVoucherDTO {
 
+    private long idRenta;
+
     private String customerName;
 
     private String dateOfRent;
@@ -12,7 +14,15 @@ public class ReturnVoucherDTO {
 
     private String productName;
 
+    private String userMakingTheReturn;
+
+    private String userWhoMadeTheRent;
+
     private int quantity;
+
+    private String comments;
+
+    private double totalPrice;
 
     public ReturnVoucherDTO() {
     }
@@ -63,5 +73,45 @@ public class ReturnVoucherDTO {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getUserMakingTheReturn() {
+        return userMakingTheReturn;
+    }
+
+    public void setUserMakingTheReturn(String userMakingTheReturn) {
+        this.userMakingTheReturn = userMakingTheReturn;
+    }
+
+    public String getUserWhoMadeTheRent() {
+        return userWhoMadeTheRent;
+    }
+
+    public void setUserWhoMadeTheRent(String userWhoMadeTheRent) {
+        this.userWhoMadeTheRent = userWhoMadeTheRent;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public long getIdRenta() {
+        return idRenta;
+    }
+
+    public void setIdRenta(long idRenta) {
+        this.idRenta = idRenta;
     }
 }
