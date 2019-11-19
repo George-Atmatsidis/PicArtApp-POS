@@ -1,7 +1,7 @@
 <!doctype html>
 <html layout:decorator="layouts/main"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       xmlns:th="http:www.thymeleaf.org">
 
 <head>
@@ -27,68 +27,88 @@
                           method="post" role="form" th:action="@{/addRentas}"
                           th:object="${rentaDTO}">
                         <p></p>
-                        <br/>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Cliente</span> <!-- Nombre del cliente -->
+                                <input class="form-control" disabled="disabled" th:field="*{customerName}" type="text"/>
+                            </div>
+                        </div>
                         <!--FECHA-->
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <span>Fecha de renta</span>
-                                <input class="form-control" disabled="disabled" placeholder="07/11/2019"
-                                       th:field="*{salesDate}" type="text" value="07/11/2019"/>
-                                <label class="validation-message" th:errors="*{salesDate}"
-                                       th:if="${#fields.hasErrors('salesDate')}"></label>
+                                <input class="form-control" disabled="disabled" placeholder="Fecha de renta"
+                                       th:field="*{dateOfRent}" type="date"/>
+                                <label class="validation-message" th:errors="*{dateOfRent}"
+                                       th:if="${#fields.hasErrors('dateOfRent')}"></label>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <span>Atendido por:</span>
+                                <span>Fecha de devolución</span>
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                       th:field="*{dateOfReturn}" type="date"/>
+                                <label class="validation-message" th:errors="*{dateOfReturn}"
+                                       th:if="${#fields.hasErrors('dateOfReturn')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Atendido por:</span> <!-- Correo electrónico del integrante -->
                                 <input class="form-control"
-                                       disabled="disabled" id="email" th:field="*{email}"/> <label
-                                    class="validation-message" th:errors="*{email}"
-                                    th:if="${#fields.hasErrors('email')}" type="email"></label>
+                                       disabled="disabled" id="userMail" th:field="*{userMail}"/> <label
+                                    class="validation-message" th:errors="*{userMail}"
+                                    th:if="${#fields.hasErrors('userMail')}" type="email"></label>
                             </div>
                         </div>
-                        <!-- <div sec:authorize="isAuthenticated()"></div>
-                         <span class="text-white" sec:authentication="name"></span>-->
-                        <!--ID producto -->
+
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input class="form-control" th:field="*{idProduct}"
-                                       type="hidden"/>
+                                <span>Nombre del producto</span>
+                                <input class="form-control" disabled="disabled" th:field="*{productName}" type="text"/>
+                                <label class="validation-message" th:errors="*{productName}"
+                                       th:if="${#fields.hasErrors('productName')}"></label>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <span>Rentado por:</span>
-                                <input class="form-control" disabled="disabled"
-                                       th:field="*{displayName}" type="text"/> <label
-                                    class="validation-message" th:errors="*{displayName}"
-                                    th:if="${#fields.hasErrors('displayName')}"></label>
+                                <span>Precio unitario</span>
+                                <!-- La cantidad máxima está definida por los productos en existencia -->
+                                <input class="form-control" disabled="disabled" placeholder="Precio unitario"
+                                       th:field="*{price}" type="number"/>
                             </div>
                         </div>
+
                         <!--Cantidad -->
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <span>Cantidad</span>
-                                <input class="form-control" min="1" th:field="*{quantity}" type="text"/>
-                                <label class="validation-message" th:errors="*{quantity}"
-                                       th:if="${#fields.hasErrors('quantity')}"> </label>
-                            </div>
-                        </div>
-                        <!--NOMBRE -->
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <span>Nombre</span>
-                                <input class="form-control" disabled="disabled"
-                                       th:field="*{displayName}" type="text"/> <label
-                                    class="validation-message" th:errors="*{displayName}"
-                                    th:if="${#fields.hasErrors('displayName')}"></label>
+                                <!-- La cantidad máxima está definida por los productos en existencia -->
+                                <input class="form-control" min="1" th:field="*{quantity}" th:max="*{maxQuantity}"
+                                       type="number"/>
                             </div>
                         </div>
 
+                        <!--ID producto -->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="*{productId}" type="hidden"/>
+                            </div>
+                        </div>
+
+                        <!-- id del cliente -->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="*{customerID}" type="hidden"/>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <button class="btn btn-primary btn-block" type="submit">Rentar</button>
+                                <button class="btn btn-primary btn-block" type="submit">Confirmar</button>
                             </div>
                         </div>
 
@@ -99,17 +119,7 @@
                 </div>
             </div>
         </div>
-        <script>
-            authorize = "isAuthenticated()"
-            var perro = authentication = "name";
-
-            function myFunction() {
-                document.getElementById("email").placeholder = "xtrs84zk@gmail.com";
-                document.getElementById("email").value = "xtrs84zk@gmail.com";
-            }
-        </script>
         <hr class="featurette-divider"/>
-        <div sec:authorize="isAuthenticated()"></div>
         <!-- /END THE FEATURETTES -->
     </div><!-- /.container -->
 </div>

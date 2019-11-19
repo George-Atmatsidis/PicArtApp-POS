@@ -10,19 +10,19 @@ import java.util.Date;
 public class Venta {
     @Id
     @GeneratedValue
-    long idVenta;
+    private long idVenta;
 
     @NotNull
-    Date salesDate;
+    private Date salesDate;
 
     @ManyToOne
-    User user;
+    private User user;
 
     @ManyToOne
-    Product product;
+    private Product product;
 
     @NotNull
-    int quantity;
+    private long quantity;
 
     public Venta() {
     }
@@ -44,11 +44,11 @@ public class Venta {
         this.product = product;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 

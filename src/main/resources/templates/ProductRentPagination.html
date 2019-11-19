@@ -46,7 +46,7 @@
                             <th>Venta</th>
                             <th>Renta</th>
                             <th>Cantidad</th> <!--stock-->
-                            <th align="center" colspan="3">Selecciona una Accion</th>
+                            <th align="center" colspan="1">Opción</th>
                         </tr>
 
                         <tr th:each="product : ${page.content}">
@@ -57,20 +57,10 @@
                             <td th:text="${product.weight}"></td>
                             <td th:text="${product.barcode}"></td>
                             <td th:text="${product.quantiyInStock}"></td> <!--stock-->
-                            <!--   <td>
-                                   <form th:action="@{/products/doDelete}" method="post">
-                                       <input type="hidden" th:name="id" th:value="${product.id}"/>
-                                       <button class="btn btn-outline-primary" type="submit">Borrar</button>
-                                   </form>
-                               </td>
-                               -->
-                            <!--  <td>
-                                  <a class="btn btn-outline-primary" th:href="@{'/product?id=' + ${product.id}}"
-                                     role="button">Editar</a>
-                              </td> -->
                             <td>
                                 <a class="btn btn-outline-primary" role="button"
-                                   th:href="@{'/addVentas?productId=' + ${product.id}}">Rentar</a>
+                                   th:href="@{'/addRentas?productId=' + ${product.id}}">Rentar</a>
+                                <!-- Holy smokes, it was just one -->
                             </td>
                         </tr>
                     </table>

@@ -1,6 +1,7 @@
 package com.chumbok.pos.service;
 
 import com.chumbok.pos.dto.VentaDTO;
+import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Venta;
 import com.chumbok.pos.repository.ProductRepository;
 import com.chumbok.pos.repository.UserRepository;
@@ -35,13 +36,17 @@ public class VentaServiceLive implements VentaService {
     @Override
     public Venta createVenta(@Valid VentaDTO ventaDTO) {
         //Utilizado para acceder a la fecha de hoy
-        Calendar today = Calendar.getInstance();
         Venta venta = new Venta();
         venta.setProduct(productRepository.findOne(ventaDTO.getIdProduct()));
         venta.setQuantity(ventaDTO.getQuantity());
-        venta.setSalesDate(today.getTime());
+        venta.setSalesDate(Calendar.getInstance().getTime());
         venta.setUser(userRepository.findByEmail(ventaDTO.getEmail()));
         ventaRepository.save(venta);
+        //this is another mf trigger in Java, holy smokes
+        //Product product = productRepository.findOne(ventaDTO.getIdProduct());
+        //product.setQuantity(product.getQuantity() - ventaDTO.getQuantity());
+        //this is a damn trigger made with fucking java -> holy smokes, what have we done ; help
+        productRepository.findOne(ventaDTO.getIdProduct()).setQuantity(productRepository.findOne(ventaDTO.getIdProduct()).getQuantity() - ventaDTO.getQuantity());
         return venta;
     }
 }

@@ -21,7 +21,7 @@ public class Renta {
 
     private int quantity;
 
-    private int price;
+    private double price;
 
     private Date dateOfRent;
 
@@ -64,12 +64,20 @@ public class Renta {
         this.quantity = quantity;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Date getDateOfRent() {

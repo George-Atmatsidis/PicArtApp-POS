@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+
 @Transactional
 @Service
 public class RentaServiceLive implements RentaService {
@@ -33,9 +35,9 @@ public class RentaServiceLive implements RentaService {
     @Override
     public void createRenta(RentaDTO rentaDTO) throws Exception {
         Renta renta = new Renta();
-        renta.setPrice(rentaDTO.getPrice());
-        renta.setDateOfRent(DateConversion.stringToDate(rentaDTO.getDateOfRent())); //throws an exception when it gets a date not correctly formatted
-        renta.setDateOfReturn(DateConversion.stringToDate(rentaDTO.getDateOfReturn())); //throws an exception when it gets a date not correctly formatted
+        renta.setPrice(rentaDTO.getPrice() * rentaDTO.getQuantity()); //establece el precio de la renta acorde a cuántos productos se vendieron
+        renta.setDateOfRent(Calendar.getInstance().getTime()); //throws an exception when it gets a date not correctly formatted
+        renta.setDateOfReturn(rentaDTO.getDateOfReturn()); //throws an exception when it gets a date not correctly formatted, i hope
         renta.setProduct(productRepository.findOne(rentaDTO.getProductId())); //search for a product to add to this renta
         renta.setUser(userRepository.findByEmail(rentaDTO.getUserMail())); //search for a user with said email
         renta.setPrice(rentaDTO.getPrice()); //sets the price of said renta

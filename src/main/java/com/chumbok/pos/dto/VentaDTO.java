@@ -1,10 +1,5 @@
 package com.chumbok.pos.dto;
 
-import com.chumbok.pos.entity.Product;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -18,7 +13,9 @@ public class VentaDTO {
 
     @NotNull(message = "Por favor, especifique una cantidad")
     @Min(value = 0, message = "La cantidad debe ser al menos 0.")
-    private int quantity;
+    private long quantity;
+
+    private long maxQuantity; //I hope we can limit the sale to the products on stock
 
     //nombre del producto //help
     private String displayName;
@@ -50,12 +47,20 @@ public class VentaDTO {
         this.idProduct = idProduct;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
+    }
+
+    public long getMaxQuantity() {
+        return maxQuantity;
+    }
+
+    public void setMaxQuantity(long maxQuantity) {
+        this.maxQuantity = maxQuantity;
     }
 
     public String getDisplayName() {

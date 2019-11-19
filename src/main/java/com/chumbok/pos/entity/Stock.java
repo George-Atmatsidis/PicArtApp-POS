@@ -17,10 +17,10 @@ public class Stock {
     //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private String stockExpireDate; // este campo es una descripción, creo
 
-    private BigDecimal purchasePrice;
-    private BigDecimal salePrice;
+    private BigDecimal purchasePrice; //we ignore
+    private BigDecimal salePrice; //both of this shits
 
-    private Long quantiy;
+    private Long quantiy; //the quantity that has been inserted / retired
 
     @ManyToOne
     private Product product;

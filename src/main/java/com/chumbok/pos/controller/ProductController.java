@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,7 +89,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/pageable", method = RequestMethod.GET)
-    public ModelAndView productPageable(Pageable pageable) { //Page<Product>
+    public ModelAndView productPageable(@PageableDefault(size = 5) Pageable pageable) { //Page<Product>
         ModelAndView modelAndView = new ModelAndView();
         Page<ProductWithStockQuantity> pageProductListWithStockQuantity = productService.findProductWithStockQuantityByPage(pageable);
         modelAndView.addObject("page", pageProductListWithStockQuantity);

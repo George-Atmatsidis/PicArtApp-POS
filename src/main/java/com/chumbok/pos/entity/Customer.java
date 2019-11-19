@@ -24,9 +24,6 @@ public class Customer {
     @Column(unique = true) //La curp debe ser única para cada usuario
     private String curp;
 
-    //I guess Facebook can be empty
-    private String facebook;
-
     private String nameAval;
 
     private long avalPhone;
@@ -80,14 +77,6 @@ public class Customer {
 
     public void setCurp(String curp) {
         this.curp = curp;
-    }
-
-    public String getFacebook() {
-        return facebook;
-    }
-
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
     }
 
     public String getNameAval() {

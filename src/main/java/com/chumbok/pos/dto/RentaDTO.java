@@ -1,5 +1,7 @@
 package com.chumbok.pos.dto;
 
+import java.util.Date;
+
 public class RentaDTO {
 
     private long productId;
@@ -12,13 +14,15 @@ public class RentaDTO {
 
     private int quantity;
 
-    private int price;
+    private double price;
 
     private String dateOfRent;
 
-    private String dateOfReturn;
+    private Date dateOfReturn;
 
     private long customerID;
+
+    private long maxQuantity; //here lies the max quantity to be rented
 
     public RentaDTO() {
     }
@@ -43,6 +47,13 @@ public class RentaDTO {
         return userMail;
     }
 
+    public long getMaxQuantity() {
+        return maxQuantity;
+    }
+
+    public void setMaxQuantity(long maxQuantity) {
+        this.maxQuantity = maxQuantity;
+    }
 
     public void setUserMail(String userMail) {
         this.userMail = userMail;
@@ -56,11 +67,11 @@ public class RentaDTO {
         this.quantity = quantity;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -72,11 +83,11 @@ public class RentaDTO {
         this.dateOfRent = dateOfRent;
     }
 
-    public String getDateOfReturn() {
+    public Date getDateOfReturn() {
         return dateOfReturn;
     }
 
-    public void setDateOfReturn(String dateOfReturn) {
+    public void setDateOfReturn(Date dateOfReturn) {
         this.dateOfReturn = dateOfReturn;
     }
 

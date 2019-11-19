@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Calendar;
 
 @Controller
 public class RentaController {
@@ -34,8 +35,6 @@ public class RentaController {
 
     @Autowired
     private UserService userService;
-
-    //TODO add the rest of this mf code, no me puedo concentrar, no sé qué está ocurriendo aquí
 
     /**
      * Controller to get /productRentPagination as a route
@@ -64,10 +63,18 @@ public class RentaController {
     public ModelAndView showAddVentasForm(@RequestParam(required = false) Long productId) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
+        RentaDTO rentaDTO = new RentaDTO();
+        rentaDTO.setDateOfRent("" + Calendar.getInstance().getTime());
+        rentaDTO.setDateOfReturn(Calendar.getInstance().getTime());
+        rentaDTO.setUserMail(auth.getName());
         if (productId != null) {
-            RentaDTO rentaDTO = new RentaDTO();
+            //establece el cliente a quien se está vendiendo
+            rentaDTO.setCustomerName(customerService.findById(1).getFirstName() + " " + customerService.findById(1).getLastName());
+            rentaDTO.setCustomerID(1);
+            //establece la cantidad máxima que se puede rentar de ese producto
+            rentaDTO.setMaxQuantity(productService.getProduct(productId).getQuantity());
             rentaDTO.setProductId(productId);
+            rentaDTO.setPrice(productService.getProduct(productId).getBarcode()); //sets unitary price
             rentaDTO.setUserMail(auth.getName()); //establecer el nombre del usuario en login
             rentaDTO.setProductName(productService.getProduct(productId).getDisplayName());
             modelAndView.addObject("rentaDTO", rentaDTO);
@@ -88,6 +95,7 @@ public class RentaController {
     @RequestMapping(path = "/addRentas", method = RequestMethod.POST)
     public ModelAndView createUpdateVentas(RentaDTO rentaDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
+        rentaDTO.setQuantity(Math.abs(rentaDTO.getQuantity())); //ensure that only positive numbers are being inserted
         rentaService.createRenta(rentaDTO);
         modelAndView.addObject("successMessage", "Renta registrada exitosamente.");
         modelAndView.addObject("renta", rentaDTO);

@@ -47,21 +47,21 @@
                                     class="validation-message" type="email"></label>
                             </div>
                         </div>
-                        <!-- <div sec:authorize="isAuthenticated()"></div>
-                         <span class="text-white" sec:authentication="name"></span>-->
                         <!--ID producto -->
-                        <!--    <div class="form-group">
+                        <div class="form-group">
                                 <div class="col-sm-9">
-                                    <input class="form-control" th:field="*{idProduct}"
-                                           type="hidden"/>
+                                    <span>Identificador de producto:</span>
+                                    <input class="form-control" disabled="disabled" th:field="*{idProduct}"
+                                           type="text"/>
                                 </div>
                             </div>
-                            -->
+
                         <!--Cantidad -->
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <span>Cantidad</span>
-                                <input class="form-control" min="1" th:field="*{quantity}" type="text"/>
+                                <input class="form-control" min="1" th:field="*{quantity}" th:max="*{maxQuantity}"
+                                       type="number"/>
                                 <label class="validation-message" th:errors="*{quantity}"
                                        th:if="${#fields.hasErrors('quantity')}"> </label>
                             </div>
@@ -69,14 +69,13 @@
                         <!--NOMBRE -->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <span>Nombre</span>
+                                <span>Producto</span>
                                 <input class="form-control" th:field="*{displayName}"
                                        disabled="disabled" type="text"/> <label
                                     th:errors="*{displayName}" th:if="${#fields.hasErrors('displayName')}"
                                     class="validation-message"></label>
                             </div>
                         </div>
-
 
                         <div class="form-group">
                             <div class="col-sm-9">
@@ -86,22 +85,11 @@
 
                         <span th:utext="${successMessage}"></span>
 
-
                     </form>
                 </div>
             </div>
         </div>
-        <script>
-            authorize = "isAuthenticated()"
-            var perro = authentication = "name";
-
-            function myFunction() {
-                document.getElementById("email").placeholder = "xtrs84zk@gmail.com";
-                document.getElementById("email").value = "xtrs84zk@gmail.com";
-            }
-        </script>
         <hr class="featurette-divider"/>
-        <div sec:authorize="isAuthenticated()"></div>
         <!-- /END THE FEATURETTES -->
     </div><!-- /.container -->
 </div>
