@@ -76,7 +76,7 @@ public class VentaController {
      * @throws Exception when it doesn't get the correct data
      */
     @RequestMapping(path = "/addVentas", method = RequestMethod.POST)
-    public ModelAndView createUpdateVentas(@Valid VentaDTO ventaDTO) throws Exception {
+    public ModelAndView createUpdateVentas(VentaDTO ventaDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         ventaDTO.setQuantity(Math.abs(ventaDTO.getQuantity())); //ensure that only positive numbers are being inserted
         ventaDTO.setSalesDate(Calendar.getInstance().getTime()); //ensures that today's date is when the sale is being made
