@@ -15,6 +15,8 @@ public interface RentaService {
 
     List<Renta> getDelayedRentas();
 
+    List<Renta> getInTimeRentas();
+
     List<Renta> getActiveRentas();
 
     List<Renta> getNonActiveRentas();

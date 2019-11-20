@@ -67,7 +67,30 @@ public class RentaServiceLive implements RentaService {
      */
     @Override
     public List<Renta> getDelayedRentas() {
-        return rentaRepository.findAll();
+        List<Renta> list = rentaRepository.findAll();
+        List<Renta> delayedRentas = new ArrayList<>();
+        for (Renta renta : list) {
+            if (renta.isActive()) { //just active rentas
+                if (renta.getDateOfReturn().compareTo(Calendar.getInstance().getTime()) <= 0) { //just rentas which have before than today returns
+                    delayedRentas.add(renta);
+                }
+            }
+        }
+        return delayedRentas;
+    }
+
+    @Override
+    public List<Renta> getInTimeRentas() {
+        List<Renta> list = rentaRepository.findAll();
+        List<Renta> inTimeRentas = new ArrayList<>();
+        for (Renta renta : list) {
+            if (renta.isActive()) { //just active rentas
+                if (renta.getDateOfReturn().compareTo(Calendar.getInstance().getTime()) > 0) { //just rentas which have later than today returns
+                    inTimeRentas.add(renta);
+                }
+            }
+        }
+        return inTimeRentas;
     }
 
 

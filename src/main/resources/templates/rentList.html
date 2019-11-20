@@ -19,21 +19,34 @@
         <div><h6>Listando rentas</h6></div>
         <!-- START THE FEATURETTES -->
         <div class="container">
-            <div class="row">
+            <div class="box">
                 <h2>Rentas con retraso</h2>
                 <div th:each="delayedRenta : ${delayedRentas}">
                     <span th:text="${delayedRenta.customer.firstName + ' ' + delayedRenta.customer.lastName}"></span>
-                    <span th:text="${delayedRenta.quantity}"></span> productos
-                    <span th:text="${delayedRenta.dateOfReturn}"></span>
+                    <br/>
+                    <span th:text="${delayedRenta.quantity}"></span> productos <br/>
+                    <span th:text="${delayedRenta.dateOfReturn}"></span> <br/>
                     <a class="btn btn-outline-primary" role="button"
                        th:href="@{'rent/return?rentaId=' + ${delayedRenta.idRenta}}">Realizar Devolución</a>
-                    <br/>
+                    <p></p>
                 </div>
+            </div>
 
+            <br/>
+            <div class="box">
+                <h2>Rentas en tiempo</h2>
+                <div th:each="inTimeRenta : ${inTimeRentas}">
+                    <span th:text="${inTimeRenta.customer.firstName + ' ' + inTimeRenta.customer.lastName}"></span>
+                    <br/>
+                    <span th:text="${inTimeRenta.quantity}"></span> productos <br/>
+                    <span th:text="${inTimeRenta.dateOfReturn}"></span> <br/>
+                    <a class="btn btn-outline-primary" role="button"
+                       th:href="@{'rent/return?rentaId=' + ${inTimeRenta.idRenta}}">Realizar Devolución</a>
+                    <p></p>
+                </div>
             </div>
         </div>
         <hr class="featurette-divider"/>
-        <!-- /END THE FEATURETTES -->
     </div><!-- /.container -->
 </div>
 </body>

@@ -50,13 +50,6 @@ public class ReturnVoucherController {
     public ModelAndView showReturnRentaForm(@RequestParam(required = false) Long rentaId) {
         ModelAndView modelAndView = new ModelAndView();
         if (rentaId != null) {
-            LocalDateTime now = LocalDateTime.now(); //trying to get today's date
-            Date today = new Date();  //gonna save today's date here
-            try { //trying to get today's date on a Date type
-                today = DateConversion.stringToDate("" + now); //holy smokes
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             Renta rentaARevisar = rentaRepository.findOne(rentaId);
             ReturnVoucherDTO returnVoucherDTO = new ReturnVoucherDTO();
             returnVoucherDTO.setIdRenta(rentaARevisar.getIdRenta());

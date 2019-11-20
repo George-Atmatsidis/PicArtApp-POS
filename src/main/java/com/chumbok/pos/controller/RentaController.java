@@ -117,8 +117,8 @@ public class RentaController {
     @RequestMapping(value = "/rentList", method = RequestMethod.GET)
     public ModelAndView showAllRentas() { //Page<Product>
         ModelAndView modelAndView = new ModelAndView();
-        List<Renta> delayedRentas = rentaService.getDelayedRentas();
-        modelAndView.addObject("delayedRentas", delayedRentas);
+        modelAndView.addObject("inTimeRentas", rentaService.getInTimeRentas());
+        modelAndView.addObject("delayedRentas", rentaService.getDelayedRentas());
         modelAndView.setViewName("rentList");
         return modelAndView;
     }
