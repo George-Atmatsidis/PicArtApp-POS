@@ -1,0 +1,43 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http:www.thymeleaf.org">
+
+<head>
+    <title>Recibir material</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container marketing">
+        <h6>Listando rentas</h6>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <div class="box">
+                <h2>Productos: </h2>
+                <div th:each="product : ${products}">
+                    <span th:text="${product.displayName}"></span>
+                    <br/>
+                    <span th:text="${product.catagory}"></span> productos <br/>
+                    <a class="btn btn-outline-primary" role="button"
+                       th:href="@{'rent/return?rentaId=' + ${product.id}}">Detalles, I guess</a>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <!--        <div>-->
+        <!--            <div th:each="page : ${pages}">-->
+        <!--                <span th:text="${page}"></span>-->
+        <!--                <br/>-->
+        <!--                <span th:text="${page}"></span> <br/>-->
+        <!--                <a class="btn btn-outline-primary" role="button"-->
+        <!--                   th:href="@{'/productsByPage/page/' + ${pages}}"></a>-->
+        <!--                <p></p>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <hr class="featurette-divider"/>
+    </div><!-- /.container -->
+</div>
+</body>
+</html>

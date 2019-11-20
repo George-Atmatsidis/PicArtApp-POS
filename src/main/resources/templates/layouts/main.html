@@ -70,9 +70,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
                         <a class="nav-link" href="/logout" onclick="$('#form').submit();" th:href="@{#}">
-                            <span class="text-info">Running as</span> <span class="text-info"
-                                                                            sec:authentication="principal.authorities"></span>
-                            |
+                            <span class="text-info">Autorización:</span> <span class="text-info"
+                                                                               sec:authentication="principal.authorities"></span>|
                             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Salir
                         </a>
                         <form style="visibility: hidden" id="form" method="post" action="#"
@@ -86,7 +85,7 @@
                 </form>-->
             </div>
         </nav>
-
+        <br/>
     </div>
 </div>
 

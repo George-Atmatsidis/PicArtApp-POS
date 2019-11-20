@@ -51,20 +51,9 @@ return product;
     }
 
     @Override
-    public Page<Product> findPaginated(Pageable pageable) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<Product> listOfProducts;
-
-        return null;
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
-
-    @Override
-    public Page<Product> getPaginatedProducts(Pageable pageable) {
-        return productRepository.findAll(pageable);
-    }
-
 
     /**
      * Crea un producto con base en la información obtenida del usuario. Establece algunas propiedades
@@ -129,7 +118,7 @@ return product;
     }
 
     @Override
-    public List<Product> searchProduct(String displayName, Pageable pageable) {
-        return productRepository.findProductsByDisplayName(displayName, pageable);
+    public List<Product> searchProduct(String displayName) {
+        return productRepository.findProductsByDisplayName(displayName);
     }
 }

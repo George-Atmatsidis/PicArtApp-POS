@@ -20,14 +20,11 @@ public interface ProductService {
 
     void deleteBulkProduct(List<Long> ids);
 
-    List<Product> searchProduct(String displayName, Pageable pageable);
+    List<Product> searchProduct(String displayName);
 
     Page<ProductWithStockQuantity> findProductWithStockQuantityByPage(Pageable pageable);
 
     Page<ProductWithStockQuantity> findProductWithStockQuantityByPageGraterThanZero(Pageable pageable);
 
-    //Here goes nothing
-    Page<Product> findPaginated(Pageable pageable);
-
-    Page<Product> getPaginatedProducts(Pageable pageable);
+    List<Product> findAll();
 }

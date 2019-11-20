@@ -1,5 +1,6 @@
 package com.chumbok.pos.controller;
 
+import com.chumbok.pos.dto.PagesDTO;
 import com.chumbok.pos.dto.ProductDTO;
 import com.chumbok.pos.dto.ProductWithStockQuantity;
 import com.chumbok.pos.entity.Product;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -76,16 +78,43 @@ public class ProductController {
      */
     @RequestMapping(value = "/productsByPage/page/{page}")
     public ModelAndView listProductsByPage(@PathVariable("page") int page) {
-        ModelAndView modelAndView = new ModelAndView("product-list-paging"); //omg, you can set the viewName at birth
-        PageRequest pageable = new PageRequest(page - 1, 5); //this shit is deprecated, why the heck is it working
-        Page<Product> productPage = productService.getPaginatedProducts(pageable); //Why are we still here?
-        int totalPages = productPage.getTotalPages(); //Just to suffer? Every night i can feel my leg...
-        if (totalPages > 0) { //and my arm... even my fingers. The body I’ve lost… the comrades I’ve lost… won't stop hurting.
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList()); //It's like
-            modelAndView.addObject("pageNumbers", pageNumbers); //They are all still here. You feel it, too, don't you?
-        } //I'm gonna make them give back our past!
-        modelAndView.addObject("activeProductList", true); //-Kazuhira Miller, Metal Gear Solid
-        modelAndView.addObject("productList", productPage.getContent()); //Why do we even keep going?
+        ModelAndView modelAndView = new ModelAndView("productListPagination"); //omg, you can set the viewName at birth
+        List<Product> productList = productService.findAll();
+        List<Product> justTheProductInSaidPage;
+        //Let's keep the list size on 5
+        if (page == 1) {
+            int i = 0;
+            justTheProductInSaidPage = new ArrayList<>();
+            while (i < productList.size() && i < 5) {
+                justTheProductInSaidPage.add(productList.get(i));
+                i++;
+            }
+        } else {
+            justTheProductInSaidPage = new ArrayList<>();
+            int i = (page - 1) * 5;
+            int fin = i + 5;
+            while (i < productList.size() && i < fin) {
+                justTheProductInSaidPage.add(productList.get(i));
+                i++;
+            }
+        }
+        int totalPages = productList.size() / 5;
+        if (productList.size() % 5 > 0) {
+            totalPages += 1;
+        }
+        List<PagesDTO> listaDePaginas = new ArrayList<>();
+        int k = 0;
+        while (k < totalPages - 1) {
+            listaDePaginas.add(new PagesDTO("Página" + k, k));
+            k++;
+        }
+        if (page == totalPages) {
+            listaDePaginas.add(new PagesDTO("Última página", page));
+        } else {
+            //listaDePaginas.add()
+        }
+        modelAndView.addObject("listaDePaginas", listaDePaginas);
+        modelAndView.addObject("products", justTheProductInSaidPage);
         return modelAndView; //Is existence itself worth it?
     }
 

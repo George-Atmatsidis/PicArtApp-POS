@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <!-- Nombre del cliente -->
-                                <select class="form-control">
+                                <select class="form-control" th:field="*{customerID}">
                                     <span>Cliente</span>
                                     <option th:each="customer : ${customerList}"
                                             th:text="${customer.firstName + ' ' + customer.lastName}"
