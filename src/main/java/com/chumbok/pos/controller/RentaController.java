@@ -112,16 +112,13 @@ public class RentaController {
 
     /**
      * Controller to get /productRentPagination as a route
-     *
-     * @param pageable to add the products
      * @return view with the products and so
      */
     @RequestMapping(value = "/rentList", method = RequestMethod.GET)
-    public ModelAndView rentaPageable(Pageable pageable) { //Page<Product>
+    public ModelAndView showAllRentas() { //Page<Product>
         ModelAndView modelAndView = new ModelAndView();
-        Page<Renta> pageWithActiveRentas = rentaService.findRentasWithActiveStatus(pageable);
-        modelAndView.addObject("page", pageWithActiveRentas);
-        modelAndView.addObject("pageable", pageable);
+        List<Renta> delayedRentas = rentaService.getDelayedRentas();
+        modelAndView.addObject("delayedRentas", delayedRentas);
         modelAndView.setViewName("rentList");
         return modelAndView;
     }

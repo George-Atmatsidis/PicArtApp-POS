@@ -1,9 +1,7 @@
 package com.chumbok.pos.service;
 
 import com.chumbok.pos.dto.RentaDTO;
-import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Renta;
-import com.chumbok.pos.entity.Stock;
 import com.chumbok.pos.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,8 +9,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 @Transactional
@@ -55,8 +56,29 @@ public class RentaServiceLive implements RentaService {
     }
 
     @Override
+    public List<Renta> findAll() {
+        return rentaRepository.findAll();
+    }
+
+    /**
+     * Plz don't judge me
+     *
+     * @return get's delayed rentas as a list
+     */
+    @Override
+    public List<Renta> getDelayedRentas() {
+        return rentaRepository.findAll();
+    }
+
+
+    @Override
     public List<Renta> getActiveRentas() {
         return rentaRepository.findAllActive();
+    }
+
+    @Override
+    public List<Renta> getNonActiveRentas() {
+        return null;
     }
 
     @Override

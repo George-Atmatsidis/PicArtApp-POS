@@ -8,7 +8,7 @@ import java.util.Date;
 public class ReturnVoucher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idReturnVoucher;
+    private long id;
 
     private Date dateWhenTheReturnWasMade;
 
@@ -20,12 +20,12 @@ public class ReturnVoucher {
     public ReturnVoucher() {
     }
 
-    public long getIdReturnVoucher() {
-        return idReturnVoucher;
+    public long getId() {
+        return id;
     }
 
-    public void setIdReturnVoucher(long idReturnVoucher) {
-        this.idReturnVoucher = idReturnVoucher;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Date getDateWhenTheReturnWasMade() {

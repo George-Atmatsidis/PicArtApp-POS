@@ -5,10 +5,8 @@
       xmlns:th="http:www.thymeleaf.org">
 
 <head>
-    <p></p>
-    <title>Venta</title>
+    <title>Renta</title>
     <link href="css/carousel.css" rel="stylesheet" th:href="@{/css/carousel.css}"/>
-
 </head>
 <body onload="myFunction()">
 
@@ -18,7 +16,7 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
         <br/>
-        <h2>Generar renta</h2>
+        <div><h2>Generar renta</h2></div>
         <!-- START THE FEATURETTES -->
         <div class="container">
             <div class="row">
@@ -30,7 +28,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <!-- Nombre del cliente -->
-                                <select class="form-control" th:field="*{customerID}">
+                                <select class="form-control">
                                     <span>Cliente</span>
                                     <option th:each="customer : ${customerList}"
                                             th:text="${customer.firstName + ' ' + customer.lastName}"
@@ -53,9 +51,7 @@
                             <div class="col-sm-9">
                                 <span>Fecha de devolución</span>
                                 <input class="form-control" placeholder="dd/mm/yyyy"
-                                       th:field="*{dateOfReturn}" type="date"/>
-                                <label class="validation-message" th:errors="*{dateOfReturn}"
-                                       th:if="${#fields.hasErrors('dateOfReturn')}"></label>
+                                       required="required" th:field="*{dateOfReturn}" type="date"/>
                             </div>
                         </div>
 
@@ -103,6 +99,7 @@
                                 <input class="form-control" th:field="*{productId}" type="hidden"/>
                             </div>
                         </div>
+
 
                         <div class="form-group">
                             <div class="col-sm-9">

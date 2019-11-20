@@ -58,15 +58,15 @@ public class ReturnVoucherController {
                 e.printStackTrace();
             }
             Renta rentaARevisar = rentaRepository.findOne(rentaId);
-            Customer customerOnTheRent = customerRepository.findOne(rentaARevisar.getCustomer().getId());
             ReturnVoucherDTO returnVoucherDTO = new ReturnVoucherDTO();
+            returnVoucherDTO.setIdRenta(rentaARevisar.getIdRenta());
             //accede a la información almacenada en la venta para determinar el nombre del cliente
             returnVoucherDTO.setCustomerName(rentaARevisar.getCustomer().getFirstName() + " " + rentaARevisar.getCustomer().getLastName());
             returnVoucherDTO.setDateOfRent("" + rentaARevisar.getDateOfRent()); //establece la fecha en que se rentó
             returnVoucherDTO.setDateOfReturn("" + rentaARevisar.getDateOfReturn()); //establece la fecha en que se debía regresar
             returnVoucherDTO.setProductName(rentaARevisar.getProduct().getDisplayName()); //establece el nombre del product
             returnVoucherDTO.setQuantity(rentaARevisar.getQuantity()); //establece la cantidad rentada
-            if (rentaARevisar.getDateOfReturn().compareTo(today) > 0) { //revisa que la fecha de entrega no sea mayor a la fecha de hoy
+            if (rentaARevisar.getDateOfReturn().compareTo(Calendar.getInstance().getTime()) <= 0) { //revisa que la fecha de entrega no sea mayor a la fecha de hoy
                 returnVoucherDTO.setStatus("Devolución fuera de tiempo.");
             } else { //si la fecha de devolución es menor o igual a hoy, es una devolución válida
                 returnVoucherDTO.setStatus("Devolución válida.");
@@ -83,7 +83,7 @@ public class ReturnVoucherController {
 
     @RequestMapping(path = "/rent/return", method = RequestMethod.POST)
     public ModelAndView makeReturnOfRenta(ReturnVoucherDTO returnVoucherDTO) {
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("viewRenta");
         ReturnVoucher returnVoucher = new ReturnVoucher();
         //sets return date as today
         returnVoucher.setDateWhenTheReturnWasMade(Calendar.getInstance().getTime());
@@ -93,8 +93,11 @@ public class ReturnVoucherController {
         returnVoucher.setComentary(returnVoucherDTO.getComments());
         //guardar la devolución
         returnVoucherRepository.save(returnVoucher);
+        //desactivar venta
+        rentaRepository.findOne(returnVoucherDTO.getIdRenta()).setActive(false);
         //establecer la cantidad en stock
-        Product product = productRepository.findOne(returnVoucher.getRenta().getProduct().getId());
+        Product product = rentaRepository.findOne(returnVoucherDTO.getIdRenta()).getProduct();
+        product.setQuantity(product.getQuantity() + Math.abs(rentaRepository.findOne(returnVoucherDTO.getIdRenta()).getQuantity()));
         return modelAndView;
     }
 }

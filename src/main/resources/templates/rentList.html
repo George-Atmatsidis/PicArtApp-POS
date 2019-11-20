@@ -1,52 +1,40 @@
 <!doctype html>
 <html layout:decorator="layouts/main"
-      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http:www.thymeleaf.org">
 
 <head>
-    <title>Rentas activas</title>
+    <title>Renta</title>
+    <link href="css/carousel.css" rel="stylesheet" th:href="@{/css/carousel.css}"/>
 </head>
-<body>
-<div class="row" th:fragment="rentList" th:if="${!rentList.isEmpty()}">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <table class="table table-striped table-bordered" id="link-list" style="width:100%">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cantidad</th>
-                <th>Fecha realizada</th>
-                <th>Fecha de devolución</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="rent : ${rentList}">
-                <td th:text="${{rent.quantity}}"></td>
-                <td th:text="${{rent.dateOfRent}}"></td>
-                <td th:text="${{rent.dateOfReturn}}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-2"></div>
-</div>
-<div th:fragment="rentList" th:if="${rentList == null || rentList.isEmpty()}">
-    <span>List is empty or null xd.</span>
-</div>
-<div class="row" th:fragment="pagination">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <nav aria-label="Pagination">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" th:each="pageNumber : ${pageNumbers}">
-                    <a class="page-link" th:href="@{|/activeRentsByPage/page/${pageNumber}|}"
-                       th:text="${pageNumber}">1</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <div class="col-md-2"></div>
+<body onload="myFunction()">
+
+<div layout:fragment="content">
+    <!-- Marketing messaging and featurettes
+================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container marketing">
+        <br/>
+        <div><h6>Listando rentas</h6></div>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <div class="row">
+                <h2>Rentas con retraso</h2>
+                <div th:each="delayedRenta : ${delayedRentas}">
+                    <span th:text="${delayedRenta.customer.firstName + ' ' + delayedRenta.customer.lastName}"></span>
+                    <span th:text="${delayedRenta.quantity}"></span> productos
+                    <span th:text="${delayedRenta.dateOfReturn}"></span>
+                    <a class="btn btn-outline-primary" role="button"
+                       th:href="@{'rent/return?rentaId=' + ${delayedRenta.idRenta}}">Realizar Devolución</a>
+                    <br/>
+                </div>
+
+            </div>
+        </div>
+        <hr class="featurette-divider"/>
+        <!-- /END THE FEATURETTES -->
+    </div><!-- /.container -->
 </div>
 </body>
 </html>

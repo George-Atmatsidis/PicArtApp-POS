@@ -11,7 +11,13 @@ public interface RentaService {
 
     void createRenta(RentaDTO rentaDTO) throws Exception;
 
+    List<Renta> findAll();
+
+    List<Renta> getDelayedRentas();
+
     List<Renta> getActiveRentas();
+
+    List<Renta> getNonActiveRentas();
 
     Page<Renta> getPaginatedRents(Pageable pageable);
 
