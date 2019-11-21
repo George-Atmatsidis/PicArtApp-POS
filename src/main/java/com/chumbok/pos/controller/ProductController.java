@@ -103,15 +103,11 @@ public class ProductController {
             totalPages += 1;
         }
         List<PagesDTO> listaDePaginas = new ArrayList<>();
-        int k = 0;
-        while (k < totalPages - 1) {
-            listaDePaginas.add(new PagesDTO("Página" + k, k));
-            k++;
+        if (page > 1) {
+            listaDePaginas.add(new PagesDTO("Anterior", page - 1));
         }
-        if (page == totalPages) {
-            listaDePaginas.add(new PagesDTO("Última página", page));
-        } else {
-            //listaDePaginas.add()
+        if (page < totalPages) {
+            listaDePaginas.add(new PagesDTO("Siguiente", page + 1));
         }
         modelAndView.addObject("listaDePaginas", listaDePaginas);
         modelAndView.addObject("products", justTheProductInSaidPage);

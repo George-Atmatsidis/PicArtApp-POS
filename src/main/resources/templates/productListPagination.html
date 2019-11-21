@@ -14,28 +14,50 @@
         <h6>Listando rentas</h6>
         <!-- START THE FEATURETTES -->
         <div class="container">
-            <div class="box">
+            <div class="flex-wrap">
                 <h2>Productos: </h2>
-                <div th:each="product : ${products}">
+                <div class="card" style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px"
+                     th:each="product : ${products}">
                     <span th:text="${product.displayName}"></span>
-                    <br/>
-                    <span th:text="${product.catagory}"></span> productos <br/>
-                    <a class="btn btn-outline-primary" role="button"
-                       th:href="@{'rent/return?rentaId=' + ${product.id}}">Detalles, I guess</a>
+                    <span th:text="'Categoría: ' + ${product.catagory}"></span>
+                    <span th:text="${product.quantity} + ' en stock'"></span>
+                    <span th:text="'$' + ${product.weight} + ' en venta'"></span>
+                    <span th:text="'$' + ${product.barcode} + ' en renta'"></span>
+                    <span></span>
+                    <table>
+                        <tr>
+                            <td>
+                                <form method="post" th:action="@{/products/doDelete}">
+                                    <input th:name="id" th:value="${product.id}" type="hidden"/>
+                                    <button class="btn btn-outline-primary" type="submit">Desactivar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-primary" role="button"
+                                   th:href="@{'/product?id=' + ${product.id}}">Editar</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-primary" role="button"
+                                   th:href="@{'/addStock?productId=' + ${product.id}}">Altas</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-primary" role="button"
+                                   th:href="@{'/restStock?productId=' + ${product.id}}">Bajas</a>
+                            </td>
+                        </tr>
+                    </table>
                     <p></p>
                 </div>
             </div>
         </div>
-        <!--        <div>-->
-        <!--            <div th:each="page : ${pages}">-->
-        <!--                <span th:text="${page}"></span>-->
-        <!--                <br/>-->
-        <!--                <span th:text="${page}"></span> <br/>-->
-        <!--                <a class="btn btn-outline-primary" role="button"-->
-        <!--                   th:href="@{'/productsByPage/page/' + ${pages}}"></a>-->
-        <!--                <p></p>-->
-        <!--            </div>-->
-        <!--        </div>-->
+        <div class="flex-wrap">
+            <div class="box" th:each="page : ${listaDePaginas}">
+                <a class="btn btn-outline-primary" role="button"
+                   th:href="@{'/productsByPage/page/' + ${page.numeroDePagina}}"
+                   th:text="${page.titulo}"></a>
+                <p></p>
+            </div>
+        </div>
         <hr class="featurette-divider"/>
     </div><!-- /.container -->
 </div>
