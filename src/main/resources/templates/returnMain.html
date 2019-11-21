@@ -12,29 +12,44 @@
 <div layout:fragment="content">
     <br/>
     <br/>
-    <p>
-        En este fragmento, el usuario tiene acceso a varios listados de devoluciones, ya sea las que fueron
-        anteriormente realizadas o las que aún están en curso.
-    </p>
-    <div class="flex-column">
+    <div class="alert alert-secondary" role="alert">
+        <p>
+            En este fragmento, el usuario tiene acceso a varios listados de devoluciones, ya sea las que fueron
+            anteriormente realizadas o las que aún están en curso.
+        </p>
+    </div>
+    <form>
         <br/>
         <!-- START THE FEATURETTES -->
-        <div class="card-group">
+        <center>
+            <div class="form-control">
             <div class="card">
-                <a class="btn btn-outline-primary" role="button"
-                   th:href="@{'/rentList'}">Devoluciones en curso</a>
+                <a th:href="@{'/rentList'}">
+                    <button class="btn btn-primary btn-lg btn-block" type="button">
+                        Devoluciones en curso
+                    </button>
+                </a>
             </div>
+                <br/>
             <div class="card">
-                <a class="btn btn-outline-primary" role="button"
-                   th:href="@{'/returnDetails}">Devoluciones por cliente</a>
+                <a th:href="@{'/returnDetails}">
+                    <button class="btn btn-primary btn-lg btn-block" type="button">
+                        Devoluciones por cliente
+                    </button>
+                </a>
             </div>
+                <br/>
             <div class="card">
-                <a class="btn btn-outline-primary" role="button"
-                   th:href="@{'returns/list/1'}">Devoluciones anteriores</a>
+                <a th:href="@{'returns/list/1'}">
+                    <button class="btn btn-primary btn-lg btn-block" type="button">
+                        Devoluciones por cliente
+                    </button>
+                </a>
             </div>
             <hr class="featurette-divider"/>
         </div><!-- /.container -->
-    </div>
+        </center>
+    </form>
 </div>
 </body>
 </html>

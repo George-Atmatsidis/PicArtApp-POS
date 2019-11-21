@@ -56,18 +56,18 @@
                     <div class="form-group">
                         <div class="col-sm-9">
                             <input class="form-control" id="confirmPassword" placeholder="Confirmar contraseña"
-                                   type="password"/>
+                                   required="required" type="password"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-9">
-                            <label> Tipo:
-                                <select name="select" th:field="*{role}">
+                            <label>Autorización:</label>
+                            <select class="form-control" name="select" th:field="*{role}">
                                     <option th:text="Integrante" th:value="USER"></option>
                                     <option th:text="Administrador" th:value="ADMIN"></option>
                                 </select>
-                            </label>
+
                         </div>
                     </div>
                     <div class="form-group">

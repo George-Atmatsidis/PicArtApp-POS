@@ -36,7 +36,7 @@
                             <div class="col-sm-9">
                                 <span>Nombre del cliente</span>
                                 <input class="form-control" disabled="disabled" placeholder="Nombre del cliente"
-                                       th:field="*{customerName}" type="date"/>
+                                       th:field="*{customerName}" type="text"/>
                                 <label class="validation-message" th:errors="*{customerName}"
                                        th:if="${#fields.hasErrors('customerName')}"></label>
                             </div>
@@ -46,7 +46,7 @@
                             <div class="col-sm-9">
                                 <span>Fecha de renta</span>
                                 <input class="form-control" disabled="disabled" placeholder="Fecha de renta"
-                                       th:field="*{dateOfRent}" type="date"/>
+                                       th:field="*{dateOfRent}" type="text"/>
                                 <label class="validation-message" th:errors="*{dateOfRent}"
                                        th:if="${#fields.hasErrors('dateOfRent')}"></label>
                             </div>
@@ -56,7 +56,7 @@
                             <div class="col-sm-9">
                                 <span>Fecha de devolución esperada</span>
                                 <input class="form-control" disabled="disabled" placeholder="dd/mm/yyyy"
-                                       th:field="*{dateOfReturn}" type="date"/>
+                                       th:field="*{dateOfReturn}" type="text"/>
                             </div>
                         </div>
 
@@ -64,7 +64,7 @@
                             <div class="col-sm-9">
                                 <span>Estado de la renta:</span>
                                 <input class="form-control" disabled="disabled" placeholder="En tiempo / fuera de"
-                                       th:field="*{status}" type="date"/>
+                                       th:field="*{status}" type="text"/>
                             </div>
                         </div>
 
