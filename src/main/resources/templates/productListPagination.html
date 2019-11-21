@@ -5,17 +5,31 @@
       xmlns:th="http:www.thymeleaf.org">
 
 <head>
-    <title>Recibir material</title>
+    <title>Listado</title>
 </head>
 <body>
 
 <div layout:fragment="content">
     <div class="container marketing">
-        <h6>Listando rentas</h6>
+        <br/>
         <!-- START THE FEATURETTES -->
         <div class="container">
             <div class="flex-wrap">
-                <h2>Productos: </h2>
+                <div class="container">
+                    <br/>
+                    <table class="center-pill" style="margin: auto; display: block">
+                        <tr>
+                            <td>
+                                <h2>Productos</h2>
+                            </td>
+                            <td th:each="page : ${listaDePaginas}">
+                                <a class="btn btn-outline-primary" role="button"
+                                   th:href="@{'/productsByPage/page/' + ${page.numeroDePagina}}"
+                                   th:text="${page.titulo}"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="card" style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px"
                      th:each="product : ${products}">
                     <span th:text="${product.displayName}"></span>
@@ -46,16 +60,7 @@
                             </td>
                         </tr>
                     </table>
-                    <p></p>
                 </div>
-            </div>
-        </div>
-        <div class="flex-wrap">
-            <div class="box" th:each="page : ${listaDePaginas}">
-                <a class="btn btn-outline-primary" role="button"
-                   th:href="@{'/productsByPage/page/' + ${page.numeroDePagina}}"
-                   th:text="${page.titulo}"></a>
-                <p></p>
             </div>
         </div>
         <hr class="featurette-divider"/>
