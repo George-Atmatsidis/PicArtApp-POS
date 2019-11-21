@@ -14,6 +14,8 @@ public class ReturnVoucher {
 
     private String comentary;
 
+    private String wasItMadeOnTime;
+
     @OneToOne
     private Renta renta; //se ancla a la tabla de ventas
 
@@ -50,5 +52,13 @@ public class ReturnVoucher {
 
     public void setRenta(Renta renta) {
         this.renta = renta;
+    }
+
+    public String getWasItMadeOnTime() {
+        return wasItMadeOnTime;
+    }
+
+    public void setWasItMadeOnTime(String wasItMadeOnTime) {
+        this.wasItMadeOnTime = wasItMadeOnTime;
     }
 }

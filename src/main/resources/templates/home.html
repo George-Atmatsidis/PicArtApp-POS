@@ -7,15 +7,9 @@
 <head>
     <title>Inicio</title>
     <link rel="stylesheet" href="css/carousel.css" th:href="@{/css/carousel.css}"/>
-
-    <!--<link rel="stylesheet" type="text/css" href="../static/css/Layout.css" th:href="@{/css/registration.css}"/>-->
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" style="margin-top: -6px">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -24,7 +18,7 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="first-slide" th:src="@{/images/home.jpg}" alt="Firs slide"/>  <!--nishi-->
+                <img alt="Firs slide" class="first-slide" th:src="@{/images/home.jpg}"/>
                 <div class="container">
                     <div class="carousel-caption text-left">
                         <h1>¿Nuevos integrantes?</h1>
@@ -65,9 +59,6 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Siguiente</span>
         </a>
-    </div>
-    <div>
-        <a th:href="@{/productsByPage/page/1}"><span>Productos paginados</span></a>
     </div>
     <!-- Marketing messaging and featurettes
     ================================================== -->

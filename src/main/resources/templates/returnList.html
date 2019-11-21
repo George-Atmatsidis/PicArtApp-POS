@@ -1,0 +1,55 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http:www.thymeleaf.org">
+
+<head>
+    <title>Listado</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container marketing">
+        <br/>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <div class="flex-wrap">
+                <div class="container">
+                    <br/>
+                    <table class="center-pill" style="margin: auto; display: block">
+                        <tr>
+                            <td>
+                                <h2>Devoluciones realizadas anteriormente</h2>
+                            </td>
+                            <td th:each="page : ${listaDePaginas}">
+                                <a class="btn btn-outline-primary" role="button"
+                                   th:href="@{'/returns/list/' + ${page.numeroDePagina}}"
+                                   th:text="${page.titulo}"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card" style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px"
+                     th:each="return : ${returns}">
+                    <span th:text="${return.dateWhenTheReturnWasMade}"></span>
+                    <span th:text="${return.wasItMadeOnTime}"></span>
+                    <span th:text="${return.comentary}"></span>
+                    <span></span>
+                    <table>
+                        <tr>
+
+                            <td>
+                                <a class="btn btn-outline-primary" role="button"
+                                   th:href="@{'/returnDetails?returnId=' + ${return.id}}">Detalles</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr class="featurette-divider"/>
+    </div><!-- /.container -->
+</div>
+</body>
+</html>

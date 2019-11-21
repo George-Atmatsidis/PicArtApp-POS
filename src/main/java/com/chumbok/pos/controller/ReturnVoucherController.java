@@ -1,5 +1,6 @@
 package com.chumbok.pos.controller;
 
+import com.chumbok.pos.dto.PagesDTO;
 import com.chumbok.pos.dto.RentaDTO;
 import com.chumbok.pos.dto.ReturnVoucherDTO;
 import com.chumbok.pos.entity.Customer;
@@ -15,14 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ReturnVoucherController {
@@ -92,5 +96,48 @@ public class ReturnVoucherController {
         Product product = rentaRepository.findOne(returnVoucherDTO.getIdRenta()).getProduct();
         product.setQuantity(product.getQuantity() + Math.abs(rentaRepository.findOne(returnVoucherDTO.getIdRenta()).getQuantity()));
         return modelAndView;
+    }
+
+    @RequestMapping(path = "returns/list/{page}", method = RequestMethod.GET)
+    public ModelAndView showPagedReturns(@PathVariable("page") int page) {
+        ModelAndView modelAndView = new ModelAndView("returnList");
+        List<ReturnVoucher> returnVouchers = returnVoucherRepository.findAll();
+        List<ReturnVoucher> justTheReturnsInSaidPage;
+        //Let's keep the list size on 5
+        if (page == 1) {
+            int i = 0;
+            justTheReturnsInSaidPage = new ArrayList<>();
+            while (i < returnVouchers.size() && i < 5) {
+                justTheReturnsInSaidPage.add(returnVouchers.get(i));
+                i++;
+            }
+        } else {
+            justTheReturnsInSaidPage = new ArrayList<>();
+            int i = (page - 1) * 5;
+            int fin = i + 5;
+            while (i < returnVouchers.size() && i < fin) {
+                justTheReturnsInSaidPage.add(returnVouchers.get(i));
+                i++;
+            }
+        }
+        int totalPages = returnVouchers.size() / 5;
+        if (returnVouchers.size() % 5 > 0) {
+            totalPages += 1;
+        }
+        List<PagesDTO> listaDePaginas = new ArrayList<>();
+        if (page > 1) {
+            listaDePaginas.add(new PagesDTO("Anterior", page - 1));
+        }
+        if (page < totalPages) {
+            listaDePaginas.add(new PagesDTO("Siguiente", page + 1));
+        }
+        modelAndView.addObject("listaDePaginas", listaDePaginas);
+        modelAndView.addObject("returns", justTheReturnsInSaidPage);
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/returns", method = RequestMethod.GET)
+    public ModelAndView showMainReturnPage() {
+        return new ModelAndView("returnMain");
     }
 }
