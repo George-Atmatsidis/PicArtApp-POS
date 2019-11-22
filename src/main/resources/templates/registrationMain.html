@@ -1,0 +1,65 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Usuarios</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <br/>
+    <form>
+        <br/>
+        <center>
+            <div class="form-control">
+                <br/>
+                <div class="alert alert-secondary" role="alert">
+                    <p>Para registrar un usuario sólo llene el formulario que encontrará en este botón.</p>
+                    <div class="card">
+                        <a th:href="@{/registration}">
+                            <button class="btn btn-primary btn-lg btn-block" type="button">
+                                Registrar Integrante
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <br/>
+                <div class="card">
+                    <div class="alert alert-secondary" role="alert">
+                        <p>
+                            Para registrar un cliente, sólo defina los datos de contacto en el formulario que encontrará
+                            al presionar este botón.
+                        </p>
+                        <div class="card">
+                            <a th:href="@{/customer/registration}">
+                                <button class="btn btn-primary btn-lg btn-block" type="button">
+                                    Registrar Cliente
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+                <div class="card">
+                    <div class="alert alert-secondary" role="alert">
+                        <p>
+                            Si necesita ver y modificar los integrantes registrados actualmente, presione este botón.
+                        </p>
+                        <div class="card">
+                            <a th:href="@{/users/list}">
+                                <button class="btn btn-primary btn-lg btn-block" type="button">
+                                    Manejo de Integrantes
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="featurette-divider"/>
+            </div><!-- /.container -->
+        </center>
+    </form>
+</div>
+</body>
+</html>

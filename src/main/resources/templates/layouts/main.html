@@ -4,33 +4,27 @@
       xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http:www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-
-    <title layout:title-pattern="$CONTENT_TITLE $DECORATOR_TITLE"> :PicArtApp</title>
-
+    <meta content="IE=edge" http-equiv="x-ua-compatible"/>
+    <meta content="IE=edge" http-equiv="x-ua-compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title layout:title-pattern="$CONTENT_TITLE $DECORATOR_TITLE"> : PicArtApp</title>
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
+    <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
           th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}"/>
-
     <script src="webjars/jquery/3.0.0/jquery.min.js" th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
     <script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"
             th:src="@{webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
-
 </head>
 <body>
-
-
 <div class="navbar-wrapper">
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="/home">PicArtApp</a>
             <span class="text-white" sec:authentication="name"></span>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-target="#navbarCollapse" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -40,11 +34,11 @@
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{/productsByPage/page/1}">Todos los
-                            productos</a>
+                        <a class="nav-link" href="#" th:href="@{/productsByPage/page/1}">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" th:href="@{/registration}">Registrar Usuario</a>
+                        <a class="nav-link disabled" href="#" th:href="@{/users/manejoDeUsuarios}">Manejo de
+                            usuarios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" th:href="@{/returns}">Devoluciones</a>
@@ -58,23 +52,18 @@
                     <li class="nav-item">
                         <a class="nav-link disabled" href="addRentas.html" th:href="@{/productRentPagination}">Renta</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="registrationClient.html" th:href="@{/customer/registration}">Registrar
-                            cliente</a>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
                         <a class="nav-link" href="/logout" onclick="$('#form').submit();" th:href="@{#}">
                             <span class="text-info">Autorización:</span> <span class="text-info"
                                                                                sec:authentication="principal.authorities"></span>|
-                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Salir
+                            <span aria-hidden="true" class="glyphicon glyphicon-log-out"></span>&nbsp;Salir
                         </a>
-                        <form style="visibility: hidden" id="form" method="post" action="#"
+                        <form action="#" id="form" method="post" style="visibility: hidden"
                               th:action="@{/logout}"></form>
                     </li>
                 </ul>
-
                 <!--<form class="form-inline mt-2 mt-md-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search"/>
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
@@ -84,17 +73,13 @@
         <br/>
     </div>
 </div>
-
 <div layout:fragment="content">
 </div>
 <div sec:authorize="isAuthenticated()"></div>
-
 <div layout:fragment="custom-scripts"></div>
-
 <!-- FOOTER -->
 <footer class="container">
     <p>&copy; 2019 - PicArt &middot;</p>
 </footer>
-
 </body>
 </html>

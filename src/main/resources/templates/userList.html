@@ -1,0 +1,38 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http:www.thymeleaf.org">
+
+<head>
+    <title>Manejo de usuarios</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container marketing">
+        <h6>Listando integrantes</h6>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <div class="card">
+                <h2>Listando integrantes</h2>
+                <div class="alert alert-secondary" role="alert" th:each="user : ${userList}">
+                    <h4 th:text="${user.firstName + ' ' + user.lastName}"></h4>
+                    <h5 th:text="${user.email}"></h5>
+                    <span th:text="${user.roles}"></span>
+                    <p></p>
+                    <div class="card">
+                        <a th:href="@{'/user/makeModify?userId=' + ${user.id}}">
+                            <button class="btn btn-primary btn-lg btn-block" type="button">
+                                Modificar usuario
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="featurette-divider"/>
+    </div><!-- /.container -->
+</div>
+</body>
+</html>

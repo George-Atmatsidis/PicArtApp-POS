@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path = "/users/makeModify", method = RequestMethod.GET)
+    @RequestMapping(path = "/user/makeModify", method = RequestMethod.GET)
     public ModelAndView showUsers(@RequestParam(required = false) Long userId) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -45,7 +45,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(path = "/users/createModify", method = RequestMethod.POST)
+    @RequestMapping(path = "/user/createModify", method = RequestMethod.POST)
     public ModelAndView createUpdateUser(@RequestParam(value = "id", required = false) Long id, @Valid UserDTO userDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         if (id == null) {
@@ -63,42 +63,24 @@ public class UserController {
         }
         return modelAndView;
     }
-   /* @Autowired
-    private UserService userService;
 
-    @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<User> getUsers() {
+    @RequestMapping(path = "/manejoDeUsuarios", method = RequestMethod.GET)
+    public ModelAndView showMainReturnPage() {
+        return new ModelAndView("registrationMain");
+    }
+
+    /**
+     * Gets a list with all the users, adds it to a view and sends it.
+     *
+     * @return view with the users in it.
+     */
+    @RequestMapping(path = "/list", method = RequestMethod.GET)
+    public ModelAndView showUserList() {
+        ModelAndView modelAndView = new ModelAndView("userList");
         List<User> list = userService.getAllUsers();
-        return list;
+        modelAndView.addObject("userList", list);
+        return modelAndView;
     }
-
-    @ResponseStatus(value = HttpStatus.CREATED)
-    @RequestMapping(path = "", method = RequestMethod.POST)
-    public PersistedObjId createUser(@RequestBody @Valid User user) {
-        userService.createUser(user);
-        return new PersistedObjId(user.getId());
-    }
-
-    @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public User getUserById(@PathVariable("id") Integer id) {
-        User user = userService.getUser(id);
-        return user;
-    }
-
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    public void updateUser(@PathVariable("id") Long id, @RequestBody @Valid User user) {
-        user.setId(id);
-        userService.updateUser(user);
-    }
-
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable("id") Long id) {
-        userService.deleteUser(id);
-    }*/
 }
 
 
