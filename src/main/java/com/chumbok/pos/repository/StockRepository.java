@@ -21,7 +21,7 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
      * @param year of when to end looking
      * @return the count of modifications in this period
      */
-    @Query("select count(s) from Stock s where MONTH(s.stockEntryDate) = month and (YEAR(stock_entry_date) = year) and quantiy > 0")
+    @Query("select count(s) from Stock s where MONTH(s.stockEntryDate) = ?1 and (YEAR(stock_entry_date) = ?2) and quantiy > 0")
     Long totalAltasByMonthAndYear(int month, int year);
 
     /**
@@ -31,7 +31,7 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
      * @param year  of when to end looking
      * @return the count of modifications in this period
      */
-    @Query("select count(s) from Stock s where MONTH(s.stockEntryDate) = month and (YEAR(stock_entry_date) = year) and quantiy < 0")
+    @Query("select count(s) from Stock s where MONTH(s.stockEntryDate) = ?1 and (YEAR(stock_entry_date) = ?2) and quantiy < 0")
     Long totalBajasByMonthAndYear(int month, int year);
 
     /**
@@ -41,6 +41,6 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
      * @param year  when to start looking
      * @return a list with said modifications
      */
-    @Query("SELECT s from Stock s where (MONTH(s.stockEntryDate) = month) and (YEAR(stock_entry_date) = year)")
+    @Query("SELECT s from Stock s where (MONTH(s.stockEntryDate) = ?1) and (YEAR(stock_entry_date) = ?2)")
     List<Stock> findAllByStockEntryDateByMonthAndYear(int month, int year);
 }

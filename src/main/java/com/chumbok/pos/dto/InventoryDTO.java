@@ -51,4 +51,15 @@ public class InventoryDTO {
     public void setTotalBajasInSaidMonth(long totalBajasInSaidMonth) {
         this.totalBajasInSaidMonth = totalBajasInSaidMonth;
     }
+
+    @Override
+    public String toString() {
+        return "InventoryDTO{" +
+                "mes=" + mes +
+                ", año=" + año +
+                ", totalModificationsThisMonth=" + totalModificationsThisMonth +
+                ", totalAltasSaidMonth=" + totalAltasSaidMonth +
+                ", totalBajasInSaidMonth=" + totalBajasInSaidMonth +
+                '}';
+    }
 }

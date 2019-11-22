@@ -1,0 +1,67 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Inventario</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <br/>
+    <form>
+        <br/>
+        <center>
+            <div class="form-control">
+                <br/>
+                <div class="alert alert-secondary" style="text-align: left">
+                    <h5>Modificaciones realizadas al inventario durante el mes seleccionado</h5>
+                    <h6 th:text="'Total de modificaciones realizadas: ' + ${inventoryDTO.totalModificationsThisMonth}"></h6>
+                    <h6 th:text="'Se incluyen ' + ${inventoryDTO.totalAltasSaidMonth} + ' altas.' "></h6>
+                    <h6 th:text="'además de ' + ${inventoryDTO.totalBajasInSaidMonth} + ' bajas.' "></h6>
+                </div>
+                <div class="alert alert-secondary" method="get" role="form" th:action="@{/byMonth/}"
+                     th:object="${dateDTO}">
+                    <p>Para encontrar un informe detallado sobre las modificaciones realizadas al inventario en un
+                        periodo específico, sólo seleccione el mes y año en esta vista, después presione el botón
+                        "Continuar".</p>
+                    <div class="card">
+                        <select class="form-control" th:field="*{month}">
+                            <span>Cliente</span>
+                            <option th:each="month : ${monthList}"
+                                    th:text="${month.name}"
+                                    th:value="${month.number}"></option>
+                        </select>
+                    </div>
+                    <div class="card">
+                        <select class="form-control" th:field="*{year}">
+                            <span>Cliente</span>
+                            <option th:value="2019">2019</option>
+                            <option th:value="2018">2018</option>
+                        </select>
+                    </div>
+                    <div class="card">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">
+                            Continuar
+                        </button>
+                    </div>
+                    <br/>
+                </div>
+
+                <h2>Modificaciones a detalle: </h2>
+                <div class="card" style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px"
+                     th:each="inventory : ${inventoryList}">
+                    <span th:text="'Fecha: ' + ${inventory.stockEntryDate}"></span>
+                    <span th:text="'Cantidad: ' +${inventory.quantiy}"></span>
+                    <span th:text="'Producto: ' + ${inventory.product.displayName}"></span>
+                    <span th:text="'Autorizó: ' + ${inventory.user.firstName + ' ' + inventory.user.lastName}"></span>
+                    <span></span>
+                </div>
+                <hr class="featurette-divider"/>
+            </div><!-- /.container -->
+        </center>
+    </form>
+</div>
+</body>
+</html>
