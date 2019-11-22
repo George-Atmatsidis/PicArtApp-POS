@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ public class ProductController {
     @Autowired
     private StockService stockService;
 
+    @Secured({"ROLE_ADMIN"}) //Just admins can access to the modify product page
     @RequestMapping(path = "/product", method = RequestMethod.GET)
     public ModelAndView showAddProductForm(@RequestParam(required = false) Long id) {
         ModelAndView modelAndView = new ModelAndView();
@@ -54,6 +56,7 @@ public class ProductController {
         return modelAndView;
     }
 
+    @Secured({"ROLE_ADMIN"}) //Just admins can edit products
     @RequestMapping(path = "/product", method = RequestMethod.POST)
     public ModelAndView createUpdateProduct(@Valid ProductDTO productDTO) {
         ModelAndView modelAndView = new ModelAndView();
@@ -76,6 +79,7 @@ public class ProductController {
      * @param page to get (1, 2, 3, etc)
      * @return said page filled with products, 5 in each
      */
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/productsByPage/page/{page}")
     public ModelAndView listProductsByPage(@PathVariable("page") int page) {
         ModelAndView modelAndView = new ModelAndView("productListPagination"); //omg, you can set the viewName at birth
@@ -123,6 +127,7 @@ public class ProductController {
         modelAndView.setViewName("productPagination");
         return modelAndView;
     }
+
 
     @RequestMapping(value = "/products/doDelete", method = RequestMethod.POST)
     public String deleteProduct(@RequestParam(required = false) List<Long> ids, Long id) {

@@ -1,14 +1,9 @@
 package com.chumbok.pos.repository;
-
 import com.chumbok.pos.dto.ProductWithStockQuantity;
 import com.chumbok.pos.entity.Product;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -23,6 +18,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("delete from Product p where p.id in ?1")
       void deleteBulkProduct(List<Long> ids);
 
+    @Query("select sum (quantity) from Product")
+    long findTotalStock();
 
     @Query("SELECT new com.chumbok.pos.dto.ProductWithStockQuantity(p.id, p.displayName, p.vendor, p.catagory, p.brand, p.description, p.weight, p.barcode, p.quantity) FROM Stock s " +
             "RIGHT JOIN s.product p " +

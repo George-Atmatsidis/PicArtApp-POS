@@ -6,6 +6,7 @@ import com.chumbok.pos.service.ProductService;
 import com.chumbok.pos.service.StockService;
 import com.chumbok.pos.utility.DateConversion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ public class StockController {
     @Autowired
     private ProductService productService;
 
+    @Secured({"ROLE_ADMIN"}) //Just admins can access to the add stock page
     @RequestMapping(path = "/addStock", method = RequestMethod.GET)
     public ModelAndView showAddStockForm(@RequestParam(required = false) Long productId) throws Exception{
         ModelAndView modelAndView = new ModelAndView();
@@ -47,6 +49,7 @@ public class StockController {
         return modelAndView;
     }
 
+    @Secured({"ROLE_ADMIN"}) //just admins can add stock
     @RequestMapping(path = "/addStock", method = RequestMethod.POST)
     public ModelAndView createUpdateStock(@Valid StockDTO stockDTO) {
         ModelAndView modelAndView = new ModelAndView();
@@ -67,6 +70,7 @@ public class StockController {
      * @param stockDTO which is the new stock type of thing
      * @return modelAndView with a clean stockDTO
      */
+    @Secured({"ROLE_ADMIN"}) //just admins can delete from stock
     @RequestMapping(path = "/restStock", method = RequestMethod.POST)
     public ModelAndView deleteFromStock(@Valid StockDTO stockDTO) {
         ModelAndView modelAndView = new ModelAndView();
@@ -85,6 +89,7 @@ public class StockController {
      * @return a view from the html files containing a clean stock object
      * @throws Exception in case... of error, for now
      */
+    @Secured({"ROLE_ADMIN"}) //just admins can remove from stock
     @RequestMapping(path = "/restStock", method = RequestMethod.GET)
     public ModelAndView showRestStockForm(@RequestParam(required = false) Long productId) throws Exception {
         ModelAndView modelAndView = new ModelAndView();

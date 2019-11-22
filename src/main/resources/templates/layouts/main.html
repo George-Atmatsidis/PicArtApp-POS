@@ -33,7 +33,7 @@
                         <a class="nav-link" href="#" th:href="@{/home}">Inicio <span
                                 class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link" href="#" th:href="@{/productsByPage/page/1}">Productos</a>
                     </li>
                     <li class="nav-item">
@@ -43,7 +43,7 @@
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" th:href="@{/returns}">Devoluciones</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link disabled" href="#" th:href="@{/product}">Registrar material</a>
                     </li>
                     <li class="nav-item">

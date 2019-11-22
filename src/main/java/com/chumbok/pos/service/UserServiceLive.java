@@ -127,16 +127,4 @@ public class UserServiceLive implements UserService {
         User userById = userRepository.findOne(user.getId());
         userById.setActive(0);
     }
-
-    /**
-     * Here's the thing again: I have not enough clue as for what is happening.
-     *
-     * @param pageable
-     * @return
-     */
-    @Override
-    public Page<User> findAllByPage(Pageable pageable) {
-        Page<User> users = userRepository.findAll(pageable);
-        return users;
-    }
 }

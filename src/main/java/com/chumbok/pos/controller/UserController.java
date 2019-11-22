@@ -9,6 +9,7 @@ import com.chumbok.pos.service.UserService;
 import com.chumbok.pos.service.UserServiceLive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,10 +25,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Secured({"ROLE_ADMIN"}) //just the admin should be able to modify other users
     @RequestMapping(path = "/user/makeModify", method = RequestMethod.GET)
     public ModelAndView showUsers(@RequestParam(required = false) Long userId) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-
         if (userId != null) {
             User user = userService.getUser(userId);
             UserDTO userDTO = new UserDTO();
@@ -45,6 +46,7 @@ public class UserController {
         return modelAndView;
     }
 
+    @Secured({"ROLE_ADMIN"}) //just the admin should be able to modify other users
     @RequestMapping(path = "/user/createModify", method = RequestMethod.POST)
     public ModelAndView createUpdateUser(@RequestParam(value = "id", required = false) Long id, @Valid UserDTO userDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
@@ -74,6 +76,7 @@ public class UserController {
      *
      * @return view with the users in it.
      */
+    @Secured({"ROLE_ADMIN"}) //just the admin can see other users
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public ModelAndView showUserList() {
         ModelAndView modelAndView = new ModelAndView("userList");

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,6 +18,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -55,8 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/logout").permitAll().antMatchers("/**").authenticated();
+        http.authorizeRequests().antMatchers("/login**").permitAll().antMatchers("/logout").permitAll().antMatchers("/**").authenticated();
         http.csrf().disable();
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.formLogin().successHandler(authenticationSuccessHandler);
@@ -69,6 +70,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //se permite el acceso a los componentes necesarios para mostrar la página a cualquier visitante
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/registration", "/favicon.ico", "home");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/registration", "/favicon.ico", "home", "/");
     }
 }
