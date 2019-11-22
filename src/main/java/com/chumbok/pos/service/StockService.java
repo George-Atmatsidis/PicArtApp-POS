@@ -3,6 +3,7 @@ package com.chumbok.pos.service;
 import com.chumbok.pos.dto.StockDTO;
 import com.chumbok.pos.entity.Stock;
 
+import java.util.Date;
 import java.util.List;
 
 public interface StockService {
@@ -19,5 +20,10 @@ public interface StockService {
 
     Long totalQuantityInStock(Long productId);
 
+    long cantidadDeAltasEnUnPeriodo(int mes, int año);
+
+    long cantidadDeBajasEnUnPeriodo(int mes, int año);
+
+    List<Stock> getAllStocksBetweenDates(int mes, int año);
 
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -82,5 +83,20 @@ public class StockServiceLive implements StockService {
     @Override
     public Long totalQuantityInStock(Long productId) {
         return stockRepository.totalQuantityInStock(productId);
+    }
+
+    @Override
+    public long cantidadDeAltasEnUnPeriodo(int month, int year) {
+        return stockRepository.totalAltasByMonthAndYear(month, year);
+    }
+
+    @Override
+    public long cantidadDeBajasEnUnPeriodo(int month, int year) {
+        return stockRepository.totalBajasByMonthAndYear(month, year);
+    }
+
+    @Override
+    public List<Stock> getAllStocksBetweenDates(int month, int year) {
+        return stockRepository.findAllByStockEntryDateByMonthAndYear(month, year);
     }
 }
