@@ -2,7 +2,7 @@
 <html layout:decorator="layouts/main"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http:www.thymeleaf.org">
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http:www.thymeleaf.org">
 
 <head>
     <title>Listado</title>
@@ -38,23 +38,23 @@
                     <span th:text="'$' + ${product.weight} + ' en venta'"></span>
                     <span th:text="'$' + ${product.barcode} + ' en renta'"></span>
                     <span></span>
-                    <table>
+                    <table sec:authorize="hasRole('ROLE_ADMIN')">
                         <tr>
-                            <td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')">
                                 <form method="post" th:action="@{/products/doDelete}">
                                     <input th:name="id" th:value="${product.id}" type="hidden"/>
                                     <button class="btn btn-outline-primary" type="submit">Desactivar</button>
                                 </form>
                             </td>
-                            <td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')">
                                 <a class="btn btn-outline-primary" role="button"
                                    th:href="@{'/product?id=' + ${product.id}}">Editar</a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')">
                                 <a class="btn btn-outline-primary" role="button"
                                    th:href="@{'/addStock?productId=' + ${product.id}}">Altas</a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')">
                                 <a class="btn btn-outline-primary" role="button"
                                    th:href="@{'/restStock?productId=' + ${product.id}}">Bajas</a>
                             </td>

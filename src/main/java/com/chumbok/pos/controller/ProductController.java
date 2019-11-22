@@ -79,7 +79,6 @@ public class ProductController {
      * @param page to get (1, 2, 3, etc)
      * @return said page filled with products, 5 in each
      */
-    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/productsByPage/page/{page}")
     public ModelAndView listProductsByPage(@PathVariable("page") int page) {
         ModelAndView modelAndView = new ModelAndView("productListPagination"); //omg, you can set the viewName at birth
@@ -118,6 +117,7 @@ public class ProductController {
         return modelAndView; //Is existence itself worth it?
     }
 
+
     @RequestMapping(value = "/pageable", method = RequestMethod.GET)
     public ModelAndView productPageable(@PageableDefault(size = 5) Pageable pageable) { //Page<Product>
         ModelAndView modelAndView = new ModelAndView();
@@ -128,7 +128,7 @@ public class ProductController {
         return modelAndView;
     }
 
-
+    @Secured({"ROLE_ADMIN"}) //just admin can disable products
     @RequestMapping(value = "/products/doDelete", method = RequestMethod.POST)
     public String deleteProduct(@RequestParam(required = false) List<Long> ids, Long id) {
         if (ids == null) {
