@@ -2,12 +2,12 @@ package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.ProductWithStockQuantity;
 import com.chumbok.pos.dto.RentaDTO;
-import com.chumbok.pos.dto.VentaDTO;
 import com.chumbok.pos.entity.Customer;
-import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Renta;
-import com.chumbok.pos.entity.User;
-import com.chumbok.pos.service.*;
+import com.chumbok.pos.service.CustomerService;
+import com.chumbok.pos.service.ProductService;
+import com.chumbok.pos.service.RentaService;
+import com.chumbok.pos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -112,6 +112,7 @@ public class RentaController {
 
     /**
      * Controller to get /productRentPagination as a route
+     *
      * @return view with the products and so
      */
     @RequestMapping(value = "/rentList", method = RequestMethod.GET)

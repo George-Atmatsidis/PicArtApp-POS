@@ -1,21 +1,17 @@
 package com.chumbok.pos.controller;
 
-import com.chumbok.pos.dto.PersistedObjId;
 import com.chumbok.pos.dto.UserDTO;
-import com.chumbok.pos.entity.Role;
 import com.chumbok.pos.entity.User;
-import com.chumbok.pos.repository.RoleRepository;
 import com.chumbok.pos.service.UserService;
-import com.chumbok.pos.service.UserServiceLive;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -25,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Secured({"ROLE_ADMIN"}) //just the admin should be able to modify other users
+    @PreAuthorize("hasAuthority('ADMIN')") //just the admin should be able to modify other users
     @RequestMapping(path = "/user/makeModify", method = RequestMethod.GET)
     public ModelAndView showUsers(@RequestParam(required = false) Long userId) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
@@ -46,7 +42,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @Secured({"ROLE_ADMIN"}) //just the admin should be able to modify other users
+    @PreAuthorize("hasAuthority('ADMIN')") //just the admin should be able to modify other users
     @RequestMapping(path = "/user/createModify", method = RequestMethod.POST)
     public ModelAndView createUpdateUser(@RequestParam(value = "id", required = false) Long id, @Valid UserDTO userDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
@@ -76,7 +72,7 @@ public class UserController {
      *
      * @return view with the users in it.
      */
-    @Secured({"ROLE_ADMIN"}) //just the admin can see other users
+    @PreAuthorize("hasAuthority('ADMIN')") //just the admin can see other users
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public ModelAndView showUserList() {
         ModelAndView modelAndView = new ModelAndView("userList");

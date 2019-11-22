@@ -2,9 +2,7 @@ package com.chumbok.pos.service;
 
 import com.chumbok.pos.dto.UserDTO;
 import com.chumbok.pos.entity.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -22,7 +20,7 @@ public interface UserService {
     //Aquí se pide el usuario, es un get; pretty straightforward if you ask me, bro.
     User getUser(long id);
 
-    @Secured({"ROLE_ADMIN"})
+    @PreAuthorize("hasAuthority('ADMIN')")
     List<User> getAllUsers();
 
     //here's when it goes to shit

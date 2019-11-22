@@ -8,10 +8,9 @@ import com.chumbok.pos.service.ProductService;
 import com.chumbok.pos.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 public class ProductController {
@@ -31,10 +28,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private StockService stockService;
-
-    @Secured({"ROLE_ADMIN"}) //Just admins can access to the modify product page
+    @PreAuthorize("hasAuthority('ADMIN')") //Just admins can access to the modify product page
     @RequestMapping(path = "/product", method = RequestMethod.GET)
     public ModelAndView showAddProductForm(@RequestParam(required = false) Long id) {
         ModelAndView modelAndView = new ModelAndView();
@@ -56,7 +50,7 @@ public class ProductController {
         return modelAndView;
     }
 
-    @Secured({"ROLE_ADMIN"}) //Just admins can edit products
+    @PreAuthorize("hasAuthority('ADMIN')") //Just admins can edit products
     @RequestMapping(path = "/product", method = RequestMethod.POST)
     public ModelAndView createUpdateProduct(@Valid ProductDTO productDTO) {
         ModelAndView modelAndView = new ModelAndView();
@@ -76,6 +70,7 @@ public class ProductController {
 
     /**
      * Gets products paginated in pages
+     *
      * @param page to get (1, 2, 3, etc)
      * @return said page filled with products, 5 in each
      */
@@ -132,7 +127,7 @@ public class ProductController {
         return modelAndView;
     }
 
-    @Secured({"ROLE_ADMIN"}) //just admin can disable products
+    @PreAuthorize("hasAuthority('ADMIN')") //just admin can disable products
     @RequestMapping(value = "/products/doDelete", method = RequestMethod.POST)
     public String deleteProduct(@RequestParam(required = false) List<Long> ids, Long id) {
         if (ids == null) {

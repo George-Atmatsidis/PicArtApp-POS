@@ -1,9 +1,7 @@
 package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.PagesDTO;
-import com.chumbok.pos.dto.RentaDTO;
 import com.chumbok.pos.dto.ReturnVoucherDTO;
-import com.chumbok.pos.entity.Customer;
 import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Renta;
 import com.chumbok.pos.entity.ReturnVoucher;
@@ -11,7 +9,6 @@ import com.chumbok.pos.repository.CustomerRepository;
 import com.chumbok.pos.repository.ProductRepository;
 import com.chumbok.pos.repository.RentaRepository;
 import com.chumbok.pos.repository.ReturnVoucherRepository;
-import com.chumbok.pos.utility.DateConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Controller

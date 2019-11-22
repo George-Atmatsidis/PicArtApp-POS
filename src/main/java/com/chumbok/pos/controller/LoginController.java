@@ -5,7 +5,7 @@ import com.chumbok.pos.dto.UserDTO;
 import com.chumbok.pos.entity.User;
 import com.chumbok.pos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -49,7 +49,7 @@ public class LoginController {
         return modelAndView;
     }
 
-    @Secured({"ROLE_ADMIN"}) //just admins can see the new user form
+    @PreAuthorize("hasAuthority('ADMIN')") //just admins can see the new user form
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
@@ -59,7 +59,7 @@ public class LoginController {
         return modelAndView;
     }
 
-    @Secured({"ROLE_ADMIN"}) //just admins can register new users
+    @PreAuthorize("hasAuthority('ADMIN')") //just admins can register new users
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid UserDTO userDTO, BindingResult bindingResult) throws Exception {
         ModelAndView modelAndView = new ModelAndView();

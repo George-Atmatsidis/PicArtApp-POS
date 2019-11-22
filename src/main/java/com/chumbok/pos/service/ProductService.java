@@ -5,7 +5,7 @@ import com.chumbok.pos.dto.ProductWithStockQuantity;
 import com.chumbok.pos.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ public interface ProductService {
 
     Product getProduct(long productId);
 
-    @Secured({"ROLE_ADMIN"})
+    @PreAuthorize("hasAuthority('ADMIN')")
     Product createProduct(ProductDTO productDTO);
 
-    @Secured({"ROLE_ADMIN"})
+    @PreAuthorize("hasAuthority('ADMIN')")
     void updateProduct(ProductDTO productDTO);
 
     void deleteProduct(long productId);

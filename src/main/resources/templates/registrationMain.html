@@ -15,7 +15,7 @@
         <center>
             <div class="form-control">
                 <br/>
-                <div class="alert alert-secondary" role="alert" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="alert alert-secondary" role="alert">
                     <p>Para registrar un usuario sólo llene el formulario que encontrará en este botón.</p>
                     <div class="card">
                         <a th:href="@{/registration}">
@@ -42,7 +42,7 @@
                     </div>
                     <br/>
                 </div>
-                <div class="card" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="card">
                     <div class="alert alert-secondary" role="alert">
                         <p>
                             Si necesita ver y modificar los integrantes registrados actualmente, presione este botón.

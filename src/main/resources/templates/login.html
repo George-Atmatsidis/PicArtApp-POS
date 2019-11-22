@@ -10,19 +10,21 @@
 </head>
 
 <body>
-<div class="container">
-    <img th:src="@{/images/login.png}"/>
-    <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 class="form-signin-heading" >Favor de ingresar sus credenciales</h3>
+<div class="card-columns">
+    <center>
+        <div style="width: max-content; display: block;"><img th:src="@{/images/login.png}"/></div>
+    </center>
+    <form class="form-signin" method="POST" style="flex: content" th:action="@{/login}">
+        <center><h3 class="form-signin-heading">Bienvenido</h3>
+            <h4>Favor de ingresar sus credenciales</h4></center>
         <br/>
 
-        <input type="text" id="email" name="username" th:placeholder="Correo"
-               class="form-control"/> <br/>
+        <input class="form-control" id="email" name="username" th:placeholder="'Correo electrónico'" type="text"/> <br/>
         <input type="password" th:placeholder="Contraseña"
                id="password" name="password" class="form-control"/> <br/>
 
         <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;">Contraseña o Correo Incorrecto</p>
+            <p style="font-size: 20; color: #FF1C19;">Verifique sus credenciales</p>
         </div>
         <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
                 th:text="Entrar"></button>
