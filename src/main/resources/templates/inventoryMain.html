@@ -18,14 +18,12 @@
                 <div class="alert alert-secondary" style="text-align: left">
                     <h5>Modificaciones realizadas al inventario durante el mes seleccionado</h5>
                     <h6 th:text="'Total de modificaciones realizadas: ' + ${inventoryDTO.totalModificationsThisMonth}"></h6>
-                    <h6 th:text="'Se incluyen ' + ${inventoryDTO.totalAltasSaidMonth} + ' altas.' "></h6>
-                    <h6 th:text="'además de ' + ${inventoryDTO.totalBajasInSaidMonth} + ' bajas.' "></h6>
+                    <h6 th:text="'Se incluyen ' + ${inventoryDTO.totalAltasSaidMonth} + ' altas y ' + ${inventoryDTO.totalBajasInSaidMonth} + ' bajas.'"></h6>
                 </div>
                 <div class="alert alert-secondary" method="get" role="form" th:action="@{/byMonth/}"
-                     th:object="${dateDTO}">
+                     style="text-align: left" th:object="${dateDTO}">
                     <p>Para encontrar un informe detallado sobre las modificaciones realizadas al inventario en un
-                        periodo específico, sólo seleccione el mes y año en esta vista, después presione el botón
-                        "Continuar".</p>
+                        periodo específico, sólo seleccione el mes y año en esta vista, después presione el botón.</p>
                     <div class="card">
                         <select class="form-control" th:field="*{month}">
                             <span>Cliente</span>
@@ -50,7 +48,7 @@
                 </div>
 
                 <h2>Modificaciones a detalle: </h2>
-                <div class="card" style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px"
+                <div class="card" style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px; text-align: left"
                      th:each="inventory : ${inventoryList}">
                     <span th:text="'Fecha: ' + ${inventory.stockEntryDate}"></span>
                     <span th:text="'Cantidad: ' +${inventory.quantiy}"></span>

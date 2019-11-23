@@ -12,15 +12,13 @@
 <body>
 
 <div layout:fragment="content">
-    <p></p>
     <div class="container marketing">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <form action="#" autocomplete="off" class="form-horizontal" method="post" role="form"
                           th:action="@{/product}" th:object="${productDTO}">
-                        <br/>
-                        <h2>Agregar producto</h2>
+                        <h2>Registrar producto</h2>
                         <input class="form-control" th:field="*{id}" type="hidden"/>
                         <div class="form-group">
                             <div class="col-sm-9">

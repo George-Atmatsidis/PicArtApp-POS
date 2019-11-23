@@ -17,10 +17,14 @@
             <div class="flex-wrap">
                 <div class="container">
                     <br/>
-                    <table class="center-pill" style="margin: auto; display: block">
+                    <table class="center-pill" style="margin-left: -16px; display: block">
                         <tr>
                             <td>
-                                <h2>Productos</h2>
+                                <a class="btn btn-outline-primary" role="button"
+                                   th:href="@{/product}">+</a>
+                            </td>
+                            <td>
+                                <h2 style="margin-left: 2px"> Productos</h2>
                             </td>
                             <td th:each="page : ${listaDePaginas}">
                                 <a class="btn btn-outline-primary" role="button"
