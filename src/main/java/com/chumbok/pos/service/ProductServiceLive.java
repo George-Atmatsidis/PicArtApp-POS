@@ -55,6 +55,11 @@ return product;
         return productRepository.findAll();
     }
 
+    @Override
+    public List<Product> findAllEnabledWithStock() {
+        return productRepository.productsEnabledWithStock();
+    }
+
     /**
      * Crea un producto con base en la información obtenida del usuario. Establece algunas propiedades
      * por defecto puesto que el usuario no tendría por qué tener acceso a dichas características.

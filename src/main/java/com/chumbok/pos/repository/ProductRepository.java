@@ -15,6 +15,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.displayName LIKE %?1%")
     List<Product> findProductsByDisplayName(String displayName);
 
+    @Query("SELECT p FROM Product p WHERE (p.disabled <> true) and (p.quantity > 0)")
+    List<Product> productsEnabledWithStock();
+
     @Query("delete from Product p where p.id in ?1")
       void deleteBulkProduct(List<Long> ids);
 

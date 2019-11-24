@@ -30,4 +30,6 @@ public interface ProductService {
     Page<ProductWithStockQuantity> findProductWithStockQuantityByPageGraterThanZero(Pageable pageable);
 
     List<Product> findAll();
+
+    List<Product> findAllEnabledWithStock();
 }

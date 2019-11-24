@@ -95,7 +95,7 @@ public class VentaController {
     @RequestMapping(value = "/ventaProductos/pagina/{page}")
     public ModelAndView listProductsByPage(@PathVariable("page") int page, @RequestParam(required = false) Integer pageSize) {
         ModelAndView modelAndView = new ModelAndView("productListSale"); //omg, you can set the viewName at birth
-        List<Product> productList = productService.findAll();
+        List<Product> productList = productService.findAllEnabledWithStock();
         List<Product> justTheProductInSaidPage;
         //Let's keep the list size on 5
         int listSize = 6; //a variable, just in case :) jaj
