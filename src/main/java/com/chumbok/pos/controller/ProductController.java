@@ -1,15 +1,9 @@
 package com.chumbok.pos.controller;
-
 import com.chumbok.pos.dto.PagesDTO;
 import com.chumbok.pos.dto.ProductDTO;
-import com.chumbok.pos.dto.ProductWithStockQuantity;
 import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.service.ProductService;
-import com.chumbok.pos.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +65,7 @@ public class ProductController {
      * Gets products paginated in pages
      *
      * @param page to get (1, 2, 3, etc)
-     * @return said page filled with products, 5 in each
+     * @return said page filled with products, pageSize in each
      */
     @RequestMapping(value = "/productsByPage/page/{page}")
     public ModelAndView listProductsByPage(@PathVariable("page") int page, @RequestParam(required = false) Integer pageSize) {
@@ -115,7 +108,7 @@ public class ProductController {
             listaDePaginas.add(new PagesDTO("Siguiente", page + 1));
         }
         if (page == totalPages) {
-            listaDePaginas.add(new PagesDTO("Página única", page, "disabled"));
+            listaDePaginas.add(new PagesDTO("Siguiente", page, "disabled"));
         }
         modelAndView.addObject("listaDePaginas", listaDePaginas);
         modelAndView.addObject("products", justTheProductInSaidPage);

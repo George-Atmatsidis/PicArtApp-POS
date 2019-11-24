@@ -1,30 +1,23 @@
 package com.chumbok.pos.controller;
 
-import com.chumbok.pos.dto.DateDTO;
-import com.chumbok.pos.dto.InventoryDTO;
-import com.chumbok.pos.dto.MonthDTO;
+import com.chumbok.pos.dto.*;
 import com.chumbok.pos.entity.Stock;
 import com.chumbok.pos.service.ProductService;
 import com.chumbok.pos.service.StockService;
+import com.chumbok.pos.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@RequestMapping(path = "/inventory")
 @Controller
-public class InventoryController {
+public class ReportsController {
 
     @Autowired
     ProductService productService;
@@ -32,12 +25,19 @@ public class InventoryController {
     @Autowired
     StockService stockService;
 
+    @Autowired
+    VentaService ventaService;
+
+    @RequestMapping(path = "/reports")
+    public ModelAndView mainReportsView() {
+        return new ModelAndView("reportMain");
+    }
     /**
      * Método que recibe un
      * @return a view with everything inside
      */
     @PreAuthorize("hasAuthority('ADMIN')") //just admins can see the inventory report
-    @RequestMapping(path = "/selectPeriod", method = RequestMethod.GET)
+    @RequestMapping(path = "/inventory/selectPeriod", method = RequestMethod.GET)
     public ModelAndView mainInventoryView(@RequestParam(required = false) Integer month, @RequestParam(required = false) Integer year) {
         int thisMonth;
         int thisYear;
@@ -68,39 +68,6 @@ public class InventoryController {
         return modelAndView;
     }
 
-    /*@RequestMapping(path = "/selectPeriod", method = RequestMethod.POST)
-    public ModelAndView periodSelected() {
-        List<MonthDTO> monthDTOList = new ArrayList<>();
-        fillMonths(monthDTOList);
-        DateDTO dateDTO = new DateDTO();
-        ModelAndView modelAndView = new ModelAndView("inventoryMain");
-        modelAndView.addObject("monthList", monthDTOList);
-        modelAndView.addObject("dateDTO", dateDTO);
-        return modelAndView;
-    }*/
-
-    @RequestMapping(path = "/byMonth/", method = RequestMethod.GET)
-    public ModelAndView it(DateDTO dateDTO) {
-        InventoryDTO inventoryDTO = new InventoryDTO();
-        ModelAndView modelAndView = new ModelAndView();
-        List<Stock> list = stockService.getAllStocksBetweenDates(dateDTO.getMonth(), dateDTO.getYear());
-        inventoryDTO.setTotalBajasInSaidMonth(stockService.cantidadDeBajasEnUnPeriodo(dateDTO.getMonth(), dateDTO.getYear()));
-        inventoryDTO.setTotalAltasSaidMonth(stockService.cantidadDeAltasEnUnPeriodo(dateDTO.getMonth(), dateDTO.getYear()));
-        inventoryDTO.setTotalModificationsThisMonth(list.size());
-        modelAndView.addObject("stockList", list);
-        modelAndView.addObject("inventoryDTO", inventoryDTO);
-        return modelAndView;
-    }
-
-    @RequestMapping(path = "/currentMonth", method = RequestMethod.GET)
-    public ModelAndView currentMonthInventoryView() {
-        ModelAndView modelAndView = new ModelAndView();
-        InventoryDTO inventoryDTO = new InventoryDTO();
-        List<Stock> list = new ArrayList<>();
-        modelAndView.addObject("stockList", list);
-        modelAndView.addObject("inventoryDTO", inventoryDTO);
-        return modelAndView;
-    }
 
     private void fillMonths(List<MonthDTO> monthDTOList) {
         monthDTOList.add(new MonthDTO(1, "Enero"));
@@ -115,5 +82,55 @@ public class InventoryController {
         monthDTOList.add(new MonthDTO(10, "Octubre"));
         monthDTOList.add(new MonthDTO(11, "Noviembre"));
         monthDTOList.add(new MonthDTO(12, "Diciembre"));
+    }
+
+    @RequestMapping(path = "/ventasReport/selectPeriod", method = RequestMethod.GET)
+    public ModelAndView showVentasReport(@RequestParam(required = false) Integer month, @RequestParam(required = false) Integer year) {
+        ModelAndView modelAndView = new ModelAndView("ventasReport");
+        //From here, we define which period is gonna be on the report
+        int thisMonth;
+        int thisYear;
+        if (month != null && year != null) { //in case is defined, we use the values gotten
+            thisMonth = month;
+            thisYear = year;
+        } else { //november 2019 in case they don't
+            thisMonth = 11;
+            thisYear = Calendar.YEAR;
+        }
+        List<UserSalesDTO> userSalesDTOList = ventaService.howMuchEachUserSoldThisMonth(thisMonth, thisYear);
+        modelAndView.addObject("salesByUserList", userSalesDTOList);
+        ReportDTO reportDTO = new ReportDTO();
+        reportDTO.setMonth(thisMonth);
+        reportDTO.setYear(thisYear);
+        reportDTO.setTotalSalesOrRentsThisMonth(ventaService.ventasTotalesPorMes(thisMonth, thisYear));
+        String[] s = whoMadeTheMost(userSalesDTOList).split(",");
+        reportDTO.setUserWhoSoldOrRentTheMost(s[0]); //holy smokes, is it working, i really hope it don't
+        reportDTO.setHowMuchThatMadafackerSoldOrRentThatMonth(Long.parseLong(s[1])); //plZ stop
+        modelAndView.addObject("reportDTO", reportDTO);
+        List<MonthDTO> monthDTOList = new ArrayList<>();
+        fillMonths(monthDTOList);
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setMonth(thisMonth);
+        dateDTO.setYear(thisYear);
+        modelAndView.addObject("monthList", monthDTOList);
+        modelAndView.addObject("dateDTO", dateDTO);
+        return modelAndView;
+    }
+
+    private String whoMadeTheMost(List<UserSalesDTO> list) {
+        if (!list.isEmpty()) {
+            int i = 0;
+            long max = list.get(0).getQuantity();
+            String userWhoMadeTheMost = list.get(0).getName();
+            while (i < list.size()) {
+                if (list.get(i).getQuantity() > max) {
+                    userWhoMadeTheMost = list.get(i).getName();
+                    max = list.get(i).getQuantity();
+                }
+                i++;
+            }
+            return userWhoMadeTheMost + "," + max;
+        }
+        return "N/A" + "," + "0";
     }
 }
