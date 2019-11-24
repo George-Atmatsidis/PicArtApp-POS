@@ -3,7 +3,6 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http:www.thymeleaf.org">
-
 <head>
     <title>Listado</title>
 </head>
@@ -20,51 +19,60 @@
                     <table class="center-pill" style="margin-left: -16px; display: block">
                         <tr>
                             <td>
-                                <a class="btn btn-outline-primary" role="button"
-                                   th:href="@{/product}">+</a>
-                            </td>
-                            <td>
                                 <h2 style="margin-left: 2px"> Productos</h2>
                             </td>
-                            <td th:each="page : ${listaDePaginas}">
-                                <a class="btn btn-outline-primary" role="button"
-                                   th:href="@{'/productsByPage/page/' + ${page.numeroDePagina}}"
-                                   th:text="${page.titulo}"></a>
-                            </td>
                         </tr>
+                        <td>
+                            <a class="btn btn-success" role="button"
+                               style="width:200px;font-size: medium;font-weight: bolder"
+                               th:href="@{/product}">Agregar </a>
+                        </td>
                     </table>
                 </div>
                 <div class="card" style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px"
                      th:each="product : ${products}">
-                    <span th:text="${product.displayName}"></span>
-                    <span th:text="'Categoría: ' + ${product.catagory}"></span>
-                    <span th:text="${product.quantity} + ' en stock'"></span>
-                    <span th:text="'$' + ${product.weight} + ' en venta'"></span>
-                    <span th:text="'$' + ${product.barcode} + ' en renta'"></span>
+                    <span style="font-size:larger;font-weight: bolder" th:text="${product.displayName}"></span>
+                    <span style="font-size:medium;font-weight:normal"
+                          th:text="'Categoría: ' + ${product.catagory}"></span>
+                    <span style="font-size:medium;font-style:oblique;font-weight: bold"
+                          th:text="${product.quantity} + ' en stock'"></span>
+                    <span style="font-size:medium;font-style:oblique;font-style: italic"
+                          th:text="'Precio de venta: '+'$' + ${product.weight}"></span>
+                    <span style="font-size:medium;font-style:oblique;font-style: italic"
+                          th:text="'Precio de renta: '+'$' + ${product.barcode}"></span>
                     <span></span>
                     <table>
                         <tr>
                             <td>
                                 <form method="post" th:action="@{/products/doDelete}">
                                     <input th:name="id" th:value="${product.id}" type="hidden"/>
-                                    <button class="btn btn-outline-primary" type="submit">Desactivar</button>
+                                    <button class="btn btn-danger" type="submit">Desactivar</button>
                                 </form>
                             </td>
+
                             <td>
-                                <a class="btn btn-outline-primary" role="button"
+                                <a class="btn btn-info" role="button"
                                    th:href="@{'/product?id=' + ${product.id}}">Editar</a>
                             </td>
                             <td>
-                                <a class="btn btn-outline-primary" role="button"
+                                <a class="btn btn-outline-success" role="button"
                                    th:href="@{'/addStock?productId=' + ${product.id}}">Altas</a>
                             </td>
                             <td>
-                                <a class="btn btn-outline-primary" role="button"
+                                <a class="btn btn-outline-danger" role="button"
                                    th:href="@{'/restStock?productId=' + ${product.id}}">Bajas</a>
                             </td>
                         </tr>
+
                     </table>
+
                 </div>
+                <td th:each="page : ${listaDePaginas}">
+                    <a class="btn btn-outline-primary" role="button"
+                       th:href="@{'/productsByPage/page/' + ${page.numeroDePagina}}"
+                       th:text="${page.titulo}"></a>
+                </td>
+
             </div>
         </div>
         <hr class="featurette-divider"/>
