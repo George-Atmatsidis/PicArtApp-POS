@@ -47,10 +47,11 @@
                             <div style="flex-direction: row; align-content: space-between">
                                 <form method="post" th:action="@{/products/doDelete}">
                                     <input th:name="id" th:value="${product.id}" type="hidden"/>
-                                    <button class="btn btn-danger" type="submit">Desactivar</button>
+                                    <button class="btn btn-danger" style="padding: 4px 27px" type="submit">Desactivar
+                                    </button>
                                 </form>
                                 <a class="btn btn-info" role="button"
-                                   th:href="@{'/product?id=' + ${product.id}}">Editar</a>
+                                   style="padding: 4px 44px" th:href="@{'/product?id=' + ${product.id}}">Editar</a>
                             </div>
                             <div style="flex-direction: row">
                                 <a class="btn btn-outline-success" role="button"
@@ -61,12 +62,13 @@
                         </div>
                     </div>
                 </div>
-                <td th:each="page : ${listaDePaginas}">
-                    <a class="btn btn-outline-primary" role="button"
-                       th:href="@{'/productsByPage/page/' + ${page.numeroDePagina}}"
-                       th:text="${page.titulo}"></a>
-                </td>
-
+                <div style="display: flex; align-content: end">
+                    <div style="flex-direction: row" th:each="page : ${listaDePaginas}">
+                        <a class="btn btn-outline-primary" role="button"
+                           th:href="@{'/productsByPage/page/' + ${page.numeroDePagina}}"
+                           th:text="${page.titulo}"></a>
+                    </div>
+                </div>
             </div>
         </div>
         <hr class="featurette-divider"/>
