@@ -1,14 +1,14 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http:www.thymeleaf.org"
-      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layouts/main">
 <head>
     <title>Inicio</title>
     <link rel="stylesheet" href="css/carousel.css" th:href="@{/css/carousel.css}"/>
 </head>
 <body>
-<div layout:fragment="content" style="margin-top: -6px">
+<div layout:fragment="content" style="margin-top: -15px">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -34,7 +34,7 @@
                         <h1>Arte en cada parte</h1>
                         <p>Obten sólo calidad</p>
                         <p><a class="btn btn-lg btn-primary" href="#" role="button"
-                              th:href="@{/pageable(page=0, size=5, sort=catagory)}">Materiales</a></p>
+                              th:href="@{/productsByPage/page/1}">Materiales</a></p>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                         <h1>Inventario.</h1>
                         <p>¿Necesitas ver algún reporte? Búscalos aquí.</p>
                         <p><a class="btn btn-lg btn-primary" href="#" role="button"
-                              th:href="@{/pageable(page=0, size=5, sort=id)}">No disponible</a></p>
+                              th:href="@{/inventory/selectPeriod?month=11&amp;year=2019}">Reportes por mes</a></p>
                     </div>
                 </div>
             </div>
@@ -59,13 +59,19 @@
             <span class="sr-only">Siguiente</span>
         </a>
     </div>
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-    <div class="container marketing">
-        <p>PicArt es un espacio dedicado a mejorar la capacidad de los alumnos al permitirles probar sus habilidades con
-            lo último en dispositivos.</p>
-    </div><!-- /.container -->
+    <div>
+        <p>
+            PicArtApp es un espacio diseñado para llevar un registro extensivo de los recursos a disposición del taller
+            conocido como PicArt.
+        </p>
+    </div>
+    <!--    <div class="card" style="margin-top: -15px">-->
+    <!--        <a th:href="@{/users/manejoDeUsuarios}">-->
+    <!--            <button class="btn btn-primary btn-lg btn-block" type="button">-->
+    <!--                Manejo de usuarios-->
+    <!--            </button>-->
+    <!--        </a>-->
+    <!--    </div>-->
 </div>
 </body>
 </html>

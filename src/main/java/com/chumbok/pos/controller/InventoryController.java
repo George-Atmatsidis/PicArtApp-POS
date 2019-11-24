@@ -7,6 +7,7 @@ import com.chumbok.pos.entity.Stock;
 import com.chumbok.pos.service.ProductService;
 import com.chumbok.pos.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class InventoryController {
      * Método que recibe un
      * @return a view with everything inside
      */
+    @PreAuthorize("hasAuthority('ADMIN')") //just admins can see the inventory report
     @RequestMapping(path = "/selectPeriod", method = RequestMethod.GET)
     public ModelAndView mainInventoryView(@RequestParam(required = false) Integer month, @RequestParam(required = false) Integer year) {
         int thisMonth;
@@ -43,7 +45,7 @@ public class InventoryController {
             thisMonth = month;
             thisYear = year;
         } else {
-            thisMonth = Calendar.MONTH;
+            thisMonth = 11;
             thisYear = Calendar.YEAR;
         }
         List<MonthDTO> monthDTOList = new ArrayList<>();
@@ -66,7 +68,7 @@ public class InventoryController {
         return modelAndView;
     }
 
-    @RequestMapping(path = "/selectPeriod", method = RequestMethod.POST)
+    /*@RequestMapping(path = "/selectPeriod", method = RequestMethod.POST)
     public ModelAndView periodSelected() {
         List<MonthDTO> monthDTOList = new ArrayList<>();
         fillMonths(monthDTOList);
@@ -75,7 +77,7 @@ public class InventoryController {
         modelAndView.addObject("monthList", monthDTOList);
         modelAndView.addObject("dateDTO", dateDTO);
         return modelAndView;
-    }
+    }*/
 
     @RequestMapping(path = "/byMonth/", method = RequestMethod.GET)
     public ModelAndView it(DateDTO dateDTO) {

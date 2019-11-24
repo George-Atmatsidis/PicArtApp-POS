@@ -1,0 +1,58 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http:www.thymeleaf.org">
+
+<head>
+    <title>Listado</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container marketing">
+        <br/>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <div class="flex-wrap" style="margin-top: 10px">
+                <div class="container" style="display:flex; flex-direction: row; justify-content: space-between;">
+                    <div style="align-content: flex-start">
+                        <h2 style="margin-left: -13px"> Renta</h2>
+                    </div>
+                    <div style="align-content: flex-end">
+                        <div th:each="page : ${listaDePaginas}">
+                            <a class="btn btn-outline-primary" role="button"
+                               th:href="@{'/rentaProductos/pagina/' + ${page.numeroDePagina}}"
+                               th:text="${page.titulo}"></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column">
+                    <div class="card"
+                         style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px; flex-direction: row; justify-content: space-between; display: flex"
+                         th:each="product : ${products}">
+                        <div style="align-content: flex-start">
+                            <span th:text="${product.displayName}"></span> <br/>
+                            <span th:text="${product.quantity} + ' en stock'"></span> <br/>
+                            <span th:text="'$' + ${product.barcode} + ' en renta'"></span> <br/>
+                        </div>
+                        <div style="align-content: end">
+                            <a class="btn btn-outline-primary" role="button"
+                               th:href="@{'/addRentas?productId=' + ${product.id}}">Rentar</a>
+                        </div>
+                    </div>
+                </div> <!-- Final del flex con productos -->
+                <div class="card">
+                    <a th:href="@{/returns}">
+                        <button class="btn btn-primary btn-lg btn-block" type="button">
+                            Devoluciones
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <hr class="featurette-divider"/>
+    </div><!-- /.container -->
+</div>
+</body>
+</html>

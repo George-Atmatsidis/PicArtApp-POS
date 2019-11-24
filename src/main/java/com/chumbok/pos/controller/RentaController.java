@@ -1,8 +1,10 @@
 package com.chumbok.pos.controller;
 
+import com.chumbok.pos.dto.PagesDTO;
 import com.chumbok.pos.dto.ProductWithStockQuantity;
 import com.chumbok.pos.dto.RentaDTO;
 import com.chumbok.pos.entity.Customer;
+import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Renta;
 import com.chumbok.pos.service.CustomerService;
 import com.chumbok.pos.service.ProductService;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -142,6 +145,48 @@ public class RentaController {
         } //I'm gonna make them give back our past!
         modelAndView.addObject("activeRentList", true); //-Kazuhira Miller, Metal Gear Solid
         modelAndView.addObject("rentList", rentPage.getContent()); //Why do we even keep going?
+        return modelAndView; //Is existence itself worth it?
+    }
+
+    @RequestMapping(value = "/rentaProductos/pagina/{page}")
+    public ModelAndView listProductsByPage(@PathVariable("page") int page, @RequestParam(required = false) Integer pageSize) {
+        ModelAndView modelAndView = new ModelAndView("productListRent"); //omg, you can set the viewName at birth
+        List<Product> productList = productService.findAll();
+        List<Product> justTheProductInSaidPage;
+        //Let's keep the list size on 5
+        int listSize = 6; //a variable, just in case :)
+        if (pageSize != null) {
+            listSize = pageSize;
+        }
+        if (page == 1) {
+            int i = 0;
+            justTheProductInSaidPage = new ArrayList<>();
+            while (i < productList.size() && i < listSize) {
+                justTheProductInSaidPage.add(productList.get(i));
+                i++;
+            }
+        } else {
+            justTheProductInSaidPage = new ArrayList<>();
+            int i = (page - 1) * listSize;
+            int fin = i + listSize;
+            while (i < productList.size() && i < fin) {
+                justTheProductInSaidPage.add(productList.get(i));
+                i++;
+            }
+        }
+        int totalPages = productList.size() / listSize;
+        if (productList.size() % listSize > 0) {
+            totalPages += 1;
+        }
+        List<PagesDTO> listaDePaginas = new ArrayList<>();
+        if (page > 1) {
+            listaDePaginas.add(new PagesDTO("Anterior", page - 1));
+        }
+        if (page < totalPages) {
+            listaDePaginas.add(new PagesDTO("Siguiente", page + 1));
+        }
+        modelAndView.addObject("listaDePaginas", listaDePaginas);
+        modelAndView.addObject("products", justTheProductInSaidPage);
         return modelAndView; //Is existence itself worth it?
     }
 }
