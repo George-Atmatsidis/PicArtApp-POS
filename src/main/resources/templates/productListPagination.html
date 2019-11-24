@@ -2,7 +2,7 @@
 <html layout:decorator="layouts/main"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http:www.thymeleaf.org">
+      xmlns:th="http:www.thymeleaf.org">
 <head>
     <title>Listado</title>
 </head>
@@ -16,56 +16,50 @@
             <div class="flex-wrap">
                 <div class="container">
                     <br/>
-                    <table class="center-pill" style="margin-left: -16px; display: block">
-                        <tr>
-                            <td>
-                                <h2 style="margin-left: 2px"> Productos</h2>
-                            </td>
-                        </tr>
-                        <td>
+                    <div style="display: flex; flex-direction: row">
+                        <div style="flex-flow: row; align-content: flex-start; margin-left: -15px">
+                            <h2 style="margin-left: 2px"> Productos</h2>
+                        </div>
+                        <div style="align-content: flex-end; margin-left: auto">
                             <a class="btn btn-success" role="button"
-                               style="width:200px;font-size: medium;font-weight: bolder"
+                               style="width:150px;font-size: medium;font-weight: bolder; align-content: end"
                                th:href="@{/product}">Agregar </a>
-                        </td>
-                    </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="card" style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px"
+                <div class="card"
+                     style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px; display:flex; flex-direction: row; align-content: space-between"
                      th:each="product : ${products}">
-                    <span style="font-size:larger;font-weight: bolder" th:text="${product.displayName}"></span>
-                    <span style="font-size:medium;font-weight:normal"
-                          th:text="'Categoría: ' + ${product.catagory}"></span>
-                    <span style="font-size:medium;font-style:oblique;font-weight: bold"
-                          th:text="${product.quantity} + ' en stock'"></span>
-                    <span style="font-size:medium;font-style:oblique;font-style: italic"
-                          th:text="'Precio de venta: '+'$' + ${product.weight}"></span>
-                    <span style="font-size:medium;font-style:oblique;font-style: italic"
-                          th:text="'Precio de renta: '+'$' + ${product.barcode}"></span>
-                    <span></span>
-                    <table>
-                        <tr>
-                            <td>
+                    <div style="flex-direction: column; align-content: flex-start">
+                        <span style="font-size:larger;font-weight: bolder" th:text="${product.displayName}"></span>
+                        <br/>
+                        <span style="font-size:medium;font-weight:normal"
+                              th:text="'Categoría: ' + ${product.catagory}"></span> <br/>
+                        <span style="font-size:medium;font-style:oblique;font-weight: bold"
+                              th:text="${product.quantity} + ' en stock'"></span> <br/>
+                        <span style="font-size:medium;font-style:oblique;font-style: italic"
+                              th:text="'Precio de venta: '+'$' + ${product.weight}"></span> <br/>
+                        <span style="font-size:medium;font-style:oblique;font-style: italic"
+                              th:text="'Precio de renta: '+'$' + ${product.barcode}"></span> <br/>
+                    </div>
+                    <div style="align-content: flex-end; margin-left: auto">
+                        <div style="flex-direction: column; flex-flow: column">
+                            <div style="flex-direction: row; align-content: space-between">
                                 <form method="post" th:action="@{/products/doDelete}">
                                     <input th:name="id" th:value="${product.id}" type="hidden"/>
                                     <button class="btn btn-danger" type="submit">Desactivar</button>
                                 </form>
-                            </td>
-
-                            <td>
                                 <a class="btn btn-info" role="button"
                                    th:href="@{'/product?id=' + ${product.id}}">Editar</a>
-                            </td>
-                            <td>
+                            </div>
+                            <div style="flex-direction: row">
                                 <a class="btn btn-outline-success" role="button"
                                    th:href="@{'/addStock?productId=' + ${product.id}}">Altas</a>
-                            </td>
-                            <td>
                                 <a class="btn btn-outline-danger" role="button"
                                    th:href="@{'/restStock?productId=' + ${product.id}}">Bajas</a>
-                            </td>
-                        </tr>
-
-                    </table>
-
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <td th:each="page : ${listaDePaginas}">
                     <a class="btn btn-outline-primary" role="button"
