@@ -1,0 +1,54 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Reportes</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <br/>
+    <br/>
+    <div class="alert alert-secondary" role="alert">
+        <p>
+            Aqui veremos los diferentes reportes
+        </p>
+    </div>
+    <form>
+        <br/>
+        <!-- START THE FEATURETTES -->
+        <center>
+            <div class="form-control">
+                <div class="card">
+                    <a th:href="@{'/rentList'}">
+                        <button class="btn btn-primary btn-lg btn-block" type="button">
+                            Reporte de Inventario
+                        </button>
+                    </a>
+                </div>
+                <br/>
+                <div class="card">
+                    <a th:href="@{'/returnDetails}">
+                        <button class="btn btn-primary btn-lg btn-block" type="button">
+                            Reporte de Ventas
+                        </button>
+                    </a>
+                </div>
+                <br/>
+                <div class="card">
+                    <a th:href="@{'returns/list/1'}">
+                        <button class="btn btn-primary btn-lg btn-block" type="button">
+                            Manejo de usuarios
+                        </button>
+                    </a>
+                </div>
+                <hr class="featurette-divider"/>
+            </div><!-- /.container -->
+        </center>
+    </form>
+</div>
+</body>
+</html>
