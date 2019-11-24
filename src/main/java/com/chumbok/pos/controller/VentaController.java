@@ -32,16 +32,6 @@ public class VentaController {
     @Autowired
     private VentaService ventaService;
 
-    @RequestMapping(value = "/productSalePagination", method = RequestMethod.GET)
-    public ModelAndView productPageable(@PageableDefault(size = 5) Pageable pageable) { //Page<Product>
-        ModelAndView modelAndView = new ModelAndView();
-        Page<ProductWithStockQuantity> pageProductListWithStockQuantity = productService.findProductWithStockQuantityByPageGraterThanZero(pageable);
-        modelAndView.addObject("page", pageProductListWithStockQuantity);
-        modelAndView.addObject("pageable", pageable);
-        modelAndView.setViewName("productSalePagination");
-        return modelAndView;
-    }
-
     /**
      * Método para el mapeo de /addVentas que recibe una venta y decide cómo llenar los campos
      * con base en la información obtenida en el método GET.

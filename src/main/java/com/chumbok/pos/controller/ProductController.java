@@ -122,17 +122,6 @@ public class ProductController {
         return modelAndView; //Is existence itself worth it?
     }
 
-
-    @RequestMapping(value = "/pageable", method = RequestMethod.GET)
-    public ModelAndView productPageable(@PageableDefault(size = 5) Pageable pageable) { //Page<Product>
-        ModelAndView modelAndView = new ModelAndView();
-        Page<ProductWithStockQuantity> pageProductListWithStockQuantity = productService.findProductWithStockQuantityByPage(pageable);
-        modelAndView.addObject("page", pageProductListWithStockQuantity);
-        modelAndView.addObject("pageable", pageable);
-        modelAndView.setViewName("productPagination");
-        return modelAndView;
-    }
-
     @PreAuthorize("hasAuthority('ADMIN')") //just admin can disable products
     @RequestMapping(value = "/products/doDelete", method = RequestMethod.POST)
     public String deleteProduct(@RequestParam(required = false) List<Long> ids, Long id) {

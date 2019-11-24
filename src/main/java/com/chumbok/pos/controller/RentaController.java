@@ -42,25 +42,6 @@ public class RentaController {
     @Autowired
     private CustomerService customerService;
 
-    @Autowired
-    private UserService userService;
-
-    /**
-     * Controller to get /productRentPagination as a route
-     *
-     * @param pageable to add the products
-     * @return view with the products and so
-     */
-    @RequestMapping(value = "/productRentPagination", method = RequestMethod.GET)
-    public ModelAndView productPageable(Pageable pageable) { //Page<Product>
-        ModelAndView modelAndView = new ModelAndView();
-        Page<ProductWithStockQuantity> pageProductListWithStockQuantity = productService.findProductWithStockQuantityByPageGraterThanZero(pageable);
-        modelAndView.addObject("page", pageProductListWithStockQuantity);
-        modelAndView.addObject("pageable", pageable);
-        modelAndView.setViewName("productRentPagination");
-        return modelAndView;
-    }
-
     /**
      * Método para el mapeo de /addRenta que recibe una renta y decide cómo llenar los campos
      * con base en la información obtenida en el método GET.
