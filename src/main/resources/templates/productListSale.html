@@ -21,7 +21,7 @@
                     </div>
                     <div style="align-content: flex-end">
                         <div th:each="page : ${listaDePaginas}">
-                            <a class="btn btn-outline-primary" role="button"
+                            <a class="btn btn-success btn-lg btn-block" role="button"
                                th:href="@{'/ventaProductos/pagina/' + ${page.numeroDePagina}}"
                                th:text="${page.titulo}"></a>
                         </div>
@@ -32,12 +32,14 @@
                          style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px; flex-direction: row; justify-content: space-between; display: flex"
                          th:each="product : ${products}">
                         <div style="align-content: flex-start">
-                            <span th:text="${product.displayName}"></span> <br/>
-                            <span th:text="${product.quantity} + ' en stock'"></span> <br/>
+                            <span style="font-size:larger;font-weight:bolder" th:text="${product.displayName}"></span>
+                            <br/>
+                            <span style="font-size:medium;font-style:oblique"
+                                  th:text="${product.quantity} + ' en stock'"></span> <br/>
                             <span th:text="'$' + ${product.weight} + ' por pieza'"></span> <br/>
                         </div>
-                        <div style="align-content: end">
-                            <a class="btn btn-outline-primary" role="button"
+                        <div style="align-content: end;padding-top:20px">
+                            <a class="btn btn-info" role="button"
                                th:href="@{'/addVentas?productId=' + ${product.id}}">Vender</a>
                         </div>
                     </div>
