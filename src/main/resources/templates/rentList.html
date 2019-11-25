@@ -14,8 +14,8 @@
         <h6>Listando rentas</h6>
         <!-- START THE FEATURETTES -->
         <div class="container">
-            <div class="box">
-                <h2>Rentas con retraso</h2>
+            <h2>Rentas con retraso</h2>
+            <div class="box" style="display: flex; flex-direction: column; flex-wrap: wrap">
                 <div th:each="delayedRenta : ${delayedRentas}">
                     <span th:text="${delayedRenta.customer.firstName + ' ' + delayedRenta.customer.lastName}"></span>
                     <br/>

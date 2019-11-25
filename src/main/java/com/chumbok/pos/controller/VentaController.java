@@ -1,17 +1,11 @@
 package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.PagesDTO;
-import com.chumbok.pos.dto.ProductWithStockQuantity;
-import com.chumbok.pos.dto.UserSalesDTO;
 import com.chumbok.pos.dto.VentaDTO;
 import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.service.ProductService;
 import com.chumbok.pos.service.VentaService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
