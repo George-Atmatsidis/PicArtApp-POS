@@ -10,6 +10,8 @@ import javax.validation.Valid;
 
 public class UserDTO {
 
+    private long id;
+
     @Column(unique = true)
     @Email(message = "*Asegúrese de escribir correctamente su email.")
     @NotEmpty(message = "*Favor de proveer un email.")
@@ -44,11 +46,7 @@ public class UserDTO {
     }
 
     public void setPassword(String password) {
-        //if (password.equals(confirmPassword)) {
             this.password = password;
-        //} else {
-        //  throw new Exception("Password didn't match");
-        //}
     }
 
     public String getConfirmPassword() {
@@ -89,5 +87,13 @@ public class UserDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

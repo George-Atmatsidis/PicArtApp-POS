@@ -5,10 +5,7 @@ import com.chumbok.pos.entity.User;
 import com.chumbok.pos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -79,6 +76,18 @@ public class UserController {
         List<User> list = userService.getAllUsers();
         modelAndView.addObject("userList", list);
         return modelAndView;
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMIN')") //just an admin can disable another user
+    @RequestMapping(value = "/disable/{user}")
+    public ModelAndView disableUser(@PathVariable("user") Long user) {
+        if (user != null) {
+            userService.disableUser(userService.findOne(user));
+        } else {
+            System.err.println("wtf, why");
+        }
+        return showUserList();
     }
 }
 

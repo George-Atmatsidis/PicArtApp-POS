@@ -9,9 +9,6 @@ import java.util.List;
 public interface UserService {
     User findUserByEmail(String email);
 
-    //What have we done to get this shit
-    void updateUser(User user); //TODO deprecate this shit
-
     //update a user but not the password
     void updateUser(UserDTO userDTO, long id);
 
@@ -25,4 +22,6 @@ public interface UserService {
 
     //here's when it goes to shit
     void disableUser(User user);
+
+    User findOne(long id);
 }

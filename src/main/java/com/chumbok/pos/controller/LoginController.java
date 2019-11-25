@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -51,28 +52,47 @@ public class LoginController {
 
     @PreAuthorize("hasAuthority('ADMIN')") //just admins can see the new user form
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public ModelAndView registration() {
+    public ModelAndView registration(@RequestParam(required = false) Long id) {
         ModelAndView modelAndView = new ModelAndView();
-        UserDTO userDTO = new UserDTO();
-        modelAndView.addObject("userDTO", userDTO);
-        modelAndView.setViewName("registration");
-        return modelAndView;
+        if (id == null) {
+            UserDTO userDTO = new UserDTO();
+            modelAndView.addObject("userDTO", userDTO);
+            modelAndView.setViewName("registration");
+            return modelAndView;
+        } else {
+            UserDTO userDTO = new UserDTO();
+            User user = userService.findOne(id);
+            userDTO.setLastName(user.getLastName());
+            userDTO.setFirstName(user.getFirstName());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setRole(user.getRoles().toString());
+            userDTO.setPassword(user.getPassword());
+            userDTO.setConfirmPassword(user.getPassword());
+            modelAndView.addObject("userDTO", userDTO);
+            modelAndView.setViewName("registration");
+            return modelAndView;
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN')") //just admins can register new users
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid UserDTO userDTO, BindingResult bindingResult) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
+        if (userService.findOne(userDTO.getId()) != null) {
+            if (userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
+                modelAndView.addObject("debugMessage", "Password doesn't match");
+            }
+            userService.updateUser(userDTO, userDTO.getId());
+            modelAndView.addObject("successMessage", "El usuario se ha modificado exitosamente.");
+            modelAndView.addObject("userDTO", userDTO);
+            modelAndView.setViewName("registration");
+            return modelAndView;
+        }
         if (userService.findUserByEmail(userDTO.getEmail()) != null) { //si ya hay un usuario registrado con ese email
             bindingResult
                     .rejectValue("email", "error.user",
                             "Ya existe un usuario registrado con ese correo electrónico.");
         }
-//        if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
-//            bindingResult
-//                    .rejectValue("confirmPassword", "error.confirmPassword"
-//                            , "Las contraseñas no coinciden, por favor verifique");
-//        }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
@@ -87,6 +107,5 @@ public class LoginController {
         }
         return modelAndView;
     }
-
 
 }

@@ -20,12 +20,18 @@
                 <div class="alert alert-secondary" role="alert" th:each="user : ${userList}">
                     <h4 th:text="${user.firstName + ' ' + user.lastName}"></h4>
                     <h5 th:text="${user.email}"></h5>
+                    <span th:text="'Usuario activo: ' + ${user.active}"></span> <br/>
                     <span th:text="${user.roles}"></span>
                     <p></p>
                     <div class="card">
-                        <a th:href="@{'/user/makeModify?userId=' + ${user.id}}">
+                        <!--                        <a th:href="@{'/registration?id=' + ${user.id}}" method="get">-->
+                        <!--                            <button class="btn btn-primary btn-lg btn-block" type="button">-->
+                        <!--                                Modificar usuario-->
+                        <!--                            </button>-->
+                        <!--                        </a>-->
+                        <a method="get" th:href="@{'/users/disable/' + ${user.id}}">
                             <button class="btn btn-primary btn-lg btn-block" type="button">
-                                Modificar usuario
+                                Desactivar / Activar
                             </button>
                         </a>
                     </div>

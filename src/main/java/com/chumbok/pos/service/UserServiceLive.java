@@ -35,20 +35,6 @@ public class UserServiceLive implements UserService {
         return userRepository.findByEmail(email);
     }
 
-
-    @Override
-    public void updateUser(User user) {
-        User userById = userRepository.findOne(user.getId());
-        userById.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userById.setEmail(user.getEmail());
-        userById.setActive(user.getActive());
-        userById.setFirstName(user.getFirstName());
-        userById.setLastName(user.getLastName());
-        userById.setRoles(user.getRoles());
-        Role userRole = roleRepository.findByRole("" + user.getRoles());
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-    }
-
     /**
      * Takes one user and updates its details. If we receive something
      * else than "ADMIN" as a role, it defaults to "USER".
@@ -72,7 +58,9 @@ public class UserServiceLive implements UserService {
         if (userById.getPassword().equals(userDTO.getPassword())) { //la contraseña no ha cambiado
             //así que no se altera
         } else { //la contraseña ha cambiado
-            userById.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+            if (userDTO.getPassword() != null) {
+                userById.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+            }
         }
     }
 
@@ -125,6 +113,15 @@ public class UserServiceLive implements UserService {
     @Override
     public void disableUser(User user) {
         User userById = userRepository.findOne(user.getId());
-        userById.setActive(0);
+        if (userById.getActive() == 1) {
+            userById.setActive(0);
+        } else {
+            userById.setActive(1);
+        }
+    }
+
+    @Override
+    public User findOne(long id) {
+        return userRepository.findOne(id);
     }
 }
