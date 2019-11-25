@@ -1,5 +1,9 @@
 package com.chumbok.pos.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 public class ReturnVoucherDTO {
 
     private long idRenta;
@@ -8,7 +12,8 @@ public class ReturnVoucherDTO {
 
     private String dateOfRent;
 
-    private String dateOfReturn;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dateOfReturn;
 
     private String status;
 
@@ -43,11 +48,11 @@ public class ReturnVoucherDTO {
         this.dateOfRent = dateOfRent;
     }
 
-    public String getDateOfReturn() {
+    public Date getDateOfReturn() {
         return dateOfReturn;
     }
 
-    public void setDateOfReturn(String dateOfReturn) {
+    public void setDateOfReturn(Date dateOfReturn) {
         this.dateOfReturn = dateOfReturn;
     }
 

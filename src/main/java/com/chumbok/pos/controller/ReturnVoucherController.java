@@ -9,6 +9,7 @@ import com.chumbok.pos.repository.CustomerRepository;
 import com.chumbok.pos.repository.ProductRepository;
 import com.chumbok.pos.repository.RentaRepository;
 import com.chumbok.pos.repository.ReturnVoucherRepository;
+import com.chumbok.pos.service.ReturnVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,14 +31,10 @@ public class ReturnVoucherController {
     RentaRepository rentaRepository;
 
     @Autowired
-    CustomerRepository customerRepository;
-
-    @Autowired
     ReturnVoucherRepository returnVoucherRepository;
 
     @Autowired
-    ProductRepository productRepository;
-
+    ReturnVoucherService returnVoucherService;
 
     /**
      * This method is to manage returns of said renta
@@ -55,7 +52,7 @@ public class ReturnVoucherController {
             //accede a la información almacenada en la venta para determinar el nombre del cliente
             returnVoucherDTO.setCustomerName(rentaARevisar.getCustomer().getFirstName() + " " + rentaARevisar.getCustomer().getLastName());
             returnVoucherDTO.setDateOfRent("" + rentaARevisar.getDateOfRent()); //establece la fecha en que se rentó
-            returnVoucherDTO.setDateOfReturn("" + rentaARevisar.getDateOfReturn()); //establece la fecha en que se debía regresar
+            returnVoucherDTO.setDateOfReturn(rentaARevisar.getDateOfReturn()); //establece la fecha en que se debía regresar
             returnVoucherDTO.setProductName(rentaARevisar.getProduct().getDisplayName()); //establece el nombre del product
             returnVoucherDTO.setQuantity(rentaARevisar.getQuantity()); //establece la cantidad rentada
             if (rentaARevisar.getDateOfReturn().compareTo(Calendar.getInstance().getTime()) <= 0) { //revisa que la fecha de entrega no sea mayor a la fecha de hoy
@@ -74,23 +71,12 @@ public class ReturnVoucherController {
     }
 
     @RequestMapping(path = "/rent/return", method = RequestMethod.POST)
-    public ModelAndView makeReturnOfRenta(ReturnVoucherDTO returnVoucherDTO) {
+    public String makeReturnOfRenta(ReturnVoucherDTO returnVoucherDTO) {
         ModelAndView modelAndView = new ModelAndView("viewRenta");
-        ReturnVoucher returnVoucher = new ReturnVoucher();
         //sets return date as today
-        returnVoucher.setDateWhenTheReturnWasMade(Calendar.getInstance().getTime());
-        //sets which rent the return is made for
-        returnVoucher.setRenta(rentaRepository.findOne(returnVoucherDTO.getIdRenta()));
-        //sets the commentary
-        returnVoucher.setComentary(returnVoucherDTO.getComments());
-        //guardar la devolución
-        returnVoucherRepository.save(returnVoucher);
-        //desactivar venta
-        rentaRepository.findOne(returnVoucherDTO.getIdRenta()).setActive(false);
-        //establecer la cantidad en stock
-        Product product = rentaRepository.findOne(returnVoucherDTO.getIdRenta()).getProduct();
-        product.setQuantity(product.getQuantity() + Math.abs(rentaRepository.findOne(returnVoucherDTO.getIdRenta()).getQuantity()));
-        return modelAndView;
+        returnVoucherDTO.setDateOfReturn(Calendar.getInstance().getTime());
+        returnVoucherService.createVoucher(returnVoucherDTO);
+        return "redirect:/returns/list/500";
     }
 
     @RequestMapping(path = "returns/list/{page}", method = RequestMethod.GET)
@@ -118,6 +104,9 @@ public class ReturnVoucherController {
         int totalPages = returnVouchers.size() / 5;
         if (returnVouchers.size() % 5 > 0) {
             totalPages += 1;
+        }
+        if (page > totalPages) { //return lastPage if
+            return showPagedReturns(totalPages);
         }
         List<PagesDTO> listaDePaginas = new ArrayList<>();
         if (page > 1) {

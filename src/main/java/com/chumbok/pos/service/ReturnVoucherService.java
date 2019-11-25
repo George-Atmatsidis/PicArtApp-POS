@@ -10,4 +10,8 @@ public interface ReturnVoucherService {
     List<ReturnVoucher> findAll();
 
     List<ReturnVoucher> findByCustomer(Customer customer);
+
+    void createVoucher(ReturnVoucherDTO returnVoucherDTO);
+
+    ReturnVoucher findOne(long id);
 }
