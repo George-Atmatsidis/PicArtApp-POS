@@ -26,31 +26,14 @@
                     <form action="#" autocomplete="off" class="form-horizontal"
                           method="post" role="form" th:action="@{/addVentas}"
                           th:object="${ventaDTO}">
-                        <p></p>
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <span></span> <!-- Nombre del cliente -->
-                                <input class="form-control" disabled="disabled" th:field="*{customerName}" type="text"/>
-                            </div>
-                        </div>
                         <!--FECHA-->
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <span>Fecha de renta</span>
+                                <span>Fecha de venta</span>
                                 <input class="form-control" disabled="disabled" placeholder="Fecha de renta"
-                                       th:field="*{dateOfRent}" type="date"/>
-                                <label class="validation-message" th:errors="*{dateOfRent}"
-                                       th:if="${#fields.hasErrors('dateOfRent')}"></label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <span>Fecha de devolución</span>
-                                <input class="form-control" placeholder="dd/mm/yyyy"
-                                       th:field="*{dateOfReturn}" type="date"/>
-                                <label class="validation-message" th:errors="*{dateOfReturn}"
-                                       th:if="${#fields.hasErrors('dateOfReturn')}"></label>
+                                       th:field="*{salesDate}" type="text"/>
+                                <label class="validation-message" th:errors="*{salesDate}"
+                                       th:if="${#fields.hasErrors('salesDate')}"></label>
                             </div>
                         </div>
 
@@ -58,18 +41,18 @@
                             <div class="col-sm-9">
                                 <span>Atendido por:</span> <!-- Correo electrónico del integrante -->
                                 <input class="form-control"
-                                       disabled="disabled" id="userMail" th:field="*{userMail}"/> <label
-                                    class="validation-message" th:errors="*{userMail}"
-                                    th:if="${#fields.hasErrors('userMail')}" type="email"></label>
+                                       disabled="disabled" id="userMail" th:field="*{email}"/> <label
+                                    class="validation-message" th:errors="*{email}"
+                                    th:if="${#fields.hasErrors('email')}" type="text"></label>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <span>Nombre del producto</span>
-                                <input class="form-control" disabled="disabled" th:field="*{productName}" type="text"/>
-                                <label class="validation-message" th:errors="*{productName}"
-                                       th:if="${#fields.hasErrors('productName')}"></label>
+                                <input class="form-control" disabled="disabled" th:field="*{displayName}" type="text"/>
+                                <label class="validation-message" th:errors="*{displayName}"
+                                       th:if="${#fields.hasErrors('displayName')}"></label>
                             </div>
                         </div>
 
@@ -78,7 +61,7 @@
                                 <span>Precio unitario</span>
                                 <!-- La cantidad máxima está definida por los productos en existencia -->
                                 <input class="form-control" disabled="disabled" placeholder="Precio unitario"
-                                       th:field="*{price}" type="number"/>
+                                       th:field="*{unitaryPrice}" type="number"/>
                             </div>
                         </div>
 
@@ -96,13 +79,6 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input class="form-control" th:field="*{productId}" type="hidden"/>
-                            </div>
-                        </div>
-
-                        <!-- id del cliente -->
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <input class="form-control" th:field="*{customerID}" type="hidden"/>
                             </div>
                         </div>
 

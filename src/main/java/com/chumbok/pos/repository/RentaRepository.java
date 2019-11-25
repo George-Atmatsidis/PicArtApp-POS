@@ -18,4 +18,10 @@ public interface RentaRepository extends JpaRepository<Renta, Long> {
 
     @Query("SELECT r from Renta r ")
     List<Renta> findAllActive();
+
+    @Query("select count(r) from Renta r where (MONTH(date_of_rent) = ?1 ) and (YEAR(date_of_rent) = ?2)")
+    long QuantityOfRentasMadeByMonthAndYear(int month, int year);
+
+    @Query("select r from Renta r where (MONTH(date_of_rent) = ?1 ) and (YEAR(date_of_rent) = ?2)")
+    List<Renta> readRentasByMonthAndYear(int month, int year);
 }

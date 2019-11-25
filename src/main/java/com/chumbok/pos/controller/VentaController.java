@@ -50,6 +50,7 @@ public class VentaController {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Calendar today = Calendar.getInstance();
             //establece la cantidad máxima de este producto que se puede vender
+            ventaDTO.setUnitaryPrice(productService.getProduct(productId).getWeight());
             ventaDTO.setMaxQuantity(productService.getProduct(productId).getQuantity());
             ventaDTO.setEmail(auth.getName());
             ventaDTO.setProductId(productService.getProduct(productId).getId());
@@ -73,8 +74,10 @@ public class VentaController {
     @RequestMapping(path = "/addVentas", method = RequestMethod.POST)
     public ModelAndView createUpdateVentas(VentaDTO ventaDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ventaDTO.setQuantity(Math.abs(ventaDTO.getQuantity())); //ensure that only positive numbers are being inserted
         ventaDTO.setSalesDate(Calendar.getInstance().getTime()); //ensures that today's date is when the sale is being made
+        ventaDTO.setEmail(auth.getName());
         ventaService.createVenta(ventaDTO);
         Product product = productService.getProduct(ventaDTO.getProductId());
         product.setQuantity(product.getQuantity() - ventaDTO.getQuantity());

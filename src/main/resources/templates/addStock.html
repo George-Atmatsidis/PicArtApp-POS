@@ -17,8 +17,6 @@
 ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
     <div class="container marketing">
-        <p></p>
-        <br/>
         <!-- START THE FEATURETTES -->
         <div class="container">
             <div class="row">
@@ -30,7 +28,7 @@
                         <p></p>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input th:field="*{stockEntryDate}" type="date"
+                                <input th:field="*{stockEntryDate}" type="text"
                                        placeholder="Fecha de cambio" class="form-control"/> <label
                                     th:if="${#fields.hasErrors('stockEntryDate')}" th:errors="*{stockEntryDate}"
                                     class="validation-message"></label>

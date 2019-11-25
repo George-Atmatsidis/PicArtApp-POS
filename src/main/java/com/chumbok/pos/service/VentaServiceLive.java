@@ -44,11 +44,7 @@ public class VentaServiceLive implements VentaService {
         venta.setUser(userRepository.findByEmail(ventaDTO.getEmail()));
         ventaRepository.save(venta);
         //this is another mf trigger in Java, holy smokes
-        //Product product = productRepository.findOne(ventaDTO.getIdProduct());
-        //product.setQuantity(product.getQuantity() - ventaDTO.getQuantity());
-        //this is a damn trigger made with fucking java -> holy smokes, what have we done ; help
-        //productRepository.findOne(venta.getProduct().getId()).setQuantity(productRepository.findOne(venta.getProduct().getId()).getQuantity() - venta.getQuantity());
-        //productRepository.findOne(ventaDTO.getIdProduct()).setQuantity(productRepository.findOne(ventaDTO.getIdProduct()).getQuantity() - ventaDTO.getQuantity());
+        productRepository.findOne(ventaDTO.getProductId()).setQuantity(productRepository.findOne(ventaDTO.getProductId()).getQuantity() - ventaDTO.getQuantity());
         return venta;
     }
 

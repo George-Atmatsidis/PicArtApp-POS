@@ -16,6 +16,8 @@ public class VentaDTO {
     //nombre del producto //help
     private String displayName;
 
+    private double unitaryPrice;
+
     public VentaDTO() {
     }
 
@@ -65,5 +67,13 @@ public class VentaDTO {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public double getUnitaryPrice() {
+        return unitaryPrice;
+    }
+
+    public void setUnitaryPrice(double unitaryPrice) {
+        this.unitaryPrice = unitaryPrice;
     }
 }
