@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.Lists;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -39,7 +40,7 @@ public class RentaServiceLive implements RentaService {
      * @throws Exception in case a wrong date has been gotten
      */
     @Override
-    public void createRenta(RentaDTO rentaDTO) throws Exception {
+    public void createRenta(@Valid RentaDTO rentaDTO) throws Exception {
         Renta renta = new Renta();
         renta.setPrice(rentaDTO.getPrice() * rentaDTO.getQuantity()); //establece el precio de la renta acorde a cuántos productos se vendieron
         renta.setDateOfRent(Calendar.getInstance().getTime()); //throws an exception when it gets a date not correctly formatted

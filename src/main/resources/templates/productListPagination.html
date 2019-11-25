@@ -38,9 +38,8 @@
                         <span style="font-size:medium;font-style:oblique;font-weight: bold"
                               th:text="${product.quantity} + ' en stock'"></span> <br/>
                         <span style="font-size:medium;font-style:oblique;font-style: italic"
-                              th:text="'Precio de venta: '+'$' + ${product.weight}"></span> <br/>
-                        <span style="font-size:medium;font-style:oblique;font-style: italic"
-                              th:text="'Precio de renta: '+'$' + ${product.barcode}"></span> <br/>
+                              th:text="'Venta: '+'$' + ${product.weight} + '| Renta: '+'$' + ${product.barcode}"></span>
+                        <br/>
                     </div>
                     <div style="align-content: flex-end; margin-left: auto">
                         <div style="flex-direction: column; flex-flow: column">
@@ -54,9 +53,10 @@
                                    style="padding: 4px 32px" th:href="@{'/product?id=' + ${product.id}}">Modificar</a>
                             </div>
                             <div style="flex-direction: row">
-                                <a class="btn btn-outline-success" role="button"
+                                <a class="btn btn-outline-success" role="button" style="padding: 6px 14px"
                                    th:href="@{'/addStock?productId=' + ${product.id}}">Altas</a>
                                 <a class="btn btn-outline-danger" role="button"
+                                   style="padding: 6px 13px; margin-left: -4px"
                                    th:href="@{'/restStock?productId=' + ${product.id}}">Bajas</a>
                             </div>
                         </div>

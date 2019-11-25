@@ -21,7 +21,7 @@ public class RentaDTO {
 
     private String dateOfRent;
 
-    @DateTimeFormat(pattern = "dd/mm/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfReturn;
 
     private long customerID;

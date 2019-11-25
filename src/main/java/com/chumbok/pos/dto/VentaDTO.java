@@ -1,8 +1,11 @@
 package com.chumbok.pos.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class VentaDTO {
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date salesDate;
 
     private String email;
