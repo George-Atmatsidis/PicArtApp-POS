@@ -135,7 +135,7 @@ public class RentaController {
         List<Product> productList = productService.findAllEnabledWithStock(); //just the products with stock can be selled (?
         List<Product> justTheProductInSaidPage;
         //Let's keep the list size on 5
-        int listSize = 6; //a variable, just in case :)
+        int listSize = 5; //a variable, just in case :)
         if (pageSize != null) {
             listSize = pageSize;
         }

@@ -22,6 +22,7 @@
                     <div style="align-content: flex-end">
                         <div th:each="page : ${listaDePaginas}">
                             <a class="btn btn-success btn-lg btn-block" role="button"
+                               style="padding: auto ; width:100px;font-size: medium;font-weight: bolder; align-content: end"
                                th:href="@{'/ventaProductos/pagina/' + ${page.numeroDePagina}}"
                                th:text="${page.titulo}"></a>
                         </div>
