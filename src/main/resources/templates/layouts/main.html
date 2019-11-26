@@ -16,6 +16,12 @@
     <script src="webjars/jquery/3.0.0/jquery.min.js" th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
     <script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"
             th:src="@{webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+    <script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="navbar-wrapper">
@@ -23,6 +29,7 @@
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="/home">PicArtApp</a>
             <span class="text-white" sec:authentication="name"></span>
+
             <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
                     class="navbar-toggler" data-target="#navbarCollapse" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
