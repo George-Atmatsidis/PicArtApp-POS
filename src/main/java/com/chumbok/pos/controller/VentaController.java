@@ -1,5 +1,6 @@
 package com.chumbok.pos.controller;
 
+import com.chumbok.pos.dto.CarritoDTO;
 import com.chumbok.pos.dto.PagesDTO;
 import com.chumbok.pos.dto.VentaDTO;
 import com.chumbok.pos.entity.Product;
@@ -81,9 +82,47 @@ public class VentaController {
         return modelAndView;
     }
 
+    @RequestMapping(path = "/ventaProductos/confirmarVenta")
+    public ModelAndView confirmarVenta(List<Product> carritoDeCompras) {
+        ModelAndView modelAndView = new ModelAndView("carritoList");
+        CarritoDTO carritoDTO = new CarritoDTO();
+        carritoDTO.setProductosEnElCarrito(carritoDeCompras);
+        carritoDTO.setCantidadDeObjetos(carritoDeCompras.size());
+        double totalPrice = 0;
+        int i = 0;
+        while (i < carritoDeCompras.size()) {
+            if (carritoDeCompras.get(i) == null) {
+                i++;
+                continue;
+            }
+            //gets the quantity of each product and adds it to the total price
+            totalPrice += (carritoDeCompras.get(i).getQuantity() * carritoDeCompras.get(i).getWeight());
+            i++;
+        }
+        carritoDTO.setTotalPrice(totalPrice);
+        modelAndView.addObject("carritoDeCompras", carritoDeCompras);
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/ventaProductos/addToCart")
+    public ModelAndView agregarProductoAlCarrito(long id, List<Product> carritoDeCompras) {
+        carritoDeCompras.add(productService.getProduct(id));
+        return listProductsByPage(1, 5, carritoDeCompras);
+    }
+
     @RequestMapping(value = "/ventaProductos/pagina/{page}")
-    public ModelAndView listProductsByPage(@PathVariable("page") int page, @RequestParam(required = false) Integer pageSize) {
+    public ModelAndView listProductsByPage(@PathVariable("page") int page, @RequestParam(required = false) Integer pageSize, @RequestParam(required = false) List<Product> carritoDeCompras) {
         ModelAndView modelAndView = new ModelAndView("productListSale"); //omg, you can set the viewName at birth
+        //Here goes nothing -> carrito implementation
+        int cantidadDeObjetosEnElCarrito;
+        if (carritoDeCompras != null) {//el carrito de compras existe
+            cantidadDeObjetosEnElCarrito = carritoDeCompras.size();
+        } else {
+            carritoDeCompras = new ArrayList<>(); //here goes nothing
+            cantidadDeObjetosEnElCarrito = 0;
+        }
+        modelAndView.addObject("carrito", carritoDeCompras);
+        //Normal venta implementation
         List<Product> productList = productService.findAllEnabledWithStock();
         List<Product> justTheProductInSaidPage;
         //Let's keep the list size on 5
