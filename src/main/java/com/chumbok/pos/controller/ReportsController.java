@@ -3,6 +3,7 @@ package com.chumbok.pos.controller;
 import com.chumbok.pos.dto.*;
 import com.chumbok.pos.entity.Stock;
 import com.chumbok.pos.service.ProductService;
+import com.chumbok.pos.service.RentaService;
 import com.chumbok.pos.service.StockService;
 import com.chumbok.pos.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class ReportsController {
 
     @Autowired
     VentaService ventaService;
+
+    @Autowired
+    RentaService rentaService;
 
     @RequestMapping(path = "/reports")
     public ModelAndView mainReportsView() {
@@ -103,6 +107,39 @@ public class ReportsController {
         reportDTO.setMonth(thisMonth);
         reportDTO.setYear(thisYear);
         reportDTO.setTotalSalesOrRentsThisMonth(ventaService.ventasTotalesPorMes(thisMonth, thisYear));
+        String[] s = whoMadeTheMost(userSalesDTOList).split(",");
+        reportDTO.setUserWhoSoldOrRentTheMost(s[0]); //holy smokes, is it working, i really hope it don't
+        reportDTO.setHowMuchThatMadafackerSoldOrRentThatMonth(Long.parseLong(s[1])); //plZ stop
+        modelAndView.addObject("reportDTO", reportDTO);
+        List<MonthDTO> monthDTOList = new ArrayList<>();
+        fillMonths(monthDTOList);
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setMonth(thisMonth);
+        dateDTO.setYear(thisYear);
+        modelAndView.addObject("monthList", monthDTOList);
+        modelAndView.addObject("dateDTO", dateDTO);
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/rentasReport/selectPeriod", method = RequestMethod.GET)
+    public ModelAndView showRentasReport(@RequestParam(required = false) Integer month, @RequestParam(required = false) Integer year) {
+        ModelAndView modelAndView = new ModelAndView("rentasReport");
+        //From here, we define which period is gonna be on the report
+        int thisMonth;
+        int thisYear;
+        if (month != null && year != null) { //in case is defined, we use the values gotten
+            thisMonth = month;
+            thisYear = year;
+        } else { //november 2019 in case they don't
+            thisMonth = 11;
+            thisYear = Calendar.YEAR;
+        }
+        List<UserSalesDTO> userSalesDTOList = rentaService.howMuchEUSTM(thisMonth, thisYear);
+        modelAndView.addObject("salesByUserList", userSalesDTOList);
+        ReportDTO reportDTO = new ReportDTO();
+        reportDTO.setMonth(thisMonth);
+        reportDTO.setYear(thisYear);
+        reportDTO.setTotalSalesOrRentsThisMonth(rentaService.rentasTotalesPorMes(thisMonth, thisYear));
         String[] s = whoMadeTheMost(userSalesDTOList).split(",");
         reportDTO.setUserWhoSoldOrRentTheMost(s[0]); //holy smokes, is it working, i really hope it don't
         reportDTO.setHowMuchThatMadafackerSoldOrRentThatMonth(Long.parseLong(s[1])); //plZ stop

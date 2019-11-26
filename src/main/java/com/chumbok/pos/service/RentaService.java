@@ -1,6 +1,7 @@
 package com.chumbok.pos.service;
 
 import com.chumbok.pos.dto.RentaDTO;
+import com.chumbok.pos.dto.UserSalesDTO;
 import com.chumbok.pos.entity.Renta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,9 @@ public interface RentaService {
 
     List<Renta> getNonActiveRentas();
 
-    Page<Renta> getPaginatedRents(Pageable pageable);
+    List<UserSalesDTO> howMuchEUSTM(int month, int year);
 
-    Page<Renta> findRentasWithActiveStatus(Pageable pageable);
+    long rentasTotalesPorMes(int month, int year);
+
+    long quantityOfVentasByUser(long userid);
 }

@@ -108,26 +108,6 @@ public class RentaController {
         return modelAndView;
     }
 
-    /**
-     * Gets products paginated in pages
-     *
-     * @param page to get (1, 2, 3, etc)
-     * @return said page filled with products, 5 in each
-     */
-    @RequestMapping(value = "/activeRentsByPage/page/{page}")
-    public ModelAndView listProductsByPage(@PathVariable("page") int page) {
-        ModelAndView modelAndView = new ModelAndView("rentList"); //omg, you can set the viewName at birth
-        PageRequest pageable = new PageRequest(page - 1, 5); //this shit is deprecated, why the heck is it working
-        Page<Renta> rentPage = rentaService.getPaginatedRents(pageable); //Why are we still here?
-        int totalPages = rentPage.getTotalPages(); //Just to suffer? Every night i can feel my leg...
-        if (totalPages > 0) { //and my arm... even my fingers. The body I’ve lost… the comrades I’ve lost… won't stop hurting.
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList()); //It's like
-            modelAndView.addObject("pageNumbers", pageNumbers); //They are all still here. You feel it, too, don't you?
-        } //I'm gonna make them give back our past!
-        modelAndView.addObject("activeRentList", true); //-Kazuhira Miller, Metal Gear Solid
-        modelAndView.addObject("rentList", rentPage.getContent()); //Why do we even keep going?
-        return modelAndView; //Is existence itself worth it?
-    }
 
     @RequestMapping(value = "/rentaProductos/pagina/{page}")
     public ModelAndView listProductsByPage(@PathVariable("page") int page, @RequestParam(required = false) Integer pageSize) {
