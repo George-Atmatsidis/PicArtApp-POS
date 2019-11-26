@@ -1,6 +1,7 @@
 package com.chumbok.pos.service;
 
 import com.chumbok.pos.dto.RentaDTO;
+import com.chumbok.pos.dto.UserSalesDTO;
 import com.chumbok.pos.entity.Renta;
 import com.chumbok.pos.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,16 +107,17 @@ public class RentaServiceLive implements RentaService {
     }
 
     @Override
-    public Page<Renta> findRentasWithActiveStatus(Pageable pageable) {
-        List<Renta> list = rentaRepository.findAllActive(); //Gets a list of products that have stock
-        Page<Renta> pageWithRentas = new PageImpl<>(list); //Adds said list to the page
-        return pageWithRentas; //returns said fucking page
+    public List<UserSalesDTO> howMuchEUSTM(int month, int year) {
+        return rentaRepository.howMuchEachUserRentedThisMonth(month, year);
     }
 
     @Override
-    public Page<Renta> getPaginatedRents(Pageable pageable) {
-        List<Renta> list = rentaRepository.findAllActive();
-        Page<Renta> page = new PageImpl<>(list);
-        return page;
+    public long rentasTotalesPorMes(int month, int year) {
+        return rentaRepository.quantityOfRentasMadeByMonthAndYear(month, year);
+    }
+
+    @Override
+    public long quantityOfVentasByUser(long userid) {
+        return rentaRepository.quantityOfRentasByUser(userid);
     }
 }
