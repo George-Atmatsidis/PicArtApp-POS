@@ -1,0 +1,140 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http:www.thymeleaf.org">
+
+<head>
+    <p></p>
+    <title>Venta</title>
+    <link href="css/carousel.css" rel="stylesheet" th:href="@{/css/carousel.css}"/>
+
+</head>
+<body onload="myFunction()">
+
+<div layout:fragment="content">
+    <!-- Marketing messaging and featurettes
+================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container marketing">
+        <h2>Generar devolución</h2>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form action="#" autocomplete="off" class="form-horizontal"
+                          method="post" role="form" th:action="@{/rent/return}"
+                          th:object="${returnVoucherDTO}">
+                        <p></p>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="*{idRenta}"
+                                       type="hidden"/>
+                            </div>
+
+                            <div class="col-sm-9">
+                                <span>Nombre del cliente</span>
+                                <input class="form-control" disabled="disabled" disabled="disabled"
+                                       placeholder="Nombre del cliente" th:field="*{customerName}" type="text"/>
+                                <label class="validation-message" th:errors="*{customerName}"
+                                       th:if="${#fields.hasErrors('customerName')}"></label>
+                            </div>
+                        </div>
+                        <!--FECHA-->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Fecha de renta</span>
+                                <input class="form-control" disabled="disabled" disabled="disabled"
+                                       placeholder="Fecha de renta" th:field="*{dateOfRent}" type="text"/>
+                                <label class="validation-message" th:errors="*{dateOfRent}"
+                                       th:if="${#fields.hasErrors('dateOfRent')}"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Fecha de devolución esperada</span>
+                                <input class="form-control" disabled="disabled" disabled="disabled"
+                                       placeholder="dd/mm/yyyy" th:field="*{dateOfReturn}" type="text"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Estado de la renta:</span>
+                                <input class="form-control" disabled="disabled" disabled="disabled"
+                                       placeholder="En tiempo / fuera de" th:field="*{status}" type="text"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Prestó el material:</span> <!-- Correo electrónico del integrante -->
+                                <input class="form-control" disabled="disabled" disabled="disabled"
+                                       id="userWhoMadeTheRent" th:field="*{userWhoMadeTheRent}"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Recibe el material:</span> <!-- Correo electrónico del integrante -->
+                                <input class="form-control" disabled="disabled" disabled="disabled"
+                                       id="userMakingTheReturn" th:field="*{userMakingTheReturn}"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Productos en la renta:</span> <br/>
+                                <span>Nombre del producto</span>
+                                <input class="form-control" disabled="disabled" th:field="*{productName}" type="text"/>
+                                <label class="validation-message" th:errors="*{productName}"
+                                       th:if="${#fields.hasErrors('productName')}"></label>
+                            </div>
+                        </div>
+
+                        <!--Cantidad -->
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Cantidad</span>
+                                <!-- Cantidad de productos en la renta -->
+                                <input class="form-control" disabled="disabled" disabled="disabled"
+                                       th:field="*{quantity}" type="number"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Precio total</span>
+                                <!-- El costo total de la renta -->
+                                <input class="form-control" disabled="disabled" placeholder="Precio total"
+                                       th:field="*{totalPrice}" type="number"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <span>Comentarios:</span> <!-- Comentarios del integrante -->
+                                <!--    <input class="form-control" id="comments" th:field="*{comments}"/> -->
+                                <textarea class="form-control" disabled="disabled"
+                                          id="exampleFormControlTextarea1" rows="3" th:field="*{comments}"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="*{idRenta}" type="hidden"/>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr class="featurette-divider"/>
+        <!-- /END THE FEATURETTES -->
+    </div><!-- /.container -->
+</div>
+</body>
+</html>
