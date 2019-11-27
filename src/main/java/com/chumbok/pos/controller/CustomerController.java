@@ -32,7 +32,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/customer/registration", method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid CustomerDTO customerDTO, BindingResult bindingResult) {
+    public ModelAndView createNewCustomer(@Valid CustomerDTO customerDTO) {
         ModelAndView modelAndView = new ModelAndView();
         customerService.createCustomer(customerDTO); //customer service is gonna create this customer for me
         modelAndView.addObject("successMessage", "Cliente registrado exitosamente.");

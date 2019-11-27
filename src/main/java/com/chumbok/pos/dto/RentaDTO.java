@@ -21,7 +21,7 @@ public class RentaDTO {
 
     private String dateOfRent;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateOfReturn;
 
     private long customerID;
@@ -87,14 +87,6 @@ public class RentaDTO {
         this.dateOfRent = dateOfRent;
     }
 
-    public Date getDateOfReturn() {
-        return dateOfReturn;
-    }
-
-    public void setDateOfReturn(Date dateOfReturn) {
-        this.dateOfReturn = dateOfReturn;
-    }
-
     public String getCustomerName() {
         return customerName;
     }
@@ -109,5 +101,13 @@ public class RentaDTO {
 
     public void setCustomerID(long customerID) {
         this.customerID = customerID;
+    }
+
+    public Date getDateOfReturn() {
+        return dateOfReturn;
+    }
+
+    public void setDateOfReturn(Date dateOfReturn) {
+        this.dateOfReturn = dateOfReturn;
     }
 }

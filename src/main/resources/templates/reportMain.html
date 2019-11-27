@@ -12,9 +12,13 @@
 <div layout:fragment="content">
     <br/>
     <br/>
+    <div style="margin-left: 7px">
+        <h2> Menú de reportes</h2>
+    </div>
     <div class="alert alert-secondary" role="alert">
         <p>
-            Aqui veremos los diferentes reportes
+            En esta vista, el administrador encontrará reportes detallados sobre el inventario, además de las ventas y
+            rentas realizadas así como qué Integrante realizó la mayor cantidad en cada caso.
         </p>
     </div>
     <form>
@@ -41,7 +45,7 @@
                 <div class="card">
                     <a th:href="@{'rentasReport/selectPeriod?month=11&amp;year=2019'}">
                         <button class="btn btn-primary btn-lg btn-block" type="button">
-                            Reporte de rentas
+                            Reporte de Rentas
                         </button>
                     </a>
                 </div>

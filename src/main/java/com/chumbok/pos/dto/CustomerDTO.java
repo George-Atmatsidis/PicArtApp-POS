@@ -2,23 +2,30 @@ package com.chumbok.pos.dto;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 public class CustomerDTO {
     @NotEmpty(message = "Inserte correctamente el nombre.")
+    @NotNull
     private String firstName;
 
     @NotEmpty(message = "Inserte correctamente el apellido.")
+    @NotNull
     private String lastName;
 
+    @NumberFormat
     private long phoneNumber;
 
     @Email(message = "Favor de verificar el email.")
     @NotEmpty(message = "El email no puede estar vacío.")
+    @NotNull
     private String email;
 
     @NotEmpty(message = "La CURP no puede estar vacía.")
+    @NotNull
     private String curp;
 
     private String nameAval;

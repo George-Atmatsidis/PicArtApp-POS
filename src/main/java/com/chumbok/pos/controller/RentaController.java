@@ -82,7 +82,7 @@ public class RentaController {
      * @throws Exception when it doesn't get the correct data
      */
     @RequestMapping(path = "/addRentas", method = RequestMethod.POST)
-    public ModelAndView createUpdateVentas(@Valid RentaDTO rentaDTO) throws Exception {
+    public ModelAndView createUpdateVentas(@Valid RentaDTO rentaDTO) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         rentaDTO.setUserMail(auth.getName());

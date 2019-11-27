@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RentaService {
 
-    void createRenta(RentaDTO rentaDTO) throws Exception;
+    void createRenta(RentaDTO rentaDTO);
 
     List<Renta> findAll();
 

@@ -38,10 +38,9 @@ public class RentaServiceLive implements RentaService {
      * This method creates an renta object
      *
      * @param rentaDTO transactional object with the necessary data
-     * @throws Exception in case a wrong date has been gotten
      */
     @Override
-    public void createRenta(@Valid RentaDTO rentaDTO) throws Exception {
+    public void createRenta(@Valid RentaDTO rentaDTO) {
         Renta renta = new Renta();
         renta.setPrice(rentaDTO.getPrice() * rentaDTO.getQuantity()); //establece el precio de la renta acorde a cuántos productos se vendieron
         renta.setDateOfRent(Calendar.getInstance().getTime()); //throws an exception when it gets a date not correctly formatted
