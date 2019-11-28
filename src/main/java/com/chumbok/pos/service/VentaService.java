@@ -18,4 +18,6 @@ public interface VentaService {
     List<Venta> getVentasEnElMes(int month, int year);
 
     long ventasTotalesPorMes(int month, int year);
+
+    long howMuchWasSold(int month, int year);
 }

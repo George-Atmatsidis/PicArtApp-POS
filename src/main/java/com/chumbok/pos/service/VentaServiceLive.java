@@ -67,4 +67,9 @@ public class VentaServiceLive implements VentaService {
     public long ventasTotalesPorMes(int month, int year) {
         return ventaRepository.ventasTotalesPorMes(month, year);
     }
+
+    @Override
+    public long howMuchWasSold(int month, int year) {
+        return ventaRepository.howMuchWasSold(month, year);
+    }
 }

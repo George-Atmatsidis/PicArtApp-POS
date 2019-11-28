@@ -107,6 +107,7 @@ public class ReportsController {
         reportDTO.setMonth(thisMonth);
         reportDTO.setYear(thisYear);
         reportDTO.setTotalSalesOrRentsThisMonth(ventaService.ventasTotalesPorMes(thisMonth, thisYear));
+        reportDTO.setHowMuchMoneyWasMadeThatMonth(ventaService.howMuchWasSold(thisMonth, thisYear));
         String[] s = whoMadeTheMost(userSalesDTOList).split(",");
         reportDTO.setUserWhoSoldOrRentTheMost(s[0]); //holy smokes, is it working, i really hope it don't
         reportDTO.setHowMuchThatMadafackerSoldOrRentThatMonth(Long.parseLong(s[1])); //plZ stop

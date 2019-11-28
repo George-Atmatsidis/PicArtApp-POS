@@ -6,6 +6,7 @@ public class ReportDTO {
     private long totalSalesOrRentsThisMonth;
     private String userWhoSoldOrRentTheMost;
     private long howMuchThatMadafackerSoldOrRentThatMonth;
+    private long howMuchMoneyWasMadeThatMonth;
 
     public ReportDTO(int month, int year, long totalSalesOrRentsThisMonth, String userWhoSoldOrRentTheMost) {
         this.month = month;
@@ -55,5 +56,13 @@ public class ReportDTO {
 
     public void setHowMuchThatMadafackerSoldOrRentThatMonth(long howMuchThatMadafackerSoldOrRentThatMonth) {
         this.howMuchThatMadafackerSoldOrRentThatMonth = howMuchThatMadafackerSoldOrRentThatMonth;
+    }
+
+    public long getHowMuchMoneyWasMadeThatMonth() {
+        return howMuchMoneyWasMadeThatMonth;
+    }
+
+    public void setHowMuchMoneyWasMadeThatMonth(long howMuchMoneyWasMadeThatMonth) {
+        this.howMuchMoneyWasMadeThatMonth = howMuchMoneyWasMadeThatMonth;
     }
 }

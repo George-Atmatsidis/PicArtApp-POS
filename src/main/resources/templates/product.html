@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <input class="form-control" placeholder="Nombre" th:field="*{displayName}" type="text"/>
-                                <label class="validation-message" th:errors="*{displayName}"
+                                <label class="validation-message" required="required" th:errors="*{displayName}"
                                        th:if="${#fields.hasErrors('displayName')}"></label>
                             </div>
                         </div>
@@ -53,7 +53,8 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input class="form-control" placeholder="Descripción" th:field="*{description}"
+                                <input class="form-control" placeholder="Descripción" required="required"
+                                       th:field="*{description}"
                                        type="text"/>
                                 <label class="validation-message" th:errors="*{description}"
                                        th:if="${#fields.hasErrors('description')}"></label>
@@ -63,7 +64,8 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <label>
-                                    <input class="form-control" placeholder="Precio venta" th:field="*{salesPrice}"
+                                    <input class="form-control" placeholder="Precio venta" required="required"
+                                           th:field="*{salesPrice}"
                                            type="text"/>
                                 </label>
                                 <label class="validation-message" th:errors="*{salesPrice}"
