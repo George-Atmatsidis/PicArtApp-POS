@@ -70,11 +70,38 @@ public class ReturnVoucherController {
         return modelAndView;
     }
 
+    @RequestMapping(path = "/returnDetails", method = RequestMethod.GET)
+    public ModelAndView showReturnDetails(@RequestParam(required = false) Long returnId) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (returnId != null) {
+            ReturnVoucher returnVoucher = returnVoucherService.findOne(returnId);
+            Renta rentaARevisar = rentaRepository.findOne(returnVoucher.getRenta().getIdRenta());
+            ReturnVoucherDTO returnVoucherDTO = new ReturnVoucherDTO();
+            returnVoucherDTO.setIdRenta(rentaARevisar.getIdRenta());
+            //accede a la información almacenada en la venta para determinar el nombre del cliente
+            returnVoucherDTO.setCustomerName(rentaARevisar.getCustomer().getFirstName() + " " + rentaARevisar.getCustomer().getLastName());
+            returnVoucherDTO.setDateOfRent("" + rentaARevisar.getDateOfRent()); //establece la fecha en que se rentó
+            returnVoucherDTO.setDateOfReturn(returnVoucher.getDateWhenTheReturnWasMade());
+            returnVoucherDTO.setProductName(rentaARevisar.getProduct().getDisplayName()); //establece el nombre del product
+            returnVoucherDTO.setQuantity(rentaARevisar.getQuantity()); //establece la cantidad rentada
+            returnVoucherDTO.setStatus(returnVoucher.getWasItMadeOnTime());
+            returnVoucherDTO.setUserMakingTheReturn(returnVoucher.getUser().getFirstName() + ' ' + returnVoucher.getUser().getLastName());
+            returnVoucherDTO.setUserWhoMadeTheRent(rentaARevisar.getUser().getEmail());
+            returnVoucherDTO.setTotalPrice(rentaARevisar.getPrice());
+            returnVoucherDTO.setComments(returnVoucher.getComentary());
+            modelAndView.addObject("returnVoucherDTO", returnVoucherDTO);
+        }
+        modelAndView.setViewName("viewRentaVoucher");
+        return modelAndView;
+    }
+
     @RequestMapping(path = "/rent/return", method = RequestMethod.POST)
     public String makeReturnOfRenta(ReturnVoucherDTO returnVoucherDTO) {
         ModelAndView modelAndView = new ModelAndView("viewRenta");
         //sets return date as today
         returnVoucherDTO.setDateOfReturn(Calendar.getInstance().getTime());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        returnVoucherDTO.setUserMakingTheReturn(auth.getName());
         returnVoucherService.createVoucher(returnVoucherDTO);
         return "redirect:/returns/list/500";
     }

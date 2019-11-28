@@ -17,7 +17,10 @@ public class ReturnVoucher {
     private String wasItMadeOnTime;
 
     @OneToOne
-    private Renta renta; //se ancla a la tabla de ventas
+    private Renta renta; //se ancla a la tabla de rentas
+
+    @OneToOne
+    private User user;
 
     public ReturnVoucher() {
     }
@@ -60,5 +63,13 @@ public class ReturnVoucher {
 
     public void setWasItMadeOnTime(String wasItMadeOnTime) {
         this.wasItMadeOnTime = wasItMadeOnTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -7,6 +7,7 @@ import com.chumbok.pos.entity.ReturnVoucher;
 import com.chumbok.pos.repository.ProductRepository;
 import com.chumbok.pos.repository.RentaRepository;
 import com.chumbok.pos.repository.ReturnVoucherRepository;
+import com.chumbok.pos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,9 @@ public class ReturnVoucherServiceLIve implements ReturnVoucherService {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
     public List<ReturnVoucher> findAll() {
         return returnVoucherRepository.findAll();
@@ -45,7 +49,6 @@ public class ReturnVoucherServiceLIve implements ReturnVoucherService {
         returnVoucher.setRenta(rentaRepository.findOne(returnVoucherDTO.getIdRenta()));
         returnVoucher.setDateWhenTheReturnWasMade(returnVoucherDTO.getDateOfReturn());
         returnVoucher.setComentary(returnVoucherDTO.getComments());
-
         //
         Renta rentaARevisar = rentaRepository.findOne(returnVoucherDTO.getIdRenta());
         if (rentaARevisar.getDateOfReturn().compareTo(Calendar.getInstance().getTime()) <= 0) { //revisa que la fecha de entrega no sea mayor a la fecha de hoy
@@ -53,6 +56,7 @@ public class ReturnVoucherServiceLIve implements ReturnVoucherService {
         } else { //si la fecha de devolución es menor o igual a hoy, es una devolución válida
             returnVoucherDTO.setStatus("La devolución se realizó a tiempo.");
         }
+        returnVoucher.setUser(userRepository.findByEmail(returnVoucherDTO.getUserMakingTheReturn()));
         returnVoucher.setWasItMadeOnTime(returnVoucherDTO.getStatus());
         //saving this shit
         returnVoucherRepository.save(returnVoucher);
