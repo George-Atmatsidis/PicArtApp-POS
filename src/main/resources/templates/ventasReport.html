@@ -37,7 +37,6 @@
                         <select class="form-control" th:field="*{year}">
                             <span>Cliente</span>
                             <option th:value="2019">2019</option>
-                            <option th:value="2018">2018</option>
                         </select>
                     </div>
                     <div class="card">
@@ -53,6 +52,15 @@
                      th:each="sale : ${salesByUserList}">
                     <span th:text="'Integrante: ' + ${sale.name}"></span>
                     <span th:text="'Cantidad: ' +${sale.quantity}"></span>
+                </div>
+
+                <h2>Ventas del mes: </h2> <!-- listaDeVentasDelMes -->
+                <div class="card" style="margin: 2px 2px 2px 2px ; padding: 2px 2px 2px 2px; text-align: left"
+                     th:each="venta : ${salesList}">
+                    <span th:text="'Realizó:  ' + ${venta.user.firstName} + ' ' + ${venta.user.lastName}"></span>
+                    <span th:text="'Producto: ' +${venta.product.displayName}"></span>
+                    <span th:text="'Cantidad: ' +${venta.quantity}"></span>
+                    <span th:text="'Precio:   ' +${venta.quantity * venta.product.weight}"></span>
                 </div>
                 <hr class="featurette-divider"/>
             </div><!-- /.container -->

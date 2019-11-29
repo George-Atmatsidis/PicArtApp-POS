@@ -20,10 +20,16 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
     long cantidadTotalDeProductosVendidosPorMes(int month, int year);
 
     @Query("SELECT sum(v.product.weight * v.quantity) from Venta v where (MONTH(sales_date) = ?1) and (YEAR(sales_date) = ?2)")
-    long howMuchWasSold(int month, int year);
+    Long howMuchWasSold(int month, int year);
 
-    @Query("SELECT v from Venta v where (MONTH(sales_date) = ?1) and (YEAR(sales_date) = ?2)")
-    List<Venta> getVentasEnElMes(int month, int year);
+    @Query("SELECT sum(v.quantity) from Venta v where (MONTH(sales_date) = ?1) and (YEAR(sales_date) = ?2)")
+    Long howMuchWasSoldInQuantity(int month, int year);
+
+    @Query("SELECT sum(v.product.weight) from Venta v where (MONTH(sales_date) = ?1) and (YEAR(sales_date) = ?2)")
+    Long howMuchWasSoldInMoney(int month, int year);
+
+    @Query("SELECT v from Venta v where (MONTH(v.salesDate) = ?1) and (YEAR(v.salesDate) = ?2) ORDER by v.salesDate")
+    List<Venta> findAllBySalesDateByMonthAndYear(int month, int year);
 
     @Query("select count(v.id) from Venta v where v.user = ?1 group by v.user")
     long quantityOfVentasByUser(long idUser);

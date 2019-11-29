@@ -60,7 +60,7 @@ public class VentaServiceLive implements VentaService {
 
     @Override
     public List<Venta> getVentasEnElMes(int month, int year) {
-        return ventaRepository.getVentasEnElMes(month, year);
+        return ventaRepository.findAllBySalesDateByMonthAndYear(month, year);
     }
 
     @Override
@@ -70,6 +70,11 @@ public class VentaServiceLive implements VentaService {
 
     @Override
     public long howMuchWasSold(int month, int year) {
-        return ventaRepository.howMuchWasSold(month, year);
+        Long howMuch = ventaRepository.howMuchWasSold(month, year);
+        if (howMuch == null) {
+            return 0;
+        } else {
+            return howMuch;
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.*;
 import com.chumbok.pos.entity.Stock;
+import com.chumbok.pos.entity.Venta;
 import com.chumbok.pos.service.ProductService;
 import com.chumbok.pos.service.RentaService;
 import com.chumbok.pos.service.StockService;
@@ -112,6 +113,9 @@ public class ReportsController {
         reportDTO.setUserWhoSoldOrRentTheMost(s[0]); //holy smokes, is it working, i really hope it don't
         reportDTO.setHowMuchThatMadafackerSoldOrRentThatMonth(Long.parseLong(s[1])); //plZ stop
         modelAndView.addObject("reportDTO", reportDTO);
+        //Gotta get the sales from that month
+        List<Venta> listaDeVentasDelMes = ventaService.getVentasEnElMes(thisMonth, thisYear);
+        modelAndView.addObject("salesList", listaDeVentasDelMes);
         List<MonthDTO> monthDTOList = new ArrayList<>();
         fillMonths(monthDTOList);
         DateDTO dateDTO = new DateDTO();
