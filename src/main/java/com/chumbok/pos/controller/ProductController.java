@@ -1,7 +1,9 @@
 package com.chumbok.pos.controller;
 import com.chumbok.pos.dto.PagesDTO;
 import com.chumbok.pos.dto.ProductDTO;
+import com.chumbok.pos.entity.Category;
 import com.chumbok.pos.entity.Product;
+import com.chumbok.pos.service.CategoryService;
 import com.chumbok.pos.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,10 +23,15 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @PreAuthorize("hasAuthority('ADMIN')") //Just admins can access to the modify product page
     @RequestMapping(path = "/product", method = RequestMethod.GET)
     public ModelAndView showAddProductForm(@RequestParam(required = false) Long id) {
         ModelAndView modelAndView = new ModelAndView();
+        List<Category> listaDeCategorias = categoryService.findAll();
+        modelAndView.addObject("listaDeCategorias", listaDeCategorias);
         if (id != null) {
             Product product = productService.getProduct(id);
             ProductDTO productDTO = new ProductDTO();

@@ -37,16 +37,12 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-9">
-                                <select class="form-control" name="select" th:field="*{catagory}">
-                                    <option disabled="disabled" selected="selected" th:text="Categoría"
-                                            th:value="Categoría"></option>
-                                    <option th:text="Placas" th:value="Placas"></option>
-                                    <option th:text="Sensores" th:value="Sensores"></option>
-                                    <option th:text="Actuadores" th:value="Actuadores"></option>
-                                    <option th:text="Cables" th:value="Cables"></option>
-                                    <option th:text="Fuentes-Energia" th:value="Fuentes"></option>
-                                    <option th:text="Otros" th:value="Otros"></option>
+                            <div class="col-sm-9"> <!-- Categorías en la tabla de categorías -->
+                                <select class="form-control" th:field="*{catagory}">
+                                    <option disabled="disabled" selected="true" value="N/A">Categorías</option>
+                                    <option th:each="category : ${listaDeCategorias}"
+                                            th:text="${category.name}"
+                                            th:value="${category.name}"></option>
                                 </select>
                             </div>
                         </div>

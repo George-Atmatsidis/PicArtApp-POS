@@ -68,6 +68,11 @@
                            th:href="@{'/productsByPage/page/' + ${page.numeroDePagina}}"
                            th:text="${page.titulo}"></a>
                     </div>
+                    <div style="align-content: flex-end; margin-left: auto">
+                        <a class="btn btn-success" role="button"
+                           style="width:150px;font-size: medium;font-weight: bolder; align-content: end; text-align: center"
+                           th:href="@{/product/addCategory}">Agregar categoría </a>
+                    </div>
                 </div>
             </div>
         </div>
