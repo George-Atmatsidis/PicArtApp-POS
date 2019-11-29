@@ -1,0 +1,42 @@
+<!doctype html>
+<html layout:decorator="layouts/main"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http:www.thymeleaf.org">
+
+<head>
+    <title>Listado de clientes</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container marketing">
+        <h6>Listando clientes</h6>
+        <!-- START THE FEATURETTES -->
+        <div class="container">
+            <h2>Clientes a detalle</h2>
+            <div class="box" style="display: flex; flex-direction: column; flex-wrap: wrap">
+                <div th:each="customer : ${customerList}">
+                    <span th:text="'Nombre:   ' +${customer.firstName + ' ' + customer.lastName}"></span><br/>
+                    <span th:text="'E-mail:   ' + ${customer.email}"></span><br/>
+                    <span th:text="'Matrícula:' + ${customer.curp}"></span><br/>
+                    <span th:text="'Teléfono: ' + ${customer.phoneNumber}"></span><br/>
+                    <span th:text="'Aval:     ' + ${customer.nameAval}"></span><br/>
+                    <span th:text="'Num. Aval:' + ${customer.avalPhone}"></span><br/>
+                    <p></p>
+                </div>
+            </div>
+            <div style="display: flex; align-content: end">
+                <div style="flex-direction: row" th:each="page : ${listaDePaginas}">
+                    <a class="btn btn-outline-primary" role="button"
+                       th:href="@{'/customer/list/' + ${page.numeroDePagina}}"
+                       th:text="${page.titulo}"></a>
+                </div>
+            </div>
+            <br/>
+        </div>
+        <hr class="featurette-divider"/>
+    </div><!-- /.container -->
+</div>
+</body>
+</html>
