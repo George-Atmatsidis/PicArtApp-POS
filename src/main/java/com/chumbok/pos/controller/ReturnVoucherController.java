@@ -86,7 +86,7 @@ public class ReturnVoucherController {
             returnVoucherDTO.setQuantity(rentaARevisar.getQuantity()); //establece la cantidad rentada
             returnVoucherDTO.setStatus(returnVoucher.getWasItMadeOnTime());
             returnVoucherDTO.setUserMakingTheReturn(returnVoucher.getUser().getFirstName() + ' ' + returnVoucher.getUser().getLastName());
-            returnVoucherDTO.setUserWhoMadeTheRent(rentaARevisar.getUser().getEmail());
+            returnVoucherDTO.setUserWhoMadeTheRent(rentaARevisar.getUser().getFirstName() + ' ' + rentaARevisar.getUser().getLastName());
             returnVoucherDTO.setTotalPrice(rentaARevisar.getPrice());
             returnVoucherDTO.setComments(returnVoucher.getComentary());
             modelAndView.addObject("returnVoucherDTO", returnVoucherDTO);
@@ -95,6 +95,12 @@ public class ReturnVoucherController {
         return modelAndView;
     }
 
+    /**
+     * Método para registrar una devolución
+     *
+     * @param returnVoucherDTO que es la información de la renta que se realiza.
+     * @return a redirect to the last page of returns list
+     */
     @RequestMapping(path = "/rent/return", method = RequestMethod.POST)
     public String makeReturnOfRenta(ReturnVoucherDTO returnVoucherDTO) {
         ModelAndView modelAndView = new ModelAndView("viewRenta");
@@ -106,6 +112,11 @@ public class ReturnVoucherController {
         return "redirect:/returns/list/500";
     }
 
+    /**
+     * Método que rastrea la página a regresar con devoluciones anteriores
+     * @param page with the page number the user wants to get
+     * @return a view with them returns
+     */
     @RequestMapping(path = "returns/list/{page}", method = RequestMethod.GET)
     public ModelAndView showPagedReturns(@PathVariable("page") int page) {
         ModelAndView modelAndView = new ModelAndView("returnList");
@@ -147,6 +158,10 @@ public class ReturnVoucherController {
         return modelAndView;
     }
 
+    /**
+     * Menú principal de devoluciones
+     * @return a view with them options
+     */
     @RequestMapping(path = "/returns", method = RequestMethod.GET)
     public ModelAndView showMainReturnPage() {
         return new ModelAndView("returnMain");
