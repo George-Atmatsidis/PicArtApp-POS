@@ -79,10 +79,9 @@ public class RentaController {
      *
      * @param rentaDTO the data transfer object for data exchange
      * @return modelAndView , an html view with the Venta Object
-     * @throws Exception when it doesn't get the correct data
      */
     @RequestMapping(path = "/addRentas", method = RequestMethod.POST)
-    public ModelAndView createUpdateVentas(@Valid RentaDTO rentaDTO) {
+    public String createUpdateVentas(@Valid RentaDTO rentaDTO) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         rentaDTO.setUserMail(auth.getName());
@@ -91,7 +90,7 @@ public class RentaController {
         modelAndView.addObject("successMessage", "Renta registrada exitosamente.");
         modelAndView.addObject("renta", rentaDTO);
         modelAndView.setViewName("addRentas");
-        return modelAndView;
+        return "redirect:/rentaProductos/pagina/1";
     }
 
     /**

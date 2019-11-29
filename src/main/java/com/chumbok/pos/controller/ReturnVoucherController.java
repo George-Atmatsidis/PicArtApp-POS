@@ -2,14 +2,12 @@ package com.chumbok.pos.controller;
 
 import com.chumbok.pos.dto.PagesDTO;
 import com.chumbok.pos.dto.ReturnVoucherDTO;
-import com.chumbok.pos.entity.Product;
 import com.chumbok.pos.entity.Renta;
 import com.chumbok.pos.entity.ReturnVoucher;
-import com.chumbok.pos.repository.CustomerRepository;
-import com.chumbok.pos.repository.ProductRepository;
 import com.chumbok.pos.repository.RentaRepository;
 import com.chumbok.pos.repository.ReturnVoucherRepository;
 import com.chumbok.pos.service.ReturnVoucherService;
+import com.chumbok.pos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,6 +34,9 @@ public class ReturnVoucherController {
     @Autowired
     ReturnVoucherService returnVoucherService;
 
+    @Autowired
+    UserService userService;
+
     /**
      * This method is to manage returns of said renta
      *
@@ -61,8 +62,8 @@ public class ReturnVoucherController {
                 returnVoucherDTO.setStatus("Devolución válida.");
             }
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            returnVoucherDTO.setUserMakingTheReturn(auth.getName());
-            returnVoucherDTO.setUserWhoMadeTheRent(rentaARevisar.getUser().getEmail());
+            returnVoucherDTO.setUserMakingTheReturn(userService.findUserByEmail(auth.getName()).getFirstName() + ' ' + userService.findUserByEmail(auth.getName()).getLastName());//auth.getName());
+            returnVoucherDTO.setUserWhoMadeTheRent(rentaARevisar.getUser().getFirstName() + ' ' + rentaARevisar.getUser().getLastName());
             returnVoucherDTO.setTotalPrice(rentaARevisar.getPrice());
             modelAndView.addObject("returnVoucherDTO", returnVoucherDTO);
         }
@@ -114,6 +115,7 @@ public class ReturnVoucherController {
 
     /**
      * Método que rastrea la página a regresar con devoluciones anteriores
+     *
      * @param page with the page number the user wants to get
      * @return a view with them returns
      */
@@ -160,6 +162,7 @@ public class ReturnVoucherController {
 
     /**
      * Menú principal de devoluciones
+     *
      * @return a view with them options
      */
     @RequestMapping(path = "/returns", method = RequestMethod.GET)
