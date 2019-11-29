@@ -69,6 +69,8 @@ public class StockController {
     @RequestMapping(path = "/restStock", method = RequestMethod.POST)
     public ModelAndView deleteFromStock(@Valid StockDTO stockDTO) {
         ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        stockDTO.setUser(auth.getName());
         stockDTO.setQuantiy(Math.abs(stockDTO.getQuantiy()) * -1); //Converts the quantity to negative, i hope so
         stockService.createStock(stockDTO);
         modelAndView.addObject("successMessage", "Inventario actualizado correctamente.");

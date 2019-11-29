@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 public class StockDTO {
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date stockEntryDate;
     private String stockExpireDate; //this is not a date, reason for the update here.
     private Long quantiy;

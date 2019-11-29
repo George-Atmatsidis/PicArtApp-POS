@@ -53,7 +53,7 @@
                     <span th:text="'Fecha: ' + ${inventory.stockEntryDate}"></span>
                     <span th:text="'Cantidad: ' +${inventory.quantiy}"></span>
                     <span th:text="'Producto: ' + ${inventory.product.displayName}"></span>
-                    <span th:text="'Autorizó: ' + ${inventory.user.firstName + ' ' + inventory.user.lastName}"></span>
+                    <span th:text="'Autorizó: ' + ${inventory.user.firstName} + ' ' + ${inventory.user.lastName}"></span>
                     <span></span>
                 </div>
                 <hr class="featurette-divider"/>

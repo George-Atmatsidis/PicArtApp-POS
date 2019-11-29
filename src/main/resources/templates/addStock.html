@@ -28,7 +28,7 @@
                         <p></p>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input th:field="*{stockEntryDate}" type="text"
+                                <input required="required" th:field="*{stockEntryDate}" type="datetime-local"
                                        placeholder="Fecha de cambio" class="form-control"/> <label
                                     th:if="${#fields.hasErrors('stockEntryDate')}" th:errors="*{stockEntryDate}"
                                     class="validation-message"></label>
@@ -37,7 +37,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" th:field="*{stockExpireDate}"
+                                <input required="required" th:field="*{stockExpireDate}" type="text"
                                        class="form-control" placeholder="Descripción/motivos"/> <label
                                     th:if="${#fields.hasErrors('stockExpireDate')}" th:errors="*{stockExpireDate}"
                                     class="validation-message"></label>
